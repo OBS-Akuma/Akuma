@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akumaware.one</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1a1a2e;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Courier New', 'MS Sans Serif', 'Segoe UI', monospace;
+      padding: 2rem;
+      transition: background 0.3s, color 0.3s;
+      color: #e0e0e0;
+      image-rendering: pixelated;
+    }
+    body.light-mode {
+      background: #c0c0c0;
+      color: #1f2a3a;
+    }
+    .fake-window {
+      max-width: 900px;
+      width: 120%;
+      background: #16213e;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      border: 1px solid #2a3a5e;
+      border-top: none;
+      padding-top: 10px;
+      position: relative;
+      transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    body.light-mode .fake-window {
+      background: #dfdfdf;
+      border-color: #808080;
+      box-shadow: inset 0 0 0 1px #ffffff, 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .tab-bar {
+      background: transparent;
+      padding: 0 18px;
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      margin-top: -10px;
+      margin-bottom: -1px;
+      position: relative;
+      z-index: 2;
+      flex-wrap: wrap;
+    }
+    .fake-tab {
+      background: #1a2a4a;
+      padding: 5px 0 5px 14px;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: #c0d0e0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #2a3a5e;
+      border-bottom: 1px solid #1a2a4a;
+      cursor: pointer;
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.03));
+      transform: translateY(1px);
+      transition: background 0.1s, color 0.3s, border-color 0.3s;
+      font-family: 'Courier New', 'MS Sans Serif', monospace;
+      letter-spacing: 0.02em;
+    }
+    body.light-mode .fake-tab {
+      background: #dfdfdf;
+      color: #1f2a3a;
+      border-color: #808080;
+      border-bottom: 1px solid #dfdfdf;
+    }
+    .fake-tab:hover { background: #223a5a; }
+    body.light-mode .fake-tab:hover { background: #cfcfcf; }
+    .fake-tab.active-tab {
+      background: #2a3a5e;
+      border-bottom: 1px solid #2a3a5e;
+      color: #ffffff;
+    }
+    body.light-mode .fake-tab.active-tab {
+      background: #dfdfdf;
+      border-bottom: 1px solid #dfdfdf;
+      color: #1f2a3a;
+    }
+    .fake-tab::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 10px;
+      height: 10px;
+      background: #1a2a4a;
+      border-left: 1px solid #2a3a5e;
+      border-top: 1px solid #2a3a5e;
+      clip-path: polygon(0 0, 100% 0, 0 100%);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    body.light-mode .fake-tab::after {
+      background: #dfdfdf;
+      border-left: 1px solid #808080;
+      border-top: 1px solid #808080;
+    }
+    .fake-tab:hover::after { background: #223a5a; }
+    body.light-mode .fake-tab:hover::after { background: #cfcfcf; }
+    .fake-tab.active-tab:hover::after { background: #1a2a4a; }
+    body.light-mode .fake-tab.active-tab:hover::after { background: #dfdfdf; }
+
+    .tab-icon {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      image-rendering: pixelated;
+    }
+    .tab-icon img { width: 100%; height: 100%; display: block; object-fit: contain; }
+    .tab-close {
+      color: #6a8aae;
+      font-size: 0.75rem;
+      line-height: 1;
+      opacity: 0.5;
+      padding-right: 14px;
+      position: relative;
+      z-index: 1;
+      transition: color 0.3s;
+    }
+    body.light-mode .tab-close { color: #8b9aae; }
+    .fake-tab:hover .tab-close { opacity: 0.9; }
+
+    .new-tab-btn {
+      background: #1a2a4a;
+      border: 1px solid #2a3a5e;
+      border-bottom: 1px solid #1a2a4a;
+      padding: 5px 12px;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #8a9aae;
+      cursor: pointer;
+      transform: translateY(1px);
+      transition: background 0.1s, color 0.3s, border-color 0.3s;
+      font-family: 'Courier New', 'MS Sans Serif', monospace;
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.03));
+      line-height: 1.2;
+      min-width: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    body.light-mode .new-tab-btn {
+      background: #dfdfdf;
+      border-color: #808080;
+      border-bottom: 1px solid #dfdfdf;
+      color: #5e6b7c;
+    }
+    .new-tab-btn::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 10px;
+      height: 10px;
+      background: #1a2a4a;
+      border-left: 1px solid #2a3a5e;
+      border-top: 1px solid #2a3a5e;
+      clip-path: polygon(0 0, 100% 0, 0 100%);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    body.light-mode .new-tab-btn::after {
+      background: #dfdfdf;
+      border-left: 1px solid #808080;
+      border-top: 1px solid #808080;
+    }
+    .new-tab-btn:hover { background: #223a5a; }
+    body.light-mode .new-tab-btn:hover { background: #cfcfcf; }
+    .new-tab-btn:hover::after { background: #223a5a; }
+    body.light-mode .new-tab-btn:hover::after { background: #cfcfcf; }
+    .new-tab-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .new-tab-btn:disabled:hover { background: #1a2a4a; }
+    body.light-mode .new-tab-btn:disabled:hover { background: #dfdfdf; }
+
+    .dark-toggle {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      z-index: 10;
+      background: transparent;
+      border: 1px solid #2a3a5e;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      color: #c0d0e0;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+      font-family: 'Courier New', 'MS Sans Serif', monospace;
+      letter-spacing: 0.02em;
+    }
+    body.light-mode .dark-toggle {
+      border-color: #808080;
+      color: #1f2a3a;
+    }
+    .dark-toggle:hover { background: #2a3a5e; }
+    body.light-mode .dark-toggle:hover { background: #cfcfcf; }
+
+    .address-bar {
+      background: #1a2a4a;
+      padding: 5px 18px 6px 18px;
+      border-top: 1px solid #2a3a5e;
+      border-bottom: 1px solid #2a3a5e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    body.light-mode .address-bar {
+      background: #dfdfdf;
+      border-color: #808080;
+    }
+    .address-dot {
+      display: flex;
+      gap: 3px;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: #8a9aae;
+      letter-spacing: 0.02em;
+      opacity: 0.7;
+      transition: color 0.3s;
+      font-family: 'Courier New', monospace;
+    }
+    body.light-mode .address-dot { color: #6a7b8e; }
+    .address-field {
+      flex: 1;
+      background: #0f1a2e;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      color: #c0d0e0;
+      border: 1px solid #2a3a5e;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 400;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.02em;
+    }
+    body.light-mode .address-field {
+      background: #efefef;
+      color: #1f2a3a;
+      border-color: #808080;
+    }
+    .address-field span { opacity: 0.6; }
+    .address-field .reload-icon { margin-left: auto; opacity: 0.4; font-size: 0.7rem; cursor: default; }
+
+    .tab-content {
+      background: #16213e;
+      padding: 2.5rem 2.5rem 3.2rem 2.5rem;
+      min-height: 400px;
+      transition: background 0.3s;
+    }
+    body.light-mode .tab-content { background: #dfdfdf; }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 0.15rem;
+      padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+      border: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .profile-header:hover { border-color: rgba(255,255,255,0.05); }
+    body.light-mode .profile-header:hover { border-color: rgba(0,0,0,0.05); }
+    .profile-image-wrapper {
+      position: relative;
+      width: 92px;
+      height: 92px;
+      flex-shrink: 0;
+      border: 1px solid #2a3a5e;
+      overflow: hidden;
+      image-rendering: pixelated;
+    }
+    body.light-mode .profile-image-wrapper { border-color: #808080; }
+    .profile-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .profile-image-wrapper .overlay-image {
+      position: absolute;
+      top: 2px;
+      left: -6px;
+      width: 112%;
+      height: 104%;
+      opacity: 1;
+    }
+    .site-header {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #e0e0e0;
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+      font-family: 'Courier New', 'MS Sans Serif', monospace;
+    }
+    body.light-mode .site-header { color: #1f2a3a; }
+    .site-header span {
+      font-weight: 300;
+      color: #8a9aae;
+      transition: color 0.3s;
+    }
+    body.light-mode .site-header span { color: #4a5a6e; }
+    .bio-top { margin-top: 0.5rem; margin-bottom: 1.6rem; }
+    .bio-text {
+      font-size: 0.9rem;
+      color: #b0c0d0;
+      line-height: 1.6;
+      margin: 0.1rem 0;
+      transition: color 0.3s;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.01em;
+    }
+    body.light-mode .bio-text { color: #2d3d52; }
+    .bio-text strong {
+      font-weight: 600;
+      color: #e0e0e0;
+      transition: color 0.3s;
+    }
+    body.light-mode .bio-text strong { color: #1f2a3a; }
+    .section-heading {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e0e0e0;
+      margin-top: 1.2rem;
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+      font-family: 'Courier New', 'MS Sans Serif', monospace;
+      text-transform: uppercase;
+    }
+    body.light-mode .section-heading { color: #1f2a3a; }
+    .section-heading:first-of-type { margin-top: 0; }
+    .item-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 0.2rem 0;
+    }
+    .item-list li {
+      font-size: 0.9rem;
+      color: #b0c0d0;
+      padding: 0.1rem 0;
+      font-weight: 400;
+      line-height: 1.5;
+      transition: color 0.3s;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.01em;
+    }
+    body.light-mode .item-list li { color: #2d3d52; }
+    .item-list li a {
+      color: #6a9ac0;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    body.light-mode .item-list li a { color: #3b7b9c; }
+    .item-list li a:hover { color: #8ab0d0; }
+    body.light-mode .item-list li a:hover { color: #1f2a3a; }
+
+    .new-tab-page, .projects-page, .assets-page, .languages-page, .friends-page {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem 0;
+      width: 100%;
+    }
+    .new-tab-page.active, .projects-page.active, .assets-page.active,
+    .languages-page.active, .friends-page.active { display: flex; }
+    .main-content { display: block; }
+    .main-content.hidden { display: none; }
+
+    .meow-logo {
+      font-size: 3rem;
+      font-weight: 300;
+      color: #e0e0e0;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+      transition: color 0.3s;
+      font-family: 'Courier New', 'MS Sans Serif', monospace;
+    }
+    body.light-mode .meow-logo { color: #1f2a3a; }
+    .meow-logo span { font-weight: 500; }
+    .meow-search-bar {
+      width: 100%;
+      max-width: 450px;
+      padding: 10px 16px;
+      border: 1px solid #2a3a5e;
+      background: #0f1a2e;
+      font-size: 0.9rem;
+      color: #c0d0e0;
+      margin-bottom: 1.5rem;
+      font-family: 'Courier New', monospace;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+    }
+    body.light-mode .meow-search-bar {
+      background: #efefef;
+      color: #1f2a3a;
+      border-color: #808080;
+    }
+    .meow-search-bar::placeholder {
+      color: #4a5a6e;
+      opacity: 0.7;
+    }
+    body.light-mode .meow-search-bar::placeholder { color: #8b9aae; }
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+      width: 100%;
+      max-width: 350px;
+      margin-top: 0.5rem;
+    }
+    .link-grid a {
+      display: block;
+      padding: 0.7rem 0.4rem;
+      background: #1a2a4a;
+      border: 1px solid #2a3a5e;
+      color: #c0d0e0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: background 0.1s, color 0.3s, border-color 0.3s;
+      text-align: center;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.02em;
+    }
+    body.light-mode .link-grid a {
+      background: #efefef;
+      border-color: #808080;
+      color: #1f2a3a;
+    }
+    .link-grid a:hover { background: #223a5a; }
+    body.light-mode .link-grid a:hover { background: #cfcfcf; }
+
+    .projects-page h2, .assets-page h2, .languages-page h2, .friends-page h2 {
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: #e0e0e0;
+      margin-bottom: 1.5rem;
+      transition: color 0.3s;
+      font-family: 'Courier New', 'MS Sans Serif', monospace;
+      letter-spacing: 0.02em;
+    }
+    body.light-mode .projects-page h2,
+    body.light-mode .assets-page h2,
+    body.light-mode .languages-page h2,
+    body.light-mode .friends-page h2 { color: #1f2a3a; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      width: 100%;
+      max-width: 450px;
+    }
+    .project-card {
+      background: #1a2a4a;
+      border: 1px solid #2a3a5e;
+      padding: 1rem;
+      text-align: left;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    body.light-mode .project-card {
+      background: #efefef;
+      border-color: #808080;
+    }
+    .project-card .project-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #e0e0e0;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: color 0.3s;
+      font-family: 'Courier New', 'MS Sans Serif', monospace;
+      letter-spacing: 0.02em;
+    }
+    body.light-mode .project-card .project-name { color: #1f2a3a; }
+    .project-icon {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: #0f1a2e;
+      border: 1px solid #2a3a5e;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: background 0.3s, border-color 0.3s;
+      image-rendering: pixelated;
+    }
+    body.light-mode .project-icon {
+      background: #dfdfdf;
+      border-color: #808080;
+    }
+    .project-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .project-card .project-desc {
+      font-size: 0.85rem;
+      color: #8a9aae;
+      line-height: 1.5;
+      margin-left: 2.6rem;
+      transition: color 0.3s;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.01em;
+    }
+    body.light-mode .project-card .project-desc { color: #4a5a6e; }
+
+    .assets-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      width: 100%;
+      max-width: 450px;
+    }
+    .asset-item {
+      background: #1a2a4a;
+      border: 1px solid #2a3a5e;
+      padding: 1rem 0.4rem;
+      text-align: center;
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    body.light-mode .asset-item {
+      background: #efefef;
+      border-color: #808080;
+    }
+    .asset-item .asset-thumb {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: #0f1a2e;
+      border: 1px solid #2a3a5e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, border-color 0.3s;
+      image-rendering: pixelated;
+    }
+    body.light-mode .asset-item .asset-thumb {
+      background: #dfdfdf;
+      border-color: #808080;
+    }
+    .asset-item .asset-thumb svg {
+      width: 28px;
+      height: 28px;
+      opacity: 0.4;
+      stroke: #8a9aae;
+      fill: none;
+      transition: stroke 0.3s;
+    }
+    body.light-mode .asset-item .asset-thumb svg { stroke: #6a7b8e; }
+    .asset-item .asset-label {
+      font-size: 0.7rem;
+      color: #8a9aae;
+      transition: color 0.3s;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.02em;
+    }
+    body.light-mode .asset-item .asset-label { color: #4a5a6e; }
+
+    .languages-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .lang-chip {
+      background: #1a2a4a;
+      border: 1px solid #2a3a5e;
+      padding: 0.6rem 1.4rem;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #c0d0e0;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+      border-radius: 0;
+      clip-path: polygon(0 0, 100% 0, 94% 100%, 0 100%);
+      background: #1f2f4f;
+      box-shadow: inset 0 0 0 1px #2a3a5e;
+    }
+    body.light-mode .lang-chip {
+      background: #efefef;
+      border-color: #808080;
+      color: #1f2a3a;
+      box-shadow: inset 0 0 0 1px #b0b0b0;
+    }
+    .lang-chip:hover {
+      background: #2a406a;
+      transform: scale(0.97);
+      border-color: #4a7a9a;
+    }
+    body.light-mode .lang-chip:hover {
+      background: #d0d0d0;
+      border-color: #6a7a8a;
+    }
+
+    .friends-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1.2rem;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .friend-card {
+      background: #1a2a4a;
+      border: 1px solid #2a3a5e;
+      padding: 0.8rem 0.4rem 0.6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    }
+    body.light-mode .friend-card {
+      background: #efefef;
+      border-color: #808080;
+    }
+    .friend-card:hover {
+      background: #223a5a;
+      border-color: #4a7a9a;
+      transform: scale(0.97);
+    }
+    body.light-mode .friend-card:hover {
+      background: #d0d0d0;
+      border-color: #6a7a8a;
+    }
+    .friend-avatar {
+      width: 72px;
+      height: 72px;
+      border: 1px solid #2a3a5e;
+      background: #0f1a2e;
+      overflow: hidden;
+      image-rendering: pixelated;
+      flex-shrink: 0;
+    }
+    body.light-mode .friend-avatar {
+      border-color: #808080;
+      background: #dfdfdf;
+    }
+    .friend-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .friend-name {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: #c0d0e0;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.02em;
+      margin-top: 0.2rem;
+    }
+    body.light-mode .friend-name { color: #1f2a3a; }
+
+    @media (max-width: 600px) {
+      .tab-content { padding: 1.5rem 1.2rem 2.8rem 1.2rem; min-height: 300px; }
+      .fake-tab { font-size: 0.75rem; padding: 4px 0 4px 10px; }
+      .fake-tab::after { width: 8px; height: 8px; }
+      .fake-tab { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%); }
+      .tab-close { padding-right: 10px; }
+      .new-tab-btn { padding: 4px 8px; min-width: 30px; font-size: 0.9rem; }
+      .new-tab-btn::after { width: 8px; height: 8px; }
+      .new-tab-btn { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%); }
+      .profile-image-wrapper { width: 72px; height: 72px; }
+      .profile-header { gap: 0.75rem; }
+      .bio-text { font-size: 0.8rem; }
+      .meow-logo { font-size: 2.4rem; }
+      .link-grid { grid-template-columns: repeat(2, 1fr); max-width: 250px; }
+      .projects-grid { max-width: 100%; }
+      .assets-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+      .projects-page h2, .assets-page h2, .languages-page h2, .friends-page h2 { font-size: 1.4rem; }
+      .project-card .project-name { font-size: 0.9rem; }
+      .project-card .project-desc { font-size: 0.75rem; margin-left: 2.2rem; }
+      .project-icon { width: 28px; height: 28px; }
+      .fake-window { max-width: 100%; }
+      .address-field { font-size: 0.65rem; }
+      .dark-toggle { bottom: 8px; right: 10px; font-size: 0.6rem; padding: 3px 8px; }
+      .languages-grid { gap: 0.7rem 1rem; }
+      .lang-chip { font-size: 0.9rem; padding: 0.4rem 1rem; }
+      .friends-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.8rem; }
+      .friend-avatar { width: 60px; height: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="fake-window">
+
+  <!-- TAB BAR -->
+  <div class="tab-bar" id="tabBar">
+    <div class="fake-tab active-tab" data-tab="main" id="mainTab">
+      <span class="tab-icon"><img src="https://raw.githubusercontent.com/OBS-Akuma/Ubuntu-client/refs/heads/main/assets/icon.png" alt="icon" onerror="this.style.display='none'"></span>
+      <span>Hiya</span>
+      <span class="tab-close" id="closeMainTab">x</span>
+    </div>
+    <button class="new-tab-btn" id="newTabBtn">+</button>
+  </div>
+
+  <!-- ADDRESS BAR -->
+  <div class="address-bar">
+    <div class="address-dot">&lt; &gt;</div>
+    <div class="address-field">
+      <span id="addressDisplay">Akumaware.one</span>
+      <span class="reload-icon">↻</span>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="tab-content" id="tabContent">
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+      <div class="profile-header">
+        <div class="profile-image-wrapper">
+          <img src="https://avatars.githubusercontent.com/u/217508931" alt="avatar" onerror="this.style.display='none'">
+          <img class="overlay-image" src="https://ugc.decor.fieryflames.dev/612394376e1b86dbec30851996e5ea25.png" alt="overlay" onerror="this.style.display='none'">
+        </div>
+        <div class="site-header">Akuma here<span>^^</span></div>
+      </div>
+      <div class="bio-top">
+        <p class="bio-text">Hey I am Anthony! My pronouns are <strong>he/him</strong>.</p>
+        <p class="bio-text">if you meet me be afraid to say hi </3</p>
+      </div>
+      <div class="section-heading">Likes:</div>
+      <ul class="item-list"><li>- Buiding stuff no one asked for</li><li>- ehhhhh sleeping (a lot)</li></ul>
+      <div class="section-heading">Accomplishments:</div>
+      <ul class="item-list"><li>- Made a kirka client (was forked from like Juice or wtv but still)</li><li>- Fucked with <a href="https://kircraft.io" target="_blank">kircraft</a> API and did more then I meant to.</li></ul>
+      <div class="section-heading">Working towards:</div>
+      <ul class="item-list"><li>- <a href="https://kirka.io" target="_blank">Getting verified in Kirka</a> <span style="font-size:0.7rem;color:#4a5a6e;font-family:'Courier New',monospace;">(click to visit kirka.io)</span></li></ul>
+    </div>
+
+    <!-- NEW TAB PAGE (meow) -->
+    <div class="new-tab-page" id="newTabPage">
+      <div class="meow-logo"><span>m</span>eow</div>
+      <input class="meow-search-bar" type="text" placeholder="Search or type a URL" id="sikeBox">
+      <div class="link-grid">
+        <a href="#" id="projectsLink">Projects</a>
+        <a href="#" id="assetsLink">assets</a>
+        <a href="#" id="languagesLink">Languages</a>
+        <a href="#" id="friendsLink">Friends</a>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="projects-page" id="projectsPage">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-name">
+            <span class="project-icon"><img src="https://www.smudgy.store/uploads/icon.png" alt="Froke hub icon" onerror="this.style.display='none'"></span>
+            Froke hub
+          </div>
+          <div class="project-desc">eh Multipurpose kirka website.</div>
+        </div>
+        <div class="project-card">
+          <div class="project-name">
+            <span class="project-icon"><img src="https://www.smudgy.store/uploads/icon.png" alt="SmudgyClient icon" onerror="this.style.display='none'"></span>
+            SmudgyClient
+          </div>
+          <div class="project-desc">Electron Client For Kirka.io (juice fork)</div>
+        </div>
+        <div class="project-card">
+          <div class="project-name">
+            <span class="project-icon"><img src="https://raw.githubusercontent.com/OBS-Akuma/Ubuntu-client/refs/heads/main/assets/icon.png" alt="UbuntuClient icon" onerror="this.style.display='none'"></span>
+            UbuntuClient
+          </div>
+          <div class="project-desc">CustomClient For the Things Users wanted but never got added.</div>
+        </div>
+        <div class="project-card">
+          <div class="project-name">
+            <span class="project-icon"><img src="https://github.githubassets.com/favicons/favicon.svg" alt="GitHub icon" onerror="this.style.display='none'"></span>
+            KirkaProfilesembedded
+          </div>
+          <div class="project-desc">Open-source collaboration hub for developers and creators worldwide.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASSETS -->
+    <div class="assets-page" id="assetsPage">
+      <h2>Assets</h2>
+      <div class="assets-grid">
+        <div class="asset-item"><div class="asset-thumb"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="12" cy="10" r="4" /><path d="M4 20c2-3 4-4 8-4s6 1 8 4" /></svg></div><span class="asset-label">Image 1</span></div>
+        <div class="asset-item"><div class="asset-thumb"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="12" cy="10" r="4" /><path d="M4 20c2-3 4-4 8-4s6 1 8 4" /></svg></div><span class="asset-label">Image 2</span></div>
+        <div class="asset-item"><div class="asset-thumb"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="12" cy="10" r="4" /><path d="M4 20c2-3 4-4 8-4s6 1 8 4" /></svg></div><span class="asset-label">Image 3</span></div>
+        <div class="asset-item"><div class="asset-thumb"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="12" cy="10" r="4" /><path d="M4 20c2-3 4-4 8-4s6 1 8 4" /></svg></div><span class="asset-label">Image 4</span></div>
+        <div class="asset-item"><div class="asset-thumb"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="12" cy="10" r="4" /><path d="M4 20c2-3 4-4 8-4s6 1 8 4" /></svg></div><span class="asset-label">Image 5</span></div>
+        <div class="asset-item"><div class="asset-thumb"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="12" cy="10" r="4" /><path d="M4 20c2-3 4-4 8-4s6 1 8 4" /></svg></div><span class="asset-label">Image 6</span></div>
+        <div class="asset-item"><div class="asset-thumb"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="12" cy="10" r="4" /><path d="M4 20c2-3 4-4 8-4s6 1 8 4" /></svg></div><span class="asset-label">Image 7</span></div>
+        <div class="asset-item"><div class="asset-thumb"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="12" cy="10" r="4" /><path d="M4 20c2-3 4-4 8-4s6 1 8 4" /></svg></div><span class="asset-label">Image 8</span></div>
+      </div>
+    </div>
+
+    <!-- LANGUAGES -->
+    <div class="languages-page" id="languagesPage">
+      <h2>Languages</h2>
+      <div class="languages-grid">
+        <span class="lang-chip">JS</span>
+        <span class="lang-chip">TS</span>
+        <span class="lang-chip">py</span>
+        <span class="lang-chip">CSS</span>
+        <span class="lang-chip">HTML</span>
+      </div>
+    </div>
+
+    <!-- FRIENDS (updated) -->
+    <div class="friends-page" id="friendsPage">
+      <h2>People I can call friends</h2>
+      <div class="friends-grid" id="friendsGrid"></div>
+    </div>
+
+  </div>
+
+  <!-- DARK TOGGLE -->
+  <button class="dark-toggle" id="darkToggle">☀️ Light</button>
+</div>
+
+<script>
+  (function() {
+    const mainContent = document.getElementById('mainContent');
+    const newTabPage = document.getElementById('newTabPage');
+    const projectsPage = document.getElementById('projectsPage');
+    const assetsPage = document.getElementById('assetsPage');
+    const languagesPage = document.getElementById('languagesPage');
+    const friendsPage = document.getElementById('friendsPage');
+    const friendsGrid = document.getElementById('friendsGrid');
+    const mainTab = document.getElementById('mainTab');
+    const newTabBtn = document.getElementById('newTabBtn');
+    const closeMainTab = document.getElementById('closeMainTab');
+    const addressDisplay = document.getElementById('addressDisplay');
+    const tabBar = document.getElementById('tabBar');
+    const projectsLink = document.getElementById('projectsLink');
+    const assetsLink = document.getElementById('assetsLink');
+    const languagesLink = document.getElementById('languagesLink');
+    const friendsLink = document.getElementById('friendsLink');
+    const darkToggle = document.getElementById('darkToggle');
+    const sikeBox = document.getElementById('sikeBox');
+
+    const friends = [
+      { name: 'Zenos', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/979875479425261580.webp' },
+      { name: 'frosty', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/813255323569356821.webp' },
+      { name: 'sovax', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/791039005100998677.webp' },
+      { name: 'Daymian', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/666539355896152074.webp' },
+      { name: 'Glowing_dev', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/498010915355099146.webp' },
+      { name: 'Skywalk', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/330501044532674570.webp' },
+      { name: 'Zane', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/1374941350616760330.webp' },
+      { name: 'Ab4/yt', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/1039925878043447367.webp' },
+      { name: 'Home (finn)', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/1324904970696527923.webp' },
+      { name: 'Queen', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/992401894972596324.webp' },
+      { name: 'Caydub', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/924303535879888916.webp' },
+      { name: 'Harvy', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/1353571756157308957.webp' },
+      { name: 'Bibo', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/1381783113184579707.webp' },
+      { name: 'bunnievomi', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/824898070789619723.webp' },
+    ];
+
+    function renderFriends() {
+      friendsGrid.innerHTML = '';
+      friends.forEach(f => {
+        const card = document.createElement('div');
+        card.className = 'friend-card';
+        card.innerHTML = `
+          <div class="friend-avatar"><img src="${f.avatar}" alt="${f.name}" loading="lazy" onerror="this.src='https://i.pravatar.cc/150?img=10'"></div>
+          <div class="friend-name">${f.name}</div>
+        `;
+        friendsGrid.appendChild(card);
+      });
+    }
+    renderFriends();
+
+    // SIKE
+    sikeBox.addEventListener('click', function(e) {
+      e.stopPropagation();
+      this.value = "SIKE i'm not coding ts in sob";
+      this.style.color = '#ff6b6b';
+      this.disabled = true;
+      setTimeout(() => {
+        this.disabled = false;
+        this.style.color = '';
+        this.value = '';
+        this.placeholder = 'Search or type a URL';
+      }, 3000);
+    });
+
+    darkToggle.addEventListener('click', function() {
+      document.body.classList.toggle('light-mode');
+      this.textContent = document.body.classList.contains('light-mode') ? '🌙 Dark' : '☀️ Light';
+    });
+
+    const MAX_TABS = 5;
+    let tabCount = 1;
+    const tabs = {};
+    let currentTabId = 'main';
+    let currentNewTabPage = 'meow';
+
+    function updateTabLabel(tabId, label) {
+      const tab = tabs[tabId];
+      if (tab) {
+        const span = tab.element.querySelector('span:nth-child(2)');
+        if (span) span.textContent = label;
+      }
+    }
+
+    function updateActiveTab(tabId) {
+      document.querySelectorAll('.fake-tab').forEach(t => t.classList.remove('active-tab'));
+      if (tabId === 'main') mainTab.classList.add('active-tab');
+      else {
+        const tab = tabs[tabId];
+        if (tab) tab.element.classList.add('active-tab');
+      }
+    }
+
+    function updateNewTabButton() {
+      const totalTabs = Object.keys(tabs).length + 1;
+      newTabBtn.disabled = totalTabs >= MAX_TABS;
+    }
+
+    function switchTab(tabId) {
+      currentTabId = tabId;
+      mainContent.classList.add('hidden');
+      newTabPage.classList.remove('active');
+      projectsPage.classList.remove('active');
+      assetsPage.classList.remove('active');
+      languagesPage.classList.remove('active');
+      friendsPage.classList.remove('active');
+      updateActiveTab(tabId);
+
+      if (tabId === 'main') {
+        mainContent.classList.remove('hidden');
+        addressDisplay.textContent = 'Akumaware.one';
+      } else {
+        const tab = tabs[tabId];
+        if (tab) {
+          const page = tab.page || 'meow';
+          if (page === 'meow') { newTabPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/meow'; updateTabLabel(tabId, 'meow'); }
+          else if (page === 'projects') { projectsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/projects'; updateTabLabel(tabId, 'Projects'); }
+          else if (page === 'assets') { assetsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/assets'; updateTabLabel(tabId, 'Assets'); }
+          else if (page === 'languages') { languagesPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/languages'; updateTabLabel(tabId, 'Languages'); }
+          else if (page === 'friends') { friendsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/friends'; updateTabLabel(tabId, 'Friends'); }
+        }
+      }
+      updateNewTabButton();
+    }
+
+    function showNewTabPage(page) {
+      currentNewTabPage = page;
+      newTabPage.classList.remove('active');
+      projectsPage.classList.remove('active');
+      assetsPage.classList.remove('active');
+      languagesPage.classList.remove('active');
+      friendsPage.classList.remove('active');
+
+      if (page === 'meow') { newTabPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/meow'; updateTabLabel(currentTabId, 'meow'); }
+      else if (page === 'projects') { projectsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/projects'; updateTabLabel(currentTabId, 'Projects'); }
+      else if (page === 'assets') { assetsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/assets'; updateTabLabel(currentTabId, 'Assets'); }
+      else if (page === 'languages') { languagesPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/languages'; updateTabLabel(currentTabId, 'Languages'); }
+      else if (page === 'friends') { friendsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/friends'; updateTabLabel(currentTabId, 'Friends'); }
+
+      if (tabs[currentTabId]) tabs[currentTabId].page = page;
+      updateActiveTab(currentTabId);
+    }
+
+    function createNewTab() {
+      const totalTabs = Object.keys(tabs).length + 1;
+      if (totalTabs >= MAX_TABS) return;
+
+      tabCount++;
+      const tabId = 'tab-' + tabCount;
+
+      const tab = document.createElement('div');
+      tab.className = 'fake-tab';
+      tab.dataset.tab = tabId;
+      tab.innerHTML = `
+        <span class="tab-icon"><img src="https://raw.githubusercontent.com/OBS-Akuma/Ubuntu-client/refs/heads/main/assets/icon.png" alt="icon" onerror="this.style.display='none'"></span>
+        <span>meow</span>
+        <span class="tab-close" data-tab-id="${tabId}">x</span>
+      `;
+
+      tabBar.insertBefore(tab, newTabBtn);
+
+      tabs[tabId] = {
+        element: tab,
+        title: 'meow',
+        page: 'meow'
+      };
+
+      tab.addEventListener('click', function(e) {
+        if (e.target.classList.contains('tab-close')) return;
+        currentNewTabPage = tabs[tabId].page || 'meow';
+        switchTab(tabId);
+      });
+
+      const closeBtn = tab.querySelector('.tab-close');
+      closeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        tab.remove();
+        delete tabs[tabId];
+        if (newTabPage.classList.contains('active') ||
+            projectsPage.classList.contains('active') ||
+            assetsPage.classList.contains('active') ||
+            languagesPage.classList.contains('active') ||
+            friendsPage.classList.contains('active')) {
+          switchTab('main');
+        }
+        updateNewTabButton();
+      });
+
+      currentNewTabPage = 'meow';
+      tabs[tabId].page = 'meow';
+      switchTab(tabId);
+      updateNewTabButton();
+    }
+
+    newTabBtn.addEventListener('click', createNewTab);
+
+    mainTab.addEventListener('click', function(e) {
+      if (e.target.classList.contains('tab-close')) return;
+      switchTab('main');
+    });
+
+    closeMainTab.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const tabKeys = Object.keys(tabs);
+      if (tabKeys.length > 0) switchTab(tabKeys[0]);
+      updateNewTabButton();
+    });
+
+    projectsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('projects'); });
+    assetsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('assets'); });
+    languagesLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('languages'); });
+    friendsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('friends'); });
+
+    switchTab('main');
+  })();
+</script>
+</body>
+</html>
