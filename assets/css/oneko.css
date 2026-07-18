@@ -1,0 +1,752 @@
+/**
+ * @name Oneko Animation
+ * @author OIRNOIR
+ * @version 1.0.13
+ * @description Oneko living on your message bar
+ * @source https://github.com/OIRNOIR/oneko-animation
+ */
+
+[class^="channelTextArea_"]::before {
+	content: "";
+	width: 32px;
+	height: 32px;
+	bottom: calc(100% - 3px);
+	right: 10px;
+	position: absolute;
+	image-rendering: pixelated;
+	background-image: url("https://raw.githubusercontent.com/adryd325/oneko.js/14bab15a755d0e35cd4ae19c931d96d306f99f42/oneko.gif");
+	animation: sprite 45s infinite, motion 45s infinite linear;
+	pointer-events: none;
+	/* Discord added these breaking tags for some reason so unset them */
+	top: unset;
+	left: unset;
+}
+
+@keyframes sprite {
+	0%,
+	3.3000% {
+		background-position: -96px -64px;
+	}
+
+	3.3001%,
+	6.6000% {
+		background-position: -96px -96px;
+	}
+
+	6.6001%,
+	9.9000% {
+		background-position: -64px -0px;
+	}
+
+	9.9001%,
+	13.2000% {
+		background-position: -64px -32px;
+	}
+
+	13.2001%,
+	16.5000% {
+		background-position: -64px -0px;
+	}
+
+	16.5001%,
+	19.8000% {
+		background-position: -64px -32px;
+	}
+
+	19.8001%,
+	23.1000% {
+		background-position: -64px -0px;
+	}
+
+	23.1001%,
+	26.4000% {
+		background-position: -64px -32px;
+	}
+
+	26.4001%,
+	29.7000% {
+		background-position: -64px -0px;
+	}
+
+	29.7001%,
+	33.0000% {
+		background-position: -64px -32px;
+	}
+
+	33.0001%,
+	36.3000% {
+		background-position: -64px -0px;
+	}
+
+	36.3001%,
+	39.6000% {
+		background-position: -64px -32px;
+	}
+
+	39.6001%,
+	42.9000% {
+		background-position: -64px -0px;
+	}
+
+	42.9001%,
+	46.2000% {
+		background-position: -64px -32px;
+	}
+
+	46.2001%,
+	49.5000% {
+		background-position: -64px -0px;
+	}
+
+	49.5001%,
+	52.8000% {
+		background-position: -64px -32px;
+	}
+
+	52.8001%,
+	56.1000% {
+		background-position: -64px -0px;
+	}
+
+	56.1001%,
+	59.4000% {
+		background-position: -64px -32px;
+	}
+
+	59.4001%,
+	62.7000% {
+		background-position: -64px -0px;
+	}
+
+	62.7001%,
+	66.0000% {
+		background-position: -64px -32px;
+	}
+
+	66.0001%,
+	66.2833% {
+		background-position: -128px -0px;
+	}
+
+	66.2834%,
+	66.5667% {
+		background-position: -128px -32px;
+	}
+
+	66.5668%,
+	66.8500% {
+		background-position: -128px -64px;
+	}
+
+	66.8501%,
+	67.1333% {
+		background-position: -128px -96px;
+	}
+
+	67.1334%,
+	67.4167% {
+		background-position: -128px -0px;
+	}
+
+	67.4168%,
+	67.7000% {
+		background-position: -128px -32px;
+	}
+
+	67.7001%,
+	67.9833% {
+		background-position: -128px -64px;
+	}
+
+	67.9834%,
+	68.2667% {
+		background-position: -128px -96px;
+	}
+
+	68.2668%,
+	68.5500% {
+		background-position: -128px -0px;
+	}
+
+	68.5501%,
+	68.8333% {
+		background-position: -128px -32px;
+	}
+
+	68.8334%,
+	69.1167% {
+		background-position: -128px -64px;
+	}
+
+	69.1168%,
+	69.4000% {
+		background-position: -128px -96px;
+	}
+
+	69.4001%,
+	69.6833% {
+		background-position: -128px -0px;
+	}
+
+	69.6834%,
+	69.9667% {
+		background-position: -128px -32px;
+	}
+
+	69.9668%,
+	70.2500% {
+		background-position: -128px -64px;
+	}
+
+	70.2501%,
+	70.5333% {
+		background-position: -128px -96px;
+	}
+
+	70.5334%,
+	70.8167% {
+		background-position: -128px -0px;
+	}
+
+	70.8168%,
+	71.1000% {
+		background-position: -128px -32px;
+	}
+
+	71.1001%,
+	71.3833% {
+		background-position: -128px -64px;
+	}
+
+	71.3834%,
+	71.6667% {
+		background-position: -128px -96px;
+	}
+
+	71.6668%,
+	71.9500% {
+		background-position: -128px -0px;
+	}
+
+	71.9501%,
+	72.2333% {
+		background-position: -128px -32px;
+	}
+
+	72.2334%,
+	72.5167% {
+		background-position: -128px -64px;
+	}
+
+	72.5168%,
+	72.8000% {
+		background-position: -128px -96px;
+	}
+
+	72.8001%,
+	73.0833% {
+		background-position: -128px -0px;
+	}
+
+	73.0834%,
+	73.3667% {
+		background-position: -128px -32px;
+	}
+
+	73.3668%,
+	73.6500% {
+		background-position: -128px -64px;
+	}
+
+	73.6501%,
+	73.9333% {
+		background-position: -128px -96px;
+	}
+
+	73.9334%,
+	74.2167% {
+		background-position: -128px -0px;
+	}
+
+	74.2168%,
+	74.5000% {
+		background-position: -128px -32px;
+	}
+
+	74.5001%,
+	74.7833% {
+		background-position: -128px -64px;
+	}
+
+	74.7834%,
+	75.0667% {
+		background-position: -128px -96px;
+	}
+
+	75.0668%,
+	75.3500% {
+		background-position: -128px -0px;
+	}
+
+	75.3501%,
+	75.6333% {
+		background-position: -128px -32px;
+	}
+
+	75.6334%,
+	75.9167% {
+		background-position: -128px -64px;
+	}
+
+	75.9168%,
+	76.2000% {
+		background-position: -128px -96px;
+	}
+
+	76.2001%,
+	76.4833% {
+		background-position: -128px -0px;
+	}
+
+	76.4834%,
+	76.7667% {
+		background-position: -128px -32px;
+	}
+
+	76.7668%,
+	77.0500% {
+		background-position: -128px -64px;
+	}
+
+	77.0501%,
+	77.3333% {
+		background-position: -128px -96px;
+	}
+
+	77.3334%,
+	77.6167% {
+		background-position: -128px -0px;
+	}
+
+	77.6168%,
+	77.9000% {
+		background-position: -128px -32px;
+	}
+
+	77.9001%,
+	78.1833% {
+		background-position: -128px -64px;
+	}
+
+	78.1834%,
+	78.4667% {
+		background-position: -128px -96px;
+	}
+
+	78.4668%,
+	78.7500% {
+		background-position: -128px -0px;
+	}
+
+	78.7501%,
+	79.0333% {
+		background-position: -128px -32px;
+	}
+
+	79.0334%,
+	79.3167% {
+		background-position: -128px -64px;
+	}
+
+	79.3168%,
+	79.6000% {
+		background-position: -128px -96px;
+	}
+
+	79.6001%,
+	79.8833% {
+		background-position: -128px -0px;
+	}
+
+	79.8834%,
+	80.1667% {
+		background-position: -128px -32px;
+	}
+
+	80.1668%,
+	80.4500% {
+		background-position: -128px -64px;
+	}
+
+	80.4501%,
+	80.7333% {
+		background-position: -128px -96px;
+	}
+
+	80.7334%,
+	81.0167% {
+		background-position: -128px -0px;
+	}
+
+	81.0168%,
+	81.3000% {
+		background-position: -128px -32px;
+	}
+
+	81.3001%,
+	81.5833% {
+		background-position: -128px -64px;
+	}
+
+	81.5834%,
+	81.8667% {
+		background-position: -128px -96px;
+	}
+
+	81.8668%,
+	82.1500% {
+		background-position: -128px -0px;
+	}
+
+	82.1501%,
+	82.4333% {
+		background-position: -128px -32px;
+	}
+
+	82.4334%,
+	82.7167% {
+		background-position: -128px -64px;
+	}
+
+	82.7168%,
+	83.0000% {
+		background-position: -128px -96px;
+	}
+
+	83.0001%,
+	83.2833% {
+		background-position: -128px -0px;
+	}
+
+	83.2834%,
+	83.5667% {
+		background-position: -128px -32px;
+	}
+
+	83.5668%,
+	83.8500% {
+		background-position: -128px -64px;
+	}
+
+	83.8501%,
+	84.1333% {
+		background-position: -128px -96px;
+	}
+
+	84.1334%,
+	84.4167% {
+		background-position: -128px -0px;
+	}
+
+	84.4168%,
+	84.7000% {
+		background-position: -128px -32px;
+	}
+
+	84.7001%,
+	84.9833% {
+		background-position: -128px -64px;
+	}
+
+	84.9834%,
+	85.2667% {
+		background-position: -128px -96px;
+	}
+
+	85.2668%,
+	85.5500% {
+		background-position: -128px -0px;
+	}
+
+	85.5501%,
+	85.8333% {
+		background-position: -128px -32px;
+	}
+
+	85.8334%,
+	86.1167% {
+		background-position: -128px -64px;
+	}
+
+	86.1168%,
+	86.4000% {
+		background-position: -128px -96px;
+	}
+
+	86.4001%,
+	86.6833% {
+		background-position: -128px -0px;
+	}
+
+	86.6834%,
+	86.9667% {
+		background-position: -128px -32px;
+	}
+
+	86.9668%,
+	87.2500% {
+		background-position: -128px -64px;
+	}
+
+	87.2501%,
+	87.5333% {
+		background-position: -128px -96px;
+	}
+
+	87.5334%,
+	87.8167% {
+		background-position: -128px -0px;
+	}
+
+	87.8168%,
+	88.1000% {
+		background-position: -128px -32px;
+	}
+
+	88.1001%,
+	88.3833% {
+		background-position: -128px -64px;
+	}
+
+	88.3834%,
+	88.6667% {
+		background-position: -128px -96px;
+	}
+
+	88.6668%,
+	88.9500% {
+		background-position: -128px -0px;
+	}
+
+	88.9501%,
+	89.2333% {
+		background-position: -128px -32px;
+	}
+
+	89.2334%,
+	89.5167% {
+		background-position: -128px -64px;
+	}
+
+	89.5168%,
+	89.8000% {
+		background-position: -128px -96px;
+	}
+
+	89.8001%,
+	90.0833% {
+		background-position: -128px -0px;
+	}
+
+	90.0834%,
+	90.3667% {
+		background-position: -128px -32px;
+	}
+
+	90.3668%,
+	90.6500% {
+		background-position: -128px -64px;
+	}
+
+	90.6501%,
+	90.9333% {
+		background-position: -128px -96px;
+	}
+
+	90.9334%,
+	91.2167% {
+		background-position: -128px -0px;
+	}
+
+	91.2168%,
+	91.5000% {
+		background-position: -128px -32px;
+	}
+
+	91.5001%,
+	91.7833% {
+		background-position: -128px -64px;
+	}
+
+	91.7834%,
+	92.0667% {
+		background-position: -128px -96px;
+	}
+
+	92.0668%,
+	92.3500% {
+		background-position: -128px -0px;
+	}
+
+	92.3501%,
+	92.6333% {
+		background-position: -128px -32px;
+	}
+
+	92.6334%,
+	92.9167% {
+		background-position: -128px -64px;
+	}
+
+	92.9168%,
+	93.2000% {
+		background-position: -128px -96px;
+	}
+
+	93.2001%,
+	93.4833% {
+		background-position: -128px -0px;
+	}
+
+	93.4834%,
+	93.7667% {
+		background-position: -128px -32px;
+	}
+
+	93.7668%,
+	94.0500% {
+		background-position: -128px -64px;
+	}
+
+	94.0501%,
+	94.3333% {
+		background-position: -128px -96px;
+	}
+
+	94.3334%,
+	94.6167% {
+		background-position: -128px -0px;
+	}
+
+	94.6168%,
+	94.9000% {
+		background-position: -128px -32px;
+	}
+
+	94.9001%,
+	95.1833% {
+		background-position: -128px -64px;
+	}
+
+	95.1834%,
+	95.4667% {
+		background-position: -128px -96px;
+	}
+
+	95.4668%,
+	95.7500% {
+		background-position: -128px -0px;
+	}
+
+	95.7501%,
+	96.0333% {
+		background-position: -128px -32px;
+	}
+
+	96.0334%,
+	96.3167% {
+		background-position: -128px -64px;
+	}
+
+	96.3168%,
+	96.6000% {
+		background-position: -128px -96px;
+	}
+
+	96.6001%,
+	96.8833% {
+		background-position: -128px -0px;
+	}
+
+	96.8834%,
+	97.1667% {
+		background-position: -128px -32px;
+	}
+
+	97.1668%,
+	97.4500% {
+		background-position: -128px -64px;
+	}
+
+	97.4501%,
+	97.7333% {
+		background-position: -128px -96px;
+	}
+
+	97.7334%,
+	98.0167% {
+		background-position: -128px -0px;
+	}
+
+	98.0168%,
+	98.3000% {
+		background-position: -128px -32px;
+	}
+
+	98.3001%,
+	98.5833% {
+		background-position: -128px -64px;
+	}
+
+	98.5834%,
+	98.8667% {
+		background-position: -128px -96px;
+	}
+
+	98.8668%,
+	99.1500% {
+		background-position: -128px -0px;
+	}
+
+	99.1501%,
+	99.4333% {
+		background-position: -128px -32px;
+	}
+
+	99.4334%,
+	99.7167% {
+		background-position: -128px -64px;
+	}
+
+	99.7168%,
+	100.0000% {
+		background-position: -128px -96px;
+	}
+}
+
+@keyframes motion {
+	0% {
+		right: 10px;
+		transform: scaleX(1);
+	}
+
+	66% {
+		right: 10px;
+		transform: scaleX(1);
+	}
+
+	83% {
+		right: calc(100% - 42px);
+		transform: scaleX(1);
+	}
+
+	83.0001% {
+		right: calc(100% - 42px);
+		transform: scaleX(-1);
+	}
+
+	100% {
+		right: 10px;
+		transform: scaleX(-1);
+	}
+}
