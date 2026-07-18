@@ -1,25 +1,28 @@
 /**
  * @name Oneko Animation
- * @author OIRNOIR
+ * @author OIRNOIR ( github: https://github.com/OIRNOIR/oneko-animation )
  * @version 1.0.13
  * @description Oneko living on your message bar
  * @source https://github.com/OIRNOIR/oneko-animation
  */
 
-[class^="channelTextArea_"]::before {
-	content: "";
-	width: 32px;
-	height: 32px;
-	bottom: calc(100% - 3px);
-	right: 10px;
-	position: absolute;
-	image-rendering: pixelated;
-	background-image: url("https://raw.githubusercontent.com/adryd325/oneko.js/14bab15a755d0e35cd4ae19c931d96d306f99f42/oneko.gif");
-	animation: sprite 45s infinite, motion 45s infinite linear;
-	pointer-events: none;
-	/* Discord added these breaking tags for some reason so unset them */
-	top: unset;
-	left: unset;
+/* Position Oneko on the dark/light toggle button */
+.dark-toggle {
+  position: relative; /* Required for pseudo-element positioning */
+}
+
+.dark-toggle::before {
+  content: "";
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  bottom: calc(100% + 5px); /* Position above the button */
+  right: -5px; /* Slight offset to align with button */
+  image-rendering: pixelated;
+  background-image: url("https://raw.githubusercontent.com/adryd325/oneko.js/14bab15a755d0e35cd4ae19c931d96d306f99f42/oneko.gif");
+  animation: sprite 45s infinite, motion 45s infinite linear;
+  pointer-events: none;
+  z-index: 999; /* Ensure it's on top of everything */
 }
 
 @keyframes sprite {
