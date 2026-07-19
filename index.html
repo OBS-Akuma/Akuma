@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Akumaware.one</title>
+  
+  <!-- Import Oneko CSS -->
   <link rel="stylesheet" href="assets/css/oneko.css">
   
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
+    /* ---- FULLSCREEN VIDEO BACKGROUND (BLURRED) ---- */
     #bg-video {
       position: fixed;
       top: 0;
@@ -329,6 +332,9 @@
       letter-spacing: 0.02em;
       transition: color 0.3s;
       font-family: 'Courier New', 'MS Sans Serif', monospace;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     body.light-mode .site-header { color: #1f2a3a; }
     .site-header span {
@@ -337,6 +343,19 @@
       transition: color 0.3s;
     }
     body.light-mode .site-header span { color: #4a5a6e; }
+    .site-header .gj-image {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      image-rendering: pixelated;
+      vertical-align: middle;
+    }
+    .site-header .gj-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
     .bio-top { margin-top: 0.5rem; margin-bottom: 1.6rem; }
     .bio-text {
       font-size: 0.9rem;
@@ -392,6 +411,20 @@
     body.light-mode .item-list li a { color: #3b7b9c; }
     .item-list li a:hover { color: #8ab0d0; }
     body.light-mode .item-list li a:hover { color: #1f2a3a; }
+    .item-list li .badge-image {
+      display: inline-block;
+      vertical-align: middle;
+      width: 88px;
+      height: 31px;
+      image-rendering: pixelated;
+      margin: 0 4px;
+    }
+    .item-list li .badge-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
 
     .new-tab-page, .projects-page, .assets-page, .languages-page, .friends-page {
       display: none;
@@ -734,6 +767,8 @@
       .lang-chip { font-size: 0.9rem; padding: 0.4rem 1rem; }
       .friends-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.8rem; }
       .friend-avatar { width: 60px; height: 60px; }
+      .site-header .gj-image { width: 20px; height: 20px; }
+      .item-list li .badge-image { width: 70px; height: 25px; }
     }
   </style>
 </head>
@@ -742,7 +777,7 @@
 <!-- VIDEO BACKGROUND (BLURRED) -->
 <video id="bg-video" autoplay loop muted playsinline>
   <source src="https://akumaware.one/assets/AMRbot.mp4" type="video/mp4">
-  Your browser does not support the video tag.
+  Your browser does not support the video tag :(((
 </video>
 
 <div class="fake-window">
@@ -773,31 +808,39 @@
     <div class="main-content" id="mainContent">
       <div class="profile-header">
         <div class="profile-image-wrapper">
-          <img src="/assets/217508931.jpeg" alt="avatar" onerror="this.style.display='none'">
+          <img src="https://avatars.githubusercontent.com/u/217508931" alt="avatar" onerror="this.style.display='none'">
           <img class="overlay-image" src="https://ugc.decor.fieryflames.dev/612394376e1b86dbec30851996e5ea25.png" alt="overlay" onerror="this.style.display='none'">
         </div>
-        <div class="site-header">Akuma here<span>^^</span></div>
+        <div class="site-header">
+          Akuma here<span>^^</span>
+          <span class="gj-image">
+            <img src="assets/GJ.png" alt="GJ" onerror="this.style.display='none'">
+          </span>
+        </div>
       </div>
       <div class="bio-top">
         <p class="bio-text">Hey I'm Anthony! My pronouns are <strong>he/him</strong>.</p>
-        <p class="bio-text">if you meet me be afraid to say hi </3</p>
+        <p class="bio-text">if you meet me don't say hi </3</p>
       </div>
       <div class="section-heading">Likes:</div>
       <ul class="item-list"><li>- Buiding stuff no one asked for</li><li>- ehhhhh sleeping (a lot)</li></ul>
       <div class="section-heading">Accomplishments:</div>
-<ul class="item-list">
-  <li>- Made a kirka client (was forked from like Juice or wtv but still)</li>
-  <li>- Fucked with <a href="https://kircraft.io" target="_blank">kircraft</a> API and did more then I meant to.</li>
-  <li>- Made a website kinda like guns.lol named <a href="https://freaksforever.xyz" target="_blank">FreaksForEver</a> You should check it out tbh ;3</li>
-  <li>
-    - Made my own 
-    <img src="https://raw.githubusercontent.com/OBS-Akuma/KirkaBadges/refs/heads/main/Json/img/SmudgyClient-88x31.gif" 
-         alt="SmudgyClient 88x31 Button" 
-         style="display:inline-block; vertical-align:middle; width:88px; height:31px; image-rendering: pixelated; margin:0 4px;">
-    88x31 
-    <a href="https://cyber.dabamos.de/88x31/" target="_blank">View all here</a>
-  </li>
-</ul>
+      <ul class="item-list">
+        <li>- Made a kirka client (was forked from like Juice or wtv but still)</li>
+        <li>- Fucked with <a href="https://kircraft.io" target="_blank">kircraft</a> API and did more then I meant to.</li>
+        <li>- Made a website kinda like guns.lol named <a href="https://freaksforever.xyz" target="_blank">FreaksForEver</a> You should check it out tbh ;3</li>
+        <li>
+          - Made my own 
+          <span class="badge-image">
+            <img src="https://raw.githubusercontent.com/OBS-Akuma/KirkaBadges/refs/heads/main/Json/img/SmudgyClient-88x31.gif" 
+                 alt="SmudgyClient 88x31 Button"
+                 onerror="this.style.display='none'">
+          </span>
+          88x31 
+          <a href="https://cyber.dabamos.de/88x31/" target="_blank">View all here</a>
+        </li>
+        <li>- Got Fox (scammer and most likely clove) Banned.</li>
+      </ul>
       <div class="section-heading">Working towards:</div>
       <ul class="item-list"><li>- <a href="https://kirka.io" target="_blank">Getting verified in Kirka</a> <span style="font-size:0.7rem;color:#4a5a6e;font-family:'Courier New',monospace;">(click to visit kirka.io)</span></li></ul>
       <ul class="item-list"><li>- <a href="/" target="_blank">Building my own successful game.</a> <span style="font-size:0.7rem;color:#4a5a6e;font-family:'Courier New',monospace;">(click to visit Demo)</span></li></ul>
@@ -918,20 +961,20 @@
     const sikeBox = document.getElementById('sikeBox');
 
     const friends = [
-      { name: 'Zenos', avatar: '/assets/979875479425261580.webp' },
-      { name: 'frosty', avatar: '/assets/813255323569356821.webp' },
-      { name: 'sovax', avatar: '/assets/791039005100998677.webp' },
-      { name: 'Daymian', avatar: '/assets/666539355896152074.webp' },
-      { name: 'Glowing_dev', avatar: '/assets/498010915355099146.webp' },
-      { name: 'Skywalk', avatar: '/assets/330501044532674570.webp' },
-      { name: 'Zane', avatar: '/assets/1374941350616760330.webp' },
-      { name: 'Ab4/yt', avatar: '/assets/1039925878043447367.webp' },
-      { name: 'Home (finn)', avatar: '/assets/1324904970696527923.webp' },
-      { name: 'Queen', avatar: '/assets/992401894972596324.webp' },
-      { name: 'Caydub', avatar: '/assets/924303535879888916.webp' },
-      { name: 'Harvy', avatar: '/assets/1353571756157308957.webp' },
-      { name: 'Bibo', avatar: '/assets/1381783113184579707.webp' },
-      { name: 'bunnievomi', avatar: '/assets/824898070789619723.webp' },
+      { name: 'Zenos', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/979875479425261580.webp' },
+      { name: 'frosty', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/813255323569356821.webp' },
+      { name: 'sovax', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/791039005100998677.webp' },
+      { name: 'Daymian', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/666539355896152074.webp' },
+      { name: 'Glowing_dev', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/498010915355099146.webp' },
+      { name: 'Skywalk', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/330501044532674570.webp' },
+      { name: 'Zane', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/1374941350616760330.webp' },
+      { name: 'Ab4/yt', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/1039925878043447367.webp' },
+      { name: 'Home (finn)', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/1324904970696527923.webp' },
+      { name: 'Queen', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/992401894972596324.webp' },
+      { name: 'Caydub', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/924303535879888916.webp' },
+      { name: 'Harvy', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/1353571756157308957.webp' },
+      { name: 'Bibo', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/1381783113184579707.webp' },
+      { name: 'bunnievomi', avatar: 'https://raw.githubusercontent.com/OBS-Akuma/Akuma/refs/heads/main/assets/824898070789619723.webp' },
     ];
 
     function renderFriends() {
