@@ -25,6 +25,40 @@
     const darkToggle = document.getElementById('darkToggle');
     const sikeBox = document.getElementById('sikeBox');
 
+    // BACKGROUND AUDIO PLAYER
+    const bgAudio = document.getElementById('bg-audio');
+    if (bgAudio) {
+        bgAudio.volume = 0.4; // 40% volume
+        bgAudio.loop = true;
+        
+        // Attempt to autoplay
+        const playAudio = () => {
+            bgAudio.play().catch(err => {
+                console.log('Audio autoplay blocked. Waiting for user interaction...');
+                // Will try again on first user click
+            });
+        };
+        
+        // Try to play immediately
+        playAudio();
+        
+        // Also try on any user interaction if it was blocked
+        document.addEventListener('click', function tryPlay() {
+            if (bgAudio.paused) {
+                bgAudio.play().catch(() => {});
+            }
+            document.removeEventListener('click', tryPlay);
+        }, { once: true });
+        
+        // Also try on keydown
+        document.addEventListener('keydown', function tryPlay() {
+            if (bgAudio.paused) {
+                bgAudio.play().catch(() => {});
+            }
+            document.removeEventListener('keydown', tryPlay);
+        }, { once: true });
+    }
+
     const friends = [
       { name: 'Zenos', avatar: '/assets/979875479425261580.webp' },
       { name: 'frosty', avatar: '/assets/813255323569356821.webp' },
