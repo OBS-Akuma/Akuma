@@ -34,11 +34,69 @@
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/OBS-Akuma/Ubuntu-client/refs/heads/main/assets/icon.png">
   <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/OBS-Akuma/Ubuntu-client/refs/heads/main/assets/icon.png">
   
-  <!-- Import Oneko CSS -->
+  <!-- Import CSS -->
   <link rel="stylesheet" href="assets/css/oneko.css">
   <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/kirka-ui.css">
+  
+  <style>
+    /* Ensure CSS variables are available */
+    :root {
+      --black: #000;
+      --white: #fff;
+      --black-5: #1a1f2e;
+      --panel-1: #2f3957;
+      --panel-2: #37477c;
+      --panel-3: #202639;
+      --panel-4: #3c4b68;
+      --panel-5: #3b4975;
+      --panel-6: #26335b;
+      --gold-1: #ffb914;
+      --gold-2: #fcd373;
+      --gold-3: #b6830e;
+      --orange-1: #f2994a;
+      --purple-1: #9a39d3;
+      --purple-2: #af51e6;
+      --purple-3: #692c8c;
+      --red-1: #e24f4f;
+      --red-2: #f66666;
+      --red-3: #cb1414;
+      --red-4: #e73c3c;
+      --red-5: #e73131;
+      --blue-1: #453ad4;
+      --blue-2: #545ffc;
+      --blue-3: #222aa0;
+      --blue-4: #2f80ed;
+      --blue-5: #4f94f1;
+      --blue-6: #256fd3;
+      --green-1: #1cce6c;
+      --green-2: #24ff2f;
+      --green-3: #07960e;
+      --green-4: #35e785;
+      --gray-1: #f2f2f2;
+      --gray-2: #bdbdbd;
+    }
+    
+    .connections-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 10px 0 20px 0;
+    }
+    
+    .connections-grid .button {
+      flex: 1 1 auto;
+      min-width: 100px;
+    }
+  </style>
 </head>
 <body>
+
+<!-- BACKGROUND AUDIO -->
+<audio id="bg-audio" loop preload="auto">
+  <source src="assets/media/Today.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 
 <!-- VIDEO BACKGROUND (BLURRED) -->
 <video id="bg-video" autoplay loop muted playsinline>
@@ -88,6 +146,77 @@
         <p class="bio-text">Hey I'm Anthony! My pronouns are <strong>he/him</strong>.</p>
         <p class="bio-text">if you meet me be afraid to say hi </3</p>
       </div>
+      
+      <!-- CONNECTIONS SECTION -->
+      <div class="section-heading">Connections:</div>
+      <div class="connections-grid">
+        <a href="https://github.com/OBS-Akuma" target="_blank" style="text-decoration:none;">
+          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle" style="background-color: var(--blue-4); --hover-color: var(--blue-5); --top: var(--blue-5); --bottom: var(--blue-6);">
+            <div data-v-02ffe5dc="" class="triangle"></div>
+            <div data-v-02ffe5dc="" class="text">GitHub</div>
+            <div data-v-02ffe5dc="" class="WmWwnMN">
+              <div data-v-02ffe5dc="" class="border-top border"></div>
+              <div data-v-02ffe5dc="" class="border-bottom border"></div>
+            </div>
+          </button>
+        </a>
+        
+        <a href="https://twitter.com/yourhandle" target="_blank" style="text-decoration:none;">
+          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle" style="background-color: var(--purple-1); --hover-color: var(--purple-2); --top: var(--purple-2); --bottom: var(--purple-3);">
+            <div data-v-02ffe5dc="" class="triangle"></div>
+            <div data-v-02ffe5dc="" class="text">Twitter</div>
+            <div data-v-02ffe5dc="" class="WmWwnMN">
+              <div data-v-02ffe5dc="" class="border-top border"></div>
+              <div data-v-02ffe5dc="" class="border-bottom border"></div>
+            </div>
+          </button>
+        </a>
+        
+        <a href="https://youtube.com/@yourhandle" target="_blank" style="text-decoration:none;">
+          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle" style="background-color: var(--red-4); --hover-color: var(--red-5); --top: var(--red-5); --bottom: var(--red-3);">
+            <div data-v-02ffe5dc="" class="triangle"></div>
+            <div data-v-02ffe5dc="" class="text">YouTube</div>
+            <div data-v-02ffe5dc="" class="WmWwnMN">
+              <div data-v-02ffe5dc="" class="border-top border"></div>
+              <div data-v-02ffe5dc="" class="border-bottom border"></div>
+            </div>
+          </button>
+        </a>
+        
+        <a href="https://discord.gg/yourinvite" target="_blank" style="text-decoration:none;">
+          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle" style="background-color: var(--green-1); --hover-color: var(--green-2); --top: var(--green-2); --bottom: var(--green-3);">
+            <div data-v-02ffe5dc="" class="triangle"></div>
+            <div data-v-02ffe5dc="" class="text">Discord</div>
+            <div data-v-02ffe5dc="" class="WmWwnMN">
+              <div data-v-02ffe5dc="" class="border-top border"></div>
+              <div data-v-02ffe5dc="" class="border-bottom border"></div>
+            </div>
+          </button>
+        </a>
+        
+        <a href="https://twitch.tv/yourhandle" target="_blank" style="text-decoration:none;">
+          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle" style="background-color: var(--orange-1); --hover-color: var(--gold-1); --top: var(--gold-1); --bottom: var(--gold-3);">
+            <div data-v-02ffe5dc="" class="triangle"></div>
+            <div data-v-02ffe5dc="" class="text">Twitch</div>
+            <div data-v-02ffe5dc="" class="WmWwnMN">
+              <div data-v-02ffe5dc="" class="border-top border"></div>
+              <div data-v-02ffe5dc="" class="border-bottom border"></div>
+            </div>
+          </button>
+        </a>
+        
+        <a href="https://tiktok.com/@yourhandle" target="_blank" style="text-decoration:none;">
+          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle" style="background-color: var(--black-5); --hover-color: var(--panel-1); --top: var(--panel-1); --bottom: var(--panel-3);">
+            <div data-v-02ffe5dc="" class="triangle"></div>
+            <div data-v-02ffe5dc="" class="text">TikTok</div>
+            <div data-v-02ffe5dc="" class="WmWwnMN">
+              <div data-v-02ffe5dc="" class="border-top border"></div>
+              <div data-v-02ffe5dc="" class="border-bottom border"></div>
+            </div>
+          </button>
+        </a>
+      </div>
+
       <div class="section-heading">Likes:</div>
       <ul class="item-list"><li>- Buiding stuff no one asked for</li><li>- ehhhhh sleeping (a lot)</li></ul>
       <div class="section-heading">Accomplishments:</div>
