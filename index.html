@@ -421,7 +421,7 @@
       object-fit: contain;
     }
 
-    .new-tab-page, .projects-page, .assets-page, .languages-page, .friends-page {
+    .new-tab-page, .projects-page, .assets-page, .languages-page, .friends-page, .links-page, .blog-page {
       display: none;
       flex-direction: column;
       align-items: center;
@@ -431,7 +431,7 @@
       width: 100%;
     }
     .new-tab-page.active, .projects-page.active, .assets-page.active,
-    .languages-page.active, .friends-page.active { display: flex; }
+    .languages-page.active, .friends-page.active, .links-page.active, .blog-page.active { display: flex; }
     .main-content { display: block; }
     .main-content.hidden { display: none; }
 
@@ -500,7 +500,7 @@
     .link-grid a:hover { background: #223a5a; }
     body.light-mode .link-grid a:hover { background: #cfcfcf; }
 
-    .projects-page h2, .assets-page h2, .languages-page h2, .friends-page h2 {
+    .projects-page h2, .assets-page h2, .languages-page h2, .friends-page h2, .links-page h2, .blog-page h2 {
       font-size: 1.8rem;
       font-weight: 300;
       color: #e0e0e0;
@@ -512,7 +512,9 @@
     body.light-mode .projects-page h2,
     body.light-mode .assets-page h2,
     body.light-mode .languages-page h2,
-    body.light-mode .friends-page h2 { color: #1f2a3a; }
+    body.light-mode .friends-page h2,
+    body.light-mode .links-page h2,
+    body.light-mode .blog-page h2 { color: #1f2a3a; }
 
     .projects-grid {
       display: grid;
@@ -732,6 +734,102 @@
     }
     body.light-mode .friend-name { color: #1f2a3a; }
 
+    /* Links Page Styles */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+      width: 100%;
+      max-width: 500px;
+    }
+    .link-button {
+      display: block;
+      padding: 0.8rem 0.6rem;
+      background: #1a2a4a;
+      border: 1px solid #2a3a5e;
+      color: #c0d0e0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: background 0.2s, color 0.3s, border-color 0.3s, transform 0.1s;
+      text-align: center;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.02em;
+      word-break: break-all;
+    }
+    body.light-mode .link-button {
+      background: #efefef;
+      border-color: #808080;
+      color: #1f2a3a;
+    }
+    .link-button:hover {
+      background: #2a406a;
+      transform: scale(0.97);
+      border-color: #4a7a9a;
+    }
+    body.light-mode .link-button:hover {
+      background: #d0d0d0;
+      border-color: #6a7a8a;
+    }
+
+    /* Blog Page Styles */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      width: 100%;
+      max-width: 600px;
+    }
+    .blog-post {
+      background: #1a2a4a;
+      border: 1px solid #2a3a5e;
+      padding: 1.2rem;
+      text-align: left;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    body.light-mode .blog-post {
+      background: #efefef;
+      border-color: #808080;
+    }
+    .blog-post .post-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #e0e0e0;
+      transition: color 0.3s;
+      font-family: 'Courier New', 'MS Sans Serif', monospace;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.3rem;
+    }
+    body.light-mode .blog-post .post-name { color: #1f2a3a; }
+    .blog-post .post-meta {
+      font-size: 0.8rem;
+      color: #8a9aae;
+      transition: color 0.3s;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.01em;
+    }
+    body.light-mode .blog-post .post-meta { color: #4a5a6e; }
+    .blog-post .post-test {
+      font-size: 0.9rem;
+      color: #b0c0d0;
+      margin-top: 0.5rem;
+      line-height: 1.5;
+      transition: color 0.3s;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.01em;
+    }
+    body.light-mode .blog-post .post-test { color: #2d3d52; }
+    .blog-loading, .blog-error {
+      font-size: 1rem;
+      color: #8a9aae;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.02em;
+      padding: 2rem 0;
+    }
+    .blog-loading.hidden, .blog-error.hidden {
+      display: none;
+    }
+
     @media (max-width: 600px) {
       .tab-content { padding: 1.5rem 1.2rem 2.8rem 1.2rem; min-height: 300px; }
       .fake-tab { font-size: 0.75rem; padding: 4px 0 4px 10px; }
@@ -748,7 +846,7 @@
       .link-grid { grid-template-columns: repeat(2, 1fr); max-width: 250px; }
       .projects-grid { max-width: 100%; }
       .assets-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
-      .projects-page h2, .assets-page h2, .languages-page h2, .friends-page h2 { font-size: 1.4rem; }
+      .projects-page h2, .assets-page h2, .languages-page h2, .friends-page h2, .links-page h2, .blog-page h2 { font-size: 1.4rem; }
       .project-card .project-name { font-size: 0.9rem; }
       .project-card .project-desc { font-size: 0.75rem; margin-left: 2.2rem; }
       .project-icon { width: 28px; height: 28px; }
@@ -761,6 +859,11 @@
       .friend-avatar { width: 60px; height: 60px; }
       .site-header .gj-image { width: 20px; height: 20px; }
       .item-list li .badge-image { width: 70px; height: 25px; }
+      .links-grid { grid-template-columns: 1fr; max-width: 100%; }
+      .link-button { font-size: 0.75rem; padding: 0.6rem 0.4rem; }
+      .blog-grid { max-width: 100%; }
+      .blog-post .post-name { font-size: 1rem; }
+      .blog-post .post-test { font-size: 0.8rem; }
     }
   </style>
 </head>
@@ -800,7 +903,7 @@
     <div class="main-content" id="mainContent">
       <div class="profile-header">
         <div class="profile-image-wrapper">
-          <img src="/assets/217508931.jpeg" alt="avatar" onerror="this.style.display='none'">
+          <img src="assets/217508931.jpeg" alt="avatar" onerror="this.style.display='none'">
           <img class="overlay-image" src="https://ugc.decor.fieryflames.dev/612394376e1b86dbec30851996e5ea25.png" alt="overlay" onerror="this.style.display='none'">
         </div>
         <div class="site-header">
@@ -847,6 +950,8 @@
         <a href="#" id="assetsLink">assets</a>
         <a href="#" id="languagesLink">Languages</a>
         <a href="#" id="friendsLink">Friends</a>
+        <a href="#" id="linksLink">Links</a>
+        <a href="#" id="blogLink">Blog</a>
       </div>
     </div>
 
@@ -925,6 +1030,30 @@
       <div class="friends-grid" id="friendsGrid"></div>
     </div>
 
+    <!-- LINKS -->
+    <div class="links-page" id="linksPage">
+      <h2>Links</h2>
+      <div class="links-grid">
+        <a href="https://daymian.xyz/" target="_blank" class="link-button">daymian.xyz</a>
+        <a href="https://ktiers.com/" target="_blank" class="link-button">ktiers.com</a>
+        <a href="https://kircraft.io/" target="_blank" class="link-button">kircraft.io</a>
+        <a href="https://kirka.io/" target="_blank" class="link-button">kirka.io</a>
+        <a href="https://kirkacommunityhub.pages.dev/" target="_blank" class="link-button">kirkacommunityhub.pages.dev</a>
+        <a href="https://amcalledglitchy.dev/" target="_blank" class="link-button">amcalledglitchy.dev</a>
+        <a href="https://tricko.pro/" target="_blank" class="link-button">tricko.pro</a>
+        <a href="https://irrvlo.xyz/" target="_blank" class="link-button">irrvlo.xyz</a>
+        <a href="https://protox.io/" target="_blank" class="link-button">protox.io</a>
+      </div>
+    </div>
+
+    <!-- BLOG -->
+    <div class="blog-page" id="blogPage">
+      <h2>Blog</h2>
+      <div id="blogLoading" class="blog-loading">Loading posts...</div>
+      <div id="blogError" class="blog-error hidden">Failed to load blog posts.</div>
+      <div id="blogGrid" class="blog-grid"></div>
+    </div>
+
   </div>
 
   <!-- DARK TOGGLE -->
@@ -939,6 +1068,11 @@
     const assetsPage = document.getElementById('assetsPage');
     const languagesPage = document.getElementById('languagesPage');
     const friendsPage = document.getElementById('friendsPage');
+    const linksPage = document.getElementById('linksPage');
+    const blogPage = document.getElementById('blogPage');
+    const blogGrid = document.getElementById('blogGrid');
+    const blogLoading = document.getElementById('blogLoading');
+    const blogError = document.getElementById('blogError');
     const friendsGrid = document.getElementById('friendsGrid');
     const mainTab = document.getElementById('mainTab');
     const newTabBtn = document.getElementById('newTabBtn');
@@ -949,6 +1083,8 @@
     const assetsLink = document.getElementById('assetsLink');
     const languagesLink = document.getElementById('languagesLink');
     const friendsLink = document.getElementById('friendsLink');
+    const linksLink = document.getElementById('linksLink');
+    const blogLink = document.getElementById('blogLink');
     const darkToggle = document.getElementById('darkToggle');
     const sikeBox = document.getElementById('sikeBox');
 
@@ -982,6 +1118,40 @@
       });
     }
     renderFriends();
+
+    // Load Blog Posts
+    async function loadBlogPosts() {
+      try {
+        blogLoading.classList.remove('hidden');
+        blogError.classList.add('hidden');
+        blogGrid.innerHTML = '';
+        
+        const response = await fetch('blog/rtx3090.json');
+        if (!response.ok) throw new Error('Failed to fetch blog data');
+        
+        const posts = await response.json();
+        blogLoading.classList.add('hidden');
+        
+        if (!posts || posts.length === 0) {
+          blogGrid.innerHTML = '<div class="blog-post"><div class="post-name">No posts yet</div><div class="post-test">Check back later for updates!</div></div>';
+          return;
+        }
+        
+        posts.forEach(post => {
+          const postDiv = document.createElement('div');
+          postDiv.className = 'blog-post';
+          postDiv.innerHTML = `
+            <div class="post-name">${post.Name || 'Untitled'}</div>
+            <div class="post-meta">${post.date || 'No date'} ${post.test ? '• ' + post.test : ''}</div>
+          `;
+          blogGrid.appendChild(postDiv);
+        });
+      } catch (error) {
+        console.error('Error loading blog:', error);
+        blogLoading.classList.add('hidden');
+        blogError.classList.remove('hidden');
+      }
+    }
 
     // SIKE
     sikeBox.addEventListener('click', function(e) {
@@ -1038,6 +1208,8 @@
       assetsPage.classList.remove('active');
       languagesPage.classList.remove('active');
       friendsPage.classList.remove('active');
+      linksPage.classList.remove('active');
+      blogPage.classList.remove('active');
       updateActiveTab(tabId);
 
       if (tabId === 'main') {
@@ -1052,6 +1224,13 @@
           else if (page === 'assets') { assetsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/assets'; updateTabLabel(tabId, 'Assets'); }
           else if (page === 'languages') { languagesPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/languages'; updateTabLabel(tabId, 'Languages'); }
           else if (page === 'friends') { friendsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/friends'; updateTabLabel(tabId, 'Friends'); }
+          else if (page === 'links') { linksPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/links'; updateTabLabel(tabId, 'Links'); }
+          else if (page === 'blog') { 
+            blogPage.classList.add('active'); 
+            addressDisplay.textContent = 'Akumaware.one/blog'; 
+            updateTabLabel(tabId, 'Blog');
+            loadBlogPosts();
+          }
         }
       }
       updateNewTabButton();
@@ -1064,12 +1243,21 @@
       assetsPage.classList.remove('active');
       languagesPage.classList.remove('active');
       friendsPage.classList.remove('active');
+      linksPage.classList.remove('active');
+      blogPage.classList.remove('active');
 
       if (page === 'meow') { newTabPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/meow'; updateTabLabel(currentTabId, 'meow'); }
       else if (page === 'projects') { projectsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/projects'; updateTabLabel(currentTabId, 'Projects'); }
       else if (page === 'assets') { assetsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/assets'; updateTabLabel(currentTabId, 'Assets'); }
       else if (page === 'languages') { languagesPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/languages'; updateTabLabel(currentTabId, 'Languages'); }
       else if (page === 'friends') { friendsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/friends'; updateTabLabel(currentTabId, 'Friends'); }
+      else if (page === 'links') { linksPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/links'; updateTabLabel(currentTabId, 'Links'); }
+      else if (page === 'blog') { 
+        blogPage.classList.add('active'); 
+        addressDisplay.textContent = 'Akumaware.one/blog'; 
+        updateTabLabel(currentTabId, 'Blog');
+        loadBlogPosts();
+      }
 
       if (tabs[currentTabId]) tabs[currentTabId].page = page;
       updateActiveTab(currentTabId);
@@ -1114,7 +1302,9 @@
             projectsPage.classList.contains('active') ||
             assetsPage.classList.contains('active') ||
             languagesPage.classList.contains('active') ||
-            friendsPage.classList.contains('active')) {
+            friendsPage.classList.contains('active') ||
+            linksPage.classList.contains('active') ||
+            blogPage.classList.contains('active')) {
           switchTab('main');
         }
         updateNewTabButton();
@@ -1144,6 +1334,8 @@
     assetsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('assets'); });
     languagesLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('languages'); });
     friendsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('friends'); });
+    linksLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('links'); });
+    blogLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('blog'); });
 
     switchTab('main');
   })();
