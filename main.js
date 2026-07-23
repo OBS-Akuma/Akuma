@@ -28,7 +28,7 @@
     // BACKGROUND AUDIO PLAYER
     const bgAudio = document.getElementById('bg-audio');
     if (bgAudio) {
-        bgAudio.volume = 0.4;
+        bgAudio.volume = 0.2;
         bgAudio.loop = true;
         
         const playAudio = () => {
