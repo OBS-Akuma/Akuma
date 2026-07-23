@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <script src="main.js" defer></script>
   
   <!-- Primary Meta Tags -->
   <title>Akumaware.one</title>
   <meta name="title" content="Akumaware.one">
   <meta name="description" content="Akuma's personal website - developer, creator, and Kirka enthusiast. Check out my projects, blog">
-  <meta name="keywords" content="Akuma, Akumaware, developer, Kirka, projects, blog, web development">
+  <meta name="keywords" content="Akuma, Akumaware, developer, Kirka, projects, blog, web development, Michigan">
   <meta name="robots" content="index, follow">
   <meta name="language" content="English">
   <meta name="author" content="Akuma (Anthony)">
@@ -39,7 +39,7 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/kirka-ui.css">
   <style>
-        .connections-grid {
+    .connections-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -51,6 +51,50 @@
       min-width: 100px;
     }
 
+    .about-poem {
+      font-family: 'Courier New', monospace;
+      color: #b0c7e0;
+      line-height: 1.6;
+      margin: 12px 0;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 2px solid var(--blue-4);
+    }
+
+    .tech-icons-section {
+      margin: 16px 0;
+      text-align: center;
+    }
+
+    .tech-icons-section img {
+      max-width: 100%;
+      margin: 4px 0;
+    }
+
+    .music-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 20px 0;
+    }
+
+    .music-chip {
+      background: rgba(255, 255, 255, 0.06);
+      color: #b0c7e0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s ease;
+      cursor: default;
+    }
+
+    .music-chip:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--blue-4);
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -96,7 +140,7 @@
       <div class="profile-header">
         <div class="profile-image-wrapper">
           <img src="assets/217508931.jpeg" alt="avatar" onerror="this.style.display='none'">
-          <img class="overlay-image" src="" alt="overlay" onerror="this.style.display='none'"> <!-- do sm wth ts -->
+          <img class="overlay-image" src="" alt="overlay" onerror="this.style.display='none'">
         </div>
         <div class="site-header">
           Akuma here<span>^^</span>
@@ -107,7 +151,15 @@
       </div>
       <div class="bio-top">
         <p class="bio-text">Hey I'm Anthony! My pronouns are <strong>he/him</strong>.</p>
-        <p class="bio-text">if you meet don't say hi ;-;</p>
+        <p class="bio-text">Location: Michigan | Age: 15</p>
+        <p class="bio-text">I go by many names: Anthony, James, Tony. But I think I like Dinny the best.</p>
+        <div class="about-poem">
+          15, working on life.<br>
+          Finding out who I am,<br>
+          Trying to fit in,<br>
+          Unsure how, but one day I'll learn.
+        </div>
+        <p class="bio-text">If you see me, don't say hi ;-;</p>
       </div>
       
       <!-- CONNECTIONS SECTION -->
@@ -147,14 +199,47 @@
         </a>
       </div>
 
+      <!-- MUSIC TASTE SECTION -->
+      <div class="section-heading">Music taste:</div>
+      <div class="music-grid">
+        <span class="music-chip">Mac Miller</span>
+        <span class="music-chip">Bunii</span>
+        <span class="music-chip">Glaive</span>
+        <span class="music-chip">BoyWithUke</span>
+        <span class="music-chip">Oliver Tree</span>
+      </div>
+
+      <!-- IDEs SECTION -->
+      <div class="section-heading">IDEs:</div>
+      <div class="tech-icons-section">
+        <img src="https://skillicons.dev/icons?i=vscode&perline=1" alt="VSCode" />
+      </div>
+
+      <!-- FRAMEWORKS SECTION -->
+      <div class="section-heading">Frameworks:</div>
+      <div class="tech-icons-section">
+        <img src="https://skillicons.dev/icons?i=nextjs,electron,discordjs,react,p5js,regex,threejs&perline=7" alt="Frameworks" />
+      </div>
+
+      <!-- LANGUAGES SECTION -->
+      <div class="section-heading">Languages:</div>
+      <div class="tech-icons-section">
+        <img src="https://skillicons.dev/icons?i=js,html,css,py,typescript&perline=5" alt="Languages" />
+      </div>
+
+      <!-- OTHER SECTION -->
+      <div class="section-heading">Other:</div>
+      <div class="tech-icons-section">
+        <img src="https://skillicons.dev/icons?i=nodejs,windows,linux,discord,raspberrypi,vscode,unity,replit&perline=5" alt="Other tools" />
+      </div>
 
       <div class="section-heading">Likes:</div>
       <ul class="item-list"><li>- Building stuff no one asked for</li><li>- ehhhhh sleeping (a lot)</li></ul>
       <div class="section-heading">Accomplishments:</div>
       <ul class="item-list">
-        <li>- Made a kirka client (was forked from like Juice or wtv but still)</li>
-        <li>- Fucked with <a href="https://kircraft.io" target="_blank">kircraft</a> API and did more then I meant to.</li>
-        <li>- Made a website kinda like guns.lol named <a href="https://freaksforever.xyz" target="_blank">FreaksForEver</a> You should check it out tbh ;3</li>
+        <li>- Made a Kirka client (forked from Juice or whatever but still)</li>
+        <li>- Messed with the <a href="https://kircraft.io" target="_blank">Kircraft</a> API and did more than I meant to.</li>
+        <li>- Made a website kinda like guns.lol named <a href="https://freaksforever.xyz" target="_blank">FreaksForEver</a>. You should check it out tbh ;3</li>
         <li>
           - Made my own 
           <span class="badge-image">
@@ -165,17 +250,17 @@
           88x31 
           <a href="https://cyber.dabamos.de/88x31/" target="_blank">View all here</a>
         </li>
-        <li>- Got Fox (scammer and most likely clove) Banned.</li>
-        <li>- Both current and previous Owners Of kirka added.</li>
-        <li>- Found a Halloween chest bug in kirka.io (still isn't fixed.)</li>
-        <li>- Deleted All data that came into Some Scam website.</li>
-        <li>- Made my first React android app</li>
+        <li>- Got Fox (scammer and most likely Clove) banned.</li>
+        <li>- Got both the current and previous owners of Kirka added.</li>
+        <li>- Found a Halloween chest bug in kirka.io (still isn't fixed).</li>
+        <li>- Deleted all data that came into some scam website.</li>
+        <li>- Made my first React Android app.</li>
         <li>- Got my dad sent to jail.</li>
-        <li>- Got out of a bad situation involving my family</li>
+        <li>- Got out of a bad situation involving my family.</li>
       </ul>
       <div class="section-heading">Working towards:</div>
       <ul class="item-list"><li>- <a href="https://kirka.io" target="_blank">Getting verified in Kirka</a> <span style="font-size:0.7rem;color:#4a5a6e;font-family:'Courier New',monospace;">(click to visit kirka.io)</span></li></ul>
-      <ul class="item-list"><li>- <a href="/" target="_blank">Building my own successful game.</a> <span style="font-size:0.7rem;color:#4a5a6e;font-family:'Courier New',monospace;">(click to visit Demo)</span></li></ul>
+      <ul class="item-list"><li>- <a href="/" target="_blank">Building my own successful game.</a> <span style="font-size:0.7rem;color:#4a5a6e;font-family:'Courier New',monospace;">(click to visit demo)</span></li></ul>
     </div>
 
     <!-- NEW TAB PAGE (meow) -->
@@ -208,21 +293,21 @@
             <span class="project-icon"><img src="https://www.smudgy.store/uploads/icon.png" alt="SmudgyClient icon" onerror="this.style.display='none'"></span>
             SmudgyClient
           </div>
-          <div class="project-desc">Electron Client For Kirka.io (juice fork)</div>
+          <div class="project-desc">Electron client for Kirka.io (Juice fork)</div>
         </div>
         <div class="project-card">
           <div class="project-name">
             <span class="project-icon"><img src="https://raw.githubusercontent.com/OBS-Akuma/Ubuntu-client/refs/heads/main/assets/icon.png" alt="UbuntuClient icon" onerror="this.style.display='none'"></span>
             UbuntuClient
           </div>
-          <div class="project-desc">CustomClient For the Things Users wanted but never got added.</div>
+          <div class="project-desc">Custom client for the things users wanted but never got added.</div>
         </div>
         <div class="project-card">
           <div class="project-name">
-            <span class="project-icon"><img src="https://vercel.com/_next/image?url=https%3A%2F%2Ffvqcrhkhgatlyl2m.public.blob.vercel-storage.com%2F2026-sprites%2Flil-pix_dark-mode_waving.gif&w=256&q=75" alt="UbuntuClient icon" onerror="this.style.display='none'"></span>
+            <span class="project-icon"><img src="https://vercel.com/_next/image?url=https%3A%2F%2Ffvqcrhkhgatlyl2m.public.blob.vercel-storage.com%2F2026-sprites%2Flil-pix_dark-mode_waving.gif&w=256&q=75" alt="Ab4core icon" onerror="this.style.display='none'"></span>
             Ab4core
           </div>
-          <div class="project-desc">Website i made but never ended up doing something with.</div>
+          <div class="project-desc">Website I made but never ended up doing anything with.</div>
         </div>
         <div class="project-card">
           <div class="project-name">
@@ -235,8 +320,8 @@
     </div>
 
     <!-- ASSETS -->
-    <div class="assets-page" id="assetsPage">
-      <h2>Assets</h2>
+    <div class="assets-page" id="catPage">
+      <h2>Cats</h2>
       <div class="assets-grid">
         <div class="asset-item"><div class="asset-thumb"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="12" cy="10" r="4" /><path d="M4 20c2-3 4-4 8-4s6 1 8 4" /></svg></div><span class="asset-label">Image 1</span></div>
         <div class="asset-item"><div class="asset-thumb"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="12" cy="10" r="4" /><path d="M4 20c2-3 4-4 8-4s6 1 8 4" /></svg></div><span class="asset-label">Image 2</span></div>
