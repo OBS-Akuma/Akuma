@@ -2,7 +2,7 @@
     const mainContent = document.getElementById('mainContent');
     const newTabPage = document.getElementById('newTabPage');
     const projectsPage = document.getElementById('projectsPage');
-    const assetsPage = document.getElementById('assetsPage');
+    const catPage = document.getElementById('catPage');
     const languagesPage = document.getElementById('languagesPage');
     const friendsPage = document.getElementById('friendsPage');
     const linksPage = document.getElementById('linksPage');
@@ -17,7 +17,7 @@
     const addressDisplay = document.getElementById('addressDisplay');
     const tabBar = document.getElementById('tabBar');
     const projectsLink = document.getElementById('projectsLink');
-    const assetsLink = document.getElementById('assetsLink');
+    const catLink = document.getElementById('catLink');
     const languagesLink = document.getElementById('languagesLink');
     const friendsLink = document.getElementById('friendsLink');
     const linksLink = document.getElementById('linksLink');
@@ -176,7 +176,7 @@
       mainContent.classList.add('hidden');
       newTabPage.classList.remove('active');
       projectsPage.classList.remove('active');
-      assetsPage.classList.remove('active');
+      catPage.classList.remove('active');
       languagesPage.classList.remove('active');
       friendsPage.classList.remove('active');
       linksPage.classList.remove('active');
@@ -192,7 +192,7 @@
           const page = tab.page || 'meow';
           if (page === 'meow') { newTabPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/meow'; updateTabLabel(tabId, 'meow'); }
           else if (page === 'projects') { projectsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/projects'; updateTabLabel(tabId, 'Projects'); }
-          else if (page === 'assets') { assetsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/assets'; updateTabLabel(tabId, 'Assets'); }
+          else if (page === 'cat') { assetsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/cat'; updateTabLabel(tabId, 'cat'); }
           else if (page === 'languages') { languagesPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/languages'; updateTabLabel(tabId, 'Languages'); }
           else if (page === 'friends') { friendsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/friends'; updateTabLabel(tabId, 'Friends'); }
           else if (page === 'links') { linksPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/links'; updateTabLabel(tabId, 'Links'); }
@@ -211,7 +211,7 @@
       currentNewTabPage = page;
       newTabPage.classList.remove('active');
       projectsPage.classList.remove('active');
-      assetsPage.classList.remove('active');
+      catPage.classList.remove('active');
       languagesPage.classList.remove('active');
       friendsPage.classList.remove('active');
       linksPage.classList.remove('active');
@@ -219,7 +219,7 @@
 
       if (page === 'meow') { newTabPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/meow'; updateTabLabel(currentTabId, 'meow'); }
       else if (page === 'projects') { projectsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/projects'; updateTabLabel(currentTabId, 'Projects'); }
-      else if (page === 'assets') { assetsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/assets'; updateTabLabel(currentTabId, 'Assets'); }
+      else if (page === 'cat') { assetsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/cat'; updateTabLabel(currentTabId, 'Cat'); }
       else if (page === 'languages') { languagesPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/languages'; updateTabLabel(currentTabId, 'Languages'); }
       else if (page === 'friends') { friendsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/friends'; updateTabLabel(currentTabId, 'Friends'); }
       else if (page === 'links') { linksPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/links'; updateTabLabel(currentTabId, 'Links'); }
