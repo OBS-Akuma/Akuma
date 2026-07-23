@@ -28,21 +28,17 @@
     // BACKGROUND AUDIO PLAYER
     const bgAudio = document.getElementById('bg-audio');
     if (bgAudio) {
-        bgAudio.volume = 0.4; // 40% volume
+        bgAudio.volume = 0.4;
         bgAudio.loop = true;
         
-        // Attempt to autoplay
         const playAudio = () => {
             bgAudio.play().catch(err => {
                 console.log('Audio autoplay blocked. Waiting for user interaction...');
-                // Will try again on first user click
             });
         };
         
-        // Try to play immediately
         playAudio();
         
-        // Also try on any user interaction if it was blocked
         document.addEventListener('click', function tryPlay() {
             if (bgAudio.paused) {
                 bgAudio.play().catch(() => {});
@@ -50,7 +46,6 @@
             document.removeEventListener('click', tryPlay);
         }, { once: true });
         
-        // Also try on keydown
         document.addEventListener('keydown', function tryPlay() {
             if (bgAudio.paused) {
                 bgAudio.play().catch(() => {});
@@ -192,7 +187,7 @@
           const page = tab.page || 'meow';
           if (page === 'meow') { newTabPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/meow'; updateTabLabel(tabId, 'meow'); }
           else if (page === 'projects') { projectsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/projects'; updateTabLabel(tabId, 'Projects'); }
-          else if (page === 'cat') { assetsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/cat'; updateTabLabel(tabId, 'cat'); }
+          else if (page === 'cat') { catPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/cat'; updateTabLabel(tabId, 'Cat'); }
           else if (page === 'languages') { languagesPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/languages'; updateTabLabel(tabId, 'Languages'); }
           else if (page === 'friends') { friendsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/friends'; updateTabLabel(tabId, 'Friends'); }
           else if (page === 'links') { linksPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/links'; updateTabLabel(tabId, 'Links'); }
@@ -219,7 +214,7 @@
 
       if (page === 'meow') { newTabPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/meow'; updateTabLabel(currentTabId, 'meow'); }
       else if (page === 'projects') { projectsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/projects'; updateTabLabel(currentTabId, 'Projects'); }
-      else if (page === 'cat') { assetsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/cat'; updateTabLabel(currentTabId, 'Cat'); }
+      else if (page === 'cat') { catPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/cat'; updateTabLabel(currentTabId, 'Cat'); }
       else if (page === 'languages') { languagesPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/languages'; updateTabLabel(currentTabId, 'Languages'); }
       else if (page === 'friends') { friendsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/friends'; updateTabLabel(currentTabId, 'Friends'); }
       else if (page === 'links') { linksPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/links'; updateTabLabel(currentTabId, 'Links'); }
@@ -271,7 +266,7 @@
         delete tabs[tabId];
         if (newTabPage.classList.contains('active') ||
             projectsPage.classList.contains('active') ||
-            assetsPage.classList.contains('active') ||
+            catPage.classList.contains('active') ||
             languagesPage.classList.contains('active') ||
             friendsPage.classList.contains('active') ||
             linksPage.classList.contains('active') ||
@@ -302,11 +297,11 @@
     });
 
     projectsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('projects'); });
-    assetsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('assets'); });
+    catLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('cat'); });
     languagesLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('languages'); });
     friendsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('friends'); });
     linksLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('links'); });
     blogLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('blog'); });
 
     switchTab('main');
-  })();
+})();
