@@ -131,16 +131,14 @@
       display: block;
     }
 
-    /* --- NEW: osu! button using pink theme --- */
+    /* --- FIXED: osu! button using pink theme (removed duplicate text) --- */
     .btn-osu {
       background-color: var(--pink-1) !important;
       --hover-color: var(--pink-2) !important;
       --top: var(--pink-2) !important;
       --bottom: var(--pink-3) !important;
     }
-    .btn-osu .text::before {
-      content: "osu!";
-    }
+    /* Removed the ::before pseudo-element that was adding extra "osu!" */
   </style>
 </head>
 <body>
@@ -244,7 +242,7 @@
           </button>
         </a>
 
-        <!-- NEW: osu! button using pink theme, links to osu.ppy.sh/users/38076900 -->
+        <!-- Osu -->
         <a href="https://osu.ppy.sh/users/38076900" target="_blank" style="text-decoration:none;">
           <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle btn-osu" style="background-color: var(--pink-1); --hover-color: var(--pink-2); --top: var(--pink-2); --bottom: var(--pink-3);">
             <div data-v-02ffe5dc="" class="triangle"></div>
