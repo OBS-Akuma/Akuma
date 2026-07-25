@@ -95,6 +95,41 @@
       border-color: var(--blue-4);
       color: #fff;
     }
+
+    /* Other Cool People section */
+    .cool-people-section {
+      margin: 30px 0 10px 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .cool-people-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 12px 0 0 0;
+      align-items: center;
+    }
+
+    .cool-people-grid a {
+      display: inline-block;
+      line-height: 0;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .cool-people-grid a:hover {
+      transform: scale(1.05);
+      filter: brightness(1.15);
+    }
+
+    .cool-people-grid img {
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      image-rendering: pixelated;
+      width: 88px;
+      height: 31px;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -261,6 +296,19 @@
       <div class="section-heading">Working towards:</div>
       <ul class="item-list"><li>- <a href="https://kirka.io" target="_blank">Getting verified in Kirka</a> <span style="font-size:0.7rem;color:#4a5a6e;font-family:'Courier New',monospace;">(click to visit kirka.io)</span></li></ul>
       <ul class="item-list"><li>- <a href="/" target="_blank">Building my own successful game.</a> <span style="font-size:0.7rem;color:#4a5a6e;font-family:'Courier New',monospace;">(click to visit demo)</span></li></ul>
+
+      <!-- OTHER COOL PEOPLE SECTION -->
+      <div class="cool-people-section">
+        <div class="section-heading">Other cool People:</div>
+        <div class="cool-people-grid">
+          <a href="https://kirka.lukeskywalk.com/?utm_source=Akumaware.one" target="_blank" title="Sky's Kirka site">
+            <img src="assets/Sky88x31.png" alt="Sky 88x31 button" width="88" height="31">
+          </a>
+          <a href="https://daymian.xyz/?utm_source=Akumaware.one" target="_blank" title="Daymian's site">
+            <img src="assets/Day88x31.png" alt="Daymian 88x31 button" width="88" height="31">
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- NEW TAB PAGE (meow) -->
