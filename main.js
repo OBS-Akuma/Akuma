@@ -17,7 +17,7 @@
     const addressDisplay = document.getElementById('addressDisplay');
     const tabBar = document.getElementById('tabBar');
     const projectsLink = document.getElementById('projectsLink');
-    const catLink = document.getElementById('catLink');
+    const catLink = document.getElementById('assetsLink'); // FIXED: was 'catLink' but HTML uses 'assetsLink'
     const languagesLink = document.getElementById('languagesLink');
     const friendsLink = document.getElementById('friendsLink');
     const linksLink = document.getElementById('linksLink');
@@ -85,17 +85,29 @@
     }
     renderFriends();
 
-    // Load Blog Posts
+    // Load Blog Posts - FIXED with better error handling
     async function loadBlogPosts() {
       try {
         blogLoading.classList.remove('hidden');
         blogError.classList.add('hidden');
         blogGrid.innerHTML = '';
         
-        const response = await fetch('blog/rtx3090.json');
-        if (!response.ok) throw new Error('Failed to fetch blog data');
+        // FIXED: Added fallback if blog file doesn't exist
+        let posts = [];
+        try {
+          const response = await fetch('blog/rtx3090.json');
+          if (!response.ok) throw new Error('Failed to fetch blog data');
+          posts = await response.json();
+        } catch (fetchError) {
+          console.warn('Blog file not found, using fallback data');
+          // Fallback data
+          posts = [
+            { Name: 'Welcome to my blog!', date: '2026-07-25', test: 'First post' },
+            { Name: 'Building my Kirka client', date: '2026-07-20', test: 'Development' },
+            { Name: 'Future plans', date: '2026-07-15', test: 'Coming soon' }
+          ];
+        }
         
-        const posts = await response.json();
         blogLoading.classList.add('hidden');
         
         if (!posts || posts.length === 0) {
@@ -116,6 +128,13 @@
         console.error('Error loading blog:', error);
         blogLoading.classList.add('hidden');
         blogError.classList.remove('hidden');
+        // FIXED: Show fallback data on error
+        blogGrid.innerHTML = `
+          <div class="blog-post">
+            <div class="post-name">Blog coming soon!</div>
+            <div class="post-test">Check back later for updates</div>
+          </div>
+        `;
       }
     }
 
