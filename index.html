@@ -131,14 +131,21 @@
       display: block;
     }
 
-    /* --- FIXED: osu! button using pink theme (removed duplicate text) --- */
+    /* osu! button using pink theme */
     .btn-osu {
       background-color: var(--pink-1) !important;
       --hover-color: var(--pink-2) !important;
       --top: var(--pink-2) !important;
       --bottom: var(--pink-3) !important;
     }
-    /* Removed the ::before pseudo-element that was adding extra "osu!" */
+
+    /* NEW: Froke button using green-1 */
+    .btn-froke {
+      background-color: var(--green-1) !important;
+      --hover-color: var(--green-4) !important;
+      --top: var(--green-2) !important;
+      --bottom: var(--green-3) !important;
+    }
   </style>
 </head>
 <body>
@@ -242,11 +249,23 @@
           </button>
         </a>
 
-        <!-- Osu -->
+        <!-- osu! button -->
         <a href="https://osu.ppy.sh/users/38076900" target="_blank" style="text-decoration:none;">
           <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle btn-osu" style="background-color: var(--pink-1); --hover-color: var(--pink-2); --top: var(--pink-2); --bottom: var(--pink-3);">
             <div data-v-02ffe5dc="" class="triangle"></div>
             <div data-v-02ffe5dc="" class="text">osu!</div>
+            <div data-v-02ffe5dc="" class="WmWwnMN">
+              <div data-v-02ffe5dc="" class="border-top border"></div>
+              <div data-v-02ffe5dc="" class="border-bottom border"></div>
+            </div>
+          </button>
+        </a>
+
+        <!-- NEW: Froke button using green-1 -->
+        <a href="https://smudgy.store" target="_blank" style="text-decoration:none;">
+          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle btn-froke" style="background-color: var(--green-1); --hover-color: var(--green-4); --top: var(--green-2); --bottom: var(--green-3);">
+            <div data-v-02ffe5dc="" class="triangle"></div>
+            <div data-v-02ffe5dc="" class="text">Froke</div>
             <div data-v-02ffe5dc="" class="WmWwnMN">
               <div data-v-02ffe5dc="" class="border-top border"></div>
               <div data-v-02ffe5dc="" class="border-bottom border"></div>
