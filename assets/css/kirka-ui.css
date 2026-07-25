@@ -1,4 +1,4 @@
-    @import"https://fonts.googleapis.com/css2?family=Rowdies:wght@700&display=swap";@import"https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap";:root {
+@import"https://fonts.googleapis.com/css2?family=Rowdies:wght@700&display=swap";@import"https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap";:root {
     --black: #000;
     --white: #fff;
     --black-5: #1a1f2e;
@@ -15,6 +15,9 @@
     --purple-1: #9a39d3;
     --purple-2: #af51e6;
     --purple-3: #692c8c;
+    --pink-1: #e64a9e;
+    --pink-2: #f06bb3;
+    --pink-3: #b82c7a;
     --red-1: #e24f4f;
     --red-2: #f66666;
     --red-3: #cb1414;
