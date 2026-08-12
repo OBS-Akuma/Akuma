@@ -1,4 +1,4 @@
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       cursor: url('https://akumaware.one/assets/cur/harrow.cur'), auto;
     }
@@ -278,6 +278,224 @@
       transition: background 0.3s;
     }
     body.light-mode .tab-content { background: rgba(223, 223, 223, 0.3); backdrop-filter: blur(2px); }
+
+    /* ============================================================
+       MAIN TAB: 4-CELL CONTENT GRID
+       (main / current stream / recent streams / placeholder)
+       ============================================================ */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.1rem;
+      width: 100%;
+    }
+    .grid-main       { grid-column: 1; grid-row: 1; }
+    .grid-current    { grid-column: 2; grid-row: 1; }
+    .grid-recent     { grid-column: 1; grid-row: 2; }
+    .grid-placeholder{ grid-column: 2; grid-row: 2; }
+
+    .grid-cell {
+      background: #16233d;
+      border: 1px solid #2a3a5e;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    body.light-mode .grid-cell {
+      background: #e6e6e6;
+      border-color: #808080;
+    }
+
+    .grid-cell-header {
+      background: #0f1a2e;
+      border-bottom: 1px solid #2a3a5e;
+      padding: 6px 12px;
+      font-size: 0.68rem;
+      color: #6a8aae;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.05em;
+      text-transform: lowercase;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+    .grid-cell-header::before {
+      content: '~/';
+      opacity: 0.5;
+    }
+    body.light-mode .grid-cell-header {
+      background: #d8d8d8;
+      color: #4a5a6e;
+      border-color: #808080;
+    }
+
+    .grid-cell-body {
+      padding: 1rem 1.1rem 1.2rem 1.1rem;
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    /* main panel scrolls internally so the four cells stay roughly balanced */
+    .grid-main .grid-cell-body {
+      max-height: 640px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #2a3a5e transparent;
+    }
+    .grid-main .grid-cell-body::-webkit-scrollbar { width: 6px; }
+    .grid-main .grid-cell-body::-webkit-scrollbar-thumb { background: #2a3a5e; }
+    body.light-mode .grid-main .grid-cell-body::-webkit-scrollbar-thumb { background: #a0a0a0; }
+
+    .grid-current .grid-cell-body,
+    .grid-recent .grid-cell-body,
+    .grid-placeholder .grid-cell-body {
+      min-height: 180px;
+    }
+
+    /* ---- current stream / last played card ---- */
+    .track-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .track-art {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+      background: #0f1a2e;
+      border: 1px solid #2a3a5e;
+      overflow: hidden;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    body.light-mode .track-art { background: #dfdfdf; border-color: #808080; }
+    .track-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .track-info { min-width: 0; }
+    .track-status {
+      font-size: 0.68rem;
+      color: #6a9ac0;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    .track-name {
+      font-size: 0.95rem;
+      color: #e0e0e0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: 'Courier New', monospace;
+      transition: color 0.3s;
+    }
+    body.light-mode .track-name { color: #1f2a3a; }
+    .track-artist {
+      font-size: 0.8rem;
+      color: #8a9aae;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: 'Courier New', monospace;
+      transition: color 0.3s;
+    }
+    body.light-mode .track-artist { color: #4a5a6e; }
+    .track-empty {
+      font-size: 0.85rem;
+      color: #6a7b8e;
+      font-style: italic;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ---- recent streams list ---- */
+    .recent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: 420px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #2a3a5e transparent;
+    }
+    .recent-list::-webkit-scrollbar { width: 6px; }
+    .recent-list::-webkit-scrollbar-thumb { background: #2a3a5e; }
+    body.light-mode .recent-list::-webkit-scrollbar-thumb { background: #a0a0a0; }
+
+    .recent-track-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 5px;
+      border: 1px solid transparent;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .recent-track-item:hover {
+      border-color: #2a3a5e;
+      background: rgba(255,255,255,0.03);
+    }
+    body.light-mode .recent-track-item:hover {
+      border-color: #808080;
+      background: rgba(0,0,0,0.03);
+    }
+    .recent-track-art {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      background: #0f1a2e;
+      border: 1px solid #2a3a5e;
+      overflow: hidden;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    body.light-mode .recent-track-art { background: #dfdfdf; border-color: #808080; }
+    .recent-track-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .recent-track-meta { min-width: 0; flex: 1; }
+    .recent-track-name {
+      font-size: 0.8rem;
+      color: #c0d0e0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: 'Courier New', monospace;
+      transition: color 0.3s;
+    }
+    body.light-mode .recent-track-name { color: #1f2a3a; }
+    .recent-track-artist {
+      font-size: 0.7rem;
+      color: #7a8aa0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: 'Courier New', monospace;
+      transition: color 0.3s;
+    }
+    body.light-mode .recent-track-artist { color: #5a6a7e; }
+    .recent-track-time {
+      font-size: 0.66rem;
+      color: #5a6a7e;
+      flex-shrink: 0;
+      font-family: 'Courier New', monospace;
+      transition: color 0.3s;
+    }
+    body.light-mode .recent-track-time { color: #8b9aae; }
+
+    /* ---- placeholder panel ---- */
+    .placeholder-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.7rem;
+    }
+    .placeholder-box {
+      aspect-ratio: 1 / 1;
+      border: 1px dashed #2a3a5e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4a5a6e;
+      font-size: 0.9rem;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.05em;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    body.light-mode .placeholder-box { border-color: #a0a0a0; color: #8b9aae; }
 
     .profile-header {
       display: flex;
@@ -821,6 +1039,18 @@
       display: none;
     }
 
+    @media (max-width: 900px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+      }
+      .grid-main       { grid-column: 1; grid-row: 1; }
+      .grid-current    { grid-column: 1; grid-row: 2; }
+      .grid-recent     { grid-column: 1; grid-row: 3; }
+      .grid-placeholder{ grid-column: 1; grid-row: 4; }
+      .grid-main .grid-cell-body { max-height: 420px; }
+    }
+
     @media (max-width: 600px) {
       .tab-content { padding: 1.5rem 1.2rem 2.8rem 1.2rem; min-height: 300px; }
       .fake-tab { font-size: 0.75rem; padding: 4px 0 4px 10px; }
@@ -855,4 +1085,6 @@
       .blog-grid { max-width: 100%; }
       .blog-post .post-name { font-size: 1rem; }
       .blog-post .post-test { font-size: 0.8rem; }
+      .grid-cell-body { padding: 0.8rem 0.9rem 1rem 0.9rem; }
+      .placeholder-box { font-size: 0.75rem; }
     }
