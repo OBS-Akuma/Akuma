@@ -54,6 +54,134 @@
         }, { once: true });
     }
 
+    // ============================================================
+    // STATS.FM NOW PLAYING / RECENTLY PLAYED WIDGET
+    // ============================================================
+    const STATSFM_USER_ID = '314xchviup3f5k4d5wkqesvd3nqe';
+    const STATSFM_CURRENT_URL = `https://api.stats.fm/api/v1/users/${STATSFM_USER_ID}/streams/current`;
+    const STATSFM_RECENT_URL = `https://api.stats.fm/api/v1/users/${STATSFM_USER_ID}/streams/recent`;
+    const STATSFM_POLL_MS = 20000;
+    let statsfmPollTimer = null;
+
+    function createNowPlayingWidget() {
+        const widget = document.createElement('div');
+        widget.id = 'nowPlayingWidget';
+        widget.style.cssText = [
+            'display:flex',
+            'align-items:center',
+            'gap:12px',
+            'margin:0.6rem 0 1.6rem 0',
+            'padding:10px 14px',
+            'background:rgba(255,255,255,0.03)',
+            'border-left:2px solid #4a7a9a',
+            'font-family:\'Courier New\', monospace',
+            'max-width:100%'
+        ].join(';');
+
+        widget.innerHTML = `
+            <div id="npAlbumArt" style="width:48px;height:48px;flex-shrink:0;background:#0f1a2e;border:1px solid #2a3a5e;overflow:hidden;"></div>
+            <div style="min-width:0;overflow:hidden;">
+                <div id="npStatus" style="font-size:0.68rem;color:#6a9ac0;text-transform:uppercase;letter-spacing:0.05em;">Loading...</div>
+                <div id="npTrack" style="font-size:0.9rem;color:#e0e0e0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:320px;"></div>
+                <div id="npArtist" style="font-size:0.8rem;color:#8a9aae;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:320px;"></div>
+            </div>
+        `;
+        return widget;
+    }
+
+    function insertNowPlayingWidget() {
+        if (document.getElementById('nowPlayingWidget')) return;
+        const bioTop = document.querySelector('.bio-top');
+        const widget = createNowPlayingWidget();
+        if (bioTop && bioTop.parentNode) {
+            bioTop.parentNode.insertBefore(widget, bioTop.nextSibling);
+        } else if (mainContent) {
+            mainContent.appendChild(widget);
+        }
+    }
+
+    function renderNowPlaying(track, isPlaying) {
+        const statusEl = document.getElementById('npStatus');
+        const trackEl = document.getElementById('npTrack');
+        const artistEl = document.getElementById('npArtist');
+        const artEl = document.getElementById('npAlbumArt');
+        if (!statusEl || !track) return;
+
+        statusEl.textContent = isPlaying ? '♫ Now playing' : 'Last played';
+        trackEl.textContent = track.name || 'Unknown track';
+
+        const artistNames = Array.isArray(track.artists)
+            ? track.artists.map(a => a.name).filter(Boolean).join(', ')
+            : '';
+        artistEl.textContent = artistNames || 'Unknown artist';
+
+        const album = Array.isArray(track.albums) ? track.albums[0] : null;
+        const albumImage = album && album.image;
+        if (artEl) {
+            artEl.innerHTML = albumImage
+                ? `<img src="${albumImage}" alt="${(album && album.name) ? album.name : 'album art'}" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.parentElement.innerHTML='';">`
+                : '';
+        }
+    }
+
+    function renderNotPlaying() {
+        const statusEl = document.getElementById('npStatus');
+        const trackEl = document.getElementById('npTrack');
+        const artistEl = document.getElementById('npArtist');
+        const artEl = document.getElementById('npAlbumArt');
+        if (!statusEl) return;
+        statusEl.textContent = 'Not playing';
+        if (trackEl) trackEl.textContent = '';
+        if (artistEl) artistEl.textContent = '';
+        if (artEl) artEl.innerHTML = '';
+    }
+
+    async function fetchNowPlaying() {
+        if (!document.getElementById('npStatus')) return;
+
+        // Try the "currently playing" endpoint first
+        try {
+            const res = await fetch(STATSFM_CURRENT_URL);
+            if (res.ok) {
+                const data = await res.json();
+                const item = data && data.item;
+                if (item && item.isPlaying && item.track) {
+                    renderNowPlaying(item.track, true);
+                    return;
+                }
+            }
+        } catch (err) {
+            console.warn('stats.fm current stream fetch failed', err);
+        }
+
+        // Fall back to most recent stream
+        try {
+            const res = await fetch(STATSFM_RECENT_URL);
+            if (res.ok) {
+                const data = await res.json();
+                const items = data && data.items;
+                if (Array.isArray(items) && items.length > 0 && items[0].track) {
+                    renderNowPlaying(items[0].track, false);
+                    return;
+                }
+            }
+        } catch (err) {
+            console.warn('stats.fm recent streams fetch failed', err);
+        }
+
+        renderNotPlaying();
+    }
+
+    function startNowPlayingPolling() {
+        insertNowPlayingWidget();
+        fetchNowPlaying();
+        if (statsfmPollTimer) clearInterval(statsfmPollTimer);
+        statsfmPollTimer = setInterval(fetchNowPlaying, STATSFM_POLL_MS);
+    }
+    // ============================================================
+    // END STATS.FM WIDGET
+    // ============================================================
+
     const friends = [
       { name: 'Zenos', avatar: '/assets/979875479425261580.webp' },
       { name: 'frosty', avatar: '/assets/813255323569356821.webp' },
@@ -323,4 +451,5 @@
     blogLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('blog'); });
 
     switchTab('main');
+    startNowPlayingPolling();
 })();
