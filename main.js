@@ -7,6 +7,7 @@
     const friendsPage = document.getElementById('friendsPage');
     const linksPage = document.getElementById('linksPage');
     const blogPage = document.getElementById('blogPage');
+    const rendersPage = document.getElementById('rendersPage');
     const blogGrid = document.getElementById('blogGrid');
     const blogLoading = document.getElementById('blogLoading');
     const blogError = document.getElementById('blogError');
@@ -17,13 +18,132 @@
     const addressDisplay = document.getElementById('addressDisplay');
     const tabBar = document.getElementById('tabBar');
     const projectsLink = document.getElementById('projectsLink');
-    const catLink = document.getElementById('assetsLink'); // FIXED: was 'catLink' but HTML uses 'assetsLink'
+    const catLink = document.getElementById('assetsLink');
     const languagesLink = document.getElementById('languagesLink');
     const friendsLink = document.getElementById('friendsLink');
     const linksLink = document.getElementById('linksLink');
     const blogLink = document.getElementById('blogLink');
+    const rendersLink = document.getElementById('rendersLink');
     const darkToggle = document.getElementById('darkToggle');
     const sikeBox = document.getElementById('sikeBox');
+
+    // RENDERS DATA - Replace these URLs with your actual render images
+    const rendersData = [
+        { 
+            title: 'Smudge vs Smudgy', 
+            desc: 'both are the same player just the hue changed',
+            src: 'https://akumaware.one/assets/renders/ane.webp',
+            alt: 'Render 1'
+        },
+        { 
+            title: 'we chill', 
+            desc: 'My first render me,zg,dev,some other guy',
+            src: 'https://akumaware.one/assets/renders/chill.webp',
+            alt: 'Render 2'
+        },
+        { 
+            title: 'CayBlub', 
+            desc: 'Caydub loves his uhh redlines ;3',
+            src: 'https://akumaware.one/assets/renders/dubs.webp',
+            alt: 'Render 3'
+        },
+        { 
+            title: 'Render 4', 
+            desc: 'Character pose',
+            src: 'https://akumaware.one/assets/renders/efk.webp',
+            alt: 'Render 4'
+        },
+        { 
+            title: 'efk AURA', 
+            desc: '"make me have aura"',
+            src: 'https://akumaware.one/assets/renders/efkaura.webp',
+            alt: 'Render 5'
+        },
+        { 
+            title: 'Fystm', 
+            desc: 'rip the arms',
+            src: 'https://akumaware.one/assets/renders/fystm.webp',
+            alt: 'Render 6'
+        },
+        { 
+            title: 'Request', 
+            desc: 'Sleap Over',
+            src: 'https://akumaware.one/assets/renders/ono.webp',
+            alt: 'Render 7'
+        },
+        { 
+            title: 'SvS who will win?', 
+            desc: 'bleh',
+            src: 'https://akumaware.one/assets/renders/sms.webp',
+            alt: 'Render 8'
+        },
+        { 
+            title: 'WhyDoesBroHaveASurfboard?', 
+            desc: 'no like why ;-;',
+            src: 'https://akumaware.one/assets/renders/wibs.webp',
+            alt: 'Render 9'
+        }
+    ];
+
+    // Render the renders grid
+    function renderRenders() {
+        const grid = document.getElementById('rendersGrid');
+        if (!grid) return;
+        
+        grid.innerHTML = '';
+        
+        rendersData.forEach((render, index) => {
+            const card = document.createElement('div');
+            card.className = 'render-card';
+            card.setAttribute('data-index', index);
+            
+            card.innerHTML = `
+                <div class="render-thumb">
+                    <img src="${render.src}" alt="${render.alt || render.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>${render.title}</div>'">
+                </div>
+                <div class="render-info">
+                    <div class="render-title">${render.title}</div>
+                    <div class="render-desc">${render.desc || ''}</div>
+                </div>
+            `;
+            
+            // Click to enlarge
+            card.addEventListener('click', function() {
+                const overlay = document.getElementById('renderOverlay');
+                const overlayImg = document.getElementById('overlayImage');
+                const overlayInfo = document.getElementById('overlayInfo');
+                
+                if (overlay && overlayImg) {
+                    overlayImg.src = render.src;
+                    overlayInfo.textContent = `${render.title} — Click anywhere to close`;
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+            
+            grid.appendChild(card);
+        });
+    }
+
+    // Overlay controls
+    const overlay = document.getElementById('renderOverlay');
+    const closeOverlay = document.getElementById('closeOverlay');
+    
+    if (overlay) {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay || e.target === closeOverlay) {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
 
     // BACKGROUND AUDIO PLAYER
     const bgAudio = document.getElementById('bg-audio');
@@ -139,7 +259,6 @@
     async function fetchNowPlaying() {
         if (!document.getElementById('npStatus')) return;
 
-        // Try the "currently playing" endpoint first
         try {
             const res = await fetch(STATSFM_CURRENT_URL);
             if (res.ok) {
@@ -154,7 +273,6 @@
             console.warn('stats.fm current stream fetch failed', err);
         }
 
-        // Fall back to most recent stream
         try {
             const res = await fetch(STATSFM_RECENT_URL);
             if (res.ok) {
@@ -178,9 +296,6 @@
         if (statsfmPollTimer) clearInterval(statsfmPollTimer);
         statsfmPollTimer = setInterval(fetchNowPlaying, STATSFM_POLL_MS);
     }
-    // ============================================================
-    // END STATS.FM WIDGET
-    // ============================================================
 
     const friends = [
       { name: 'Zenos', avatar: '/assets/979875479425261580.webp' },
@@ -213,14 +328,13 @@
     }
     renderFriends();
 
-    // Load Blog Posts - FIXED with better error handling
+    // Load Blog Posts
     async function loadBlogPosts() {
       try {
         blogLoading.classList.remove('hidden');
         blogError.classList.add('hidden');
         blogGrid.innerHTML = '';
         
-        // FIXED: Added fallback if blog file doesn't exist
         let posts = [];
         try {
           const response = await fetch('blog/rtx3090.json');
@@ -228,7 +342,6 @@
           posts = await response.json();
         } catch (fetchError) {
           console.warn('Blog file not found, using fallback data');
-          // Fallback data
           posts = [
             { Name: 'Welcome to my blog!', date: '2026-07-25', test: 'First post' },
             { Name: 'Building my Kirka client', date: '2026-07-20', test: 'Development' },
@@ -256,7 +369,6 @@
         console.error('Error loading blog:', error);
         blogLoading.classList.add('hidden');
         blogError.classList.remove('hidden');
-        // FIXED: Show fallback data on error
         blogGrid.innerHTML = `
           <div class="blog-post">
             <div class="post-name">Blog coming soon!</div>
@@ -323,6 +435,7 @@
       friendsPage.classList.remove('active');
       linksPage.classList.remove('active');
       blogPage.classList.remove('active');
+      rendersPage.classList.remove('active');
       updateActiveTab(tabId);
 
       if (tabId === 'main') {
@@ -344,6 +457,12 @@
             updateTabLabel(tabId, 'Blog');
             loadBlogPosts();
           }
+          else if (page === 'renders') { 
+            rendersPage.classList.add('active'); 
+            addressDisplay.textContent = 'Akumaware.one/renders'; 
+            updateTabLabel(tabId, 'Renders');
+            renderRenders();
+          }
         }
       }
       updateNewTabButton();
@@ -358,6 +477,7 @@
       friendsPage.classList.remove('active');
       linksPage.classList.remove('active');
       blogPage.classList.remove('active');
+      rendersPage.classList.remove('active');
 
       if (page === 'meow') { newTabPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/meow'; updateTabLabel(currentTabId, 'meow'); }
       else if (page === 'projects') { projectsPage.classList.add('active'); addressDisplay.textContent = 'Akumaware.one/projects'; updateTabLabel(currentTabId, 'Projects'); }
@@ -370,6 +490,12 @@
         addressDisplay.textContent = 'Akumaware.one/blog'; 
         updateTabLabel(currentTabId, 'Blog');
         loadBlogPosts();
+      }
+      else if (page === 'renders') { 
+        rendersPage.classList.add('active'); 
+        addressDisplay.textContent = 'Akumaware.one/renders'; 
+        updateTabLabel(currentTabId, 'Renders');
+        renderRenders();
       }
 
       if (tabs[currentTabId]) tabs[currentTabId].page = page;
@@ -417,7 +543,8 @@
             languagesPage.classList.contains('active') ||
             friendsPage.classList.contains('active') ||
             linksPage.classList.contains('active') ||
-            blogPage.classList.contains('active')) {
+            blogPage.classList.contains('active') ||
+            rendersPage.classList.contains('active')) {
           switchTab('main');
         }
         updateNewTabButton();
@@ -449,6 +576,7 @@
     friendsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('friends'); });
     linksLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('links'); });
     blogLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('blog'); });
+    rendersLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('renders'); });
 
     switchTab('main');
     startNowPlayingPolling();
