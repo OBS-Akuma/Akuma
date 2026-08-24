@@ -27,7 +27,6 @@
     const darkToggle = document.getElementById('darkToggle');
     const sikeBox = document.getElementById('sikeBox');
 
-    // RENDERS DATA - Replace these URLs with your actual render images
     const rendersData = [
         { 
             title: 'Smudge vs Smudgy', 
