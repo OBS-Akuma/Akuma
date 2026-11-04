@@ -1584,6 +1584,94 @@
       margin-top: 3px;
     }
 
+    /* ===== Now Playing recents dropdown ===== */
+    .now-playing-widget { flex-wrap: wrap; position: relative; }
+    .np-recents {
+      flex: 0 0 100%;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.35s ease;
+      margin-top: 0;
+    }
+    .now-playing-widget:hover .np-recents,
+    .now-playing-widget.open .np-recents {
+      max-height: 520px;
+      opacity: 1;
+      margin-top: 10px;
+    }
+    .np-recents-inner { border-top: 1px solid var(--line); padding-top: 8px; }
+
+    /* Layout 1 (default): list with image + name + timestamp */
+    .np-recent {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 4px;
+      border-radius: var(--radius);
+      transition: background 0.15s;
+    }
+    .np-recent:hover { background: rgba(255,255,255,0.05); }
+    .np-recent img {
+      width: 36px; height: 36px;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--field);
+    }
+    .np-recent-text { min-width: 0; flex: 1; }
+    .np-recent-name {
+      font-size: 0.82rem; color: var(--text); font-weight: 500;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .np-recent-artist {
+      font-size: 0.72rem; color: var(--text-muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .np-recent-time {
+      font-family: var(--mono);
+      font-size: 0.68rem; color: var(--text-muted);
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* Layout 2 (sidebar): images only, details in a hover tooltip */
+    .main-content.layout-sidebar .np-recents-inner {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+      gap: 8px;
+    }
+    .main-content.layout-sidebar .np-recent { padding: 0; background: none; display: block; }
+    .main-content.layout-sidebar .np-recent img { width: 100%; height: auto; aspect-ratio: 1; transition: transform 0.15s, border-color 0.15s; }
+    .main-content.layout-sidebar .np-recent:hover img { transform: scale(1.06); border-color: var(--blue-border); }
+    .main-content.layout-sidebar .np-recent-text,
+    .main-content.layout-sidebar .np-recent-time { display: none; }
+
+    /* Discord-style tooltip (one shared element, so it never gets clipped) */
+    #npTip {
+      position: fixed;
+      z-index: 10000;
+      pointer-events: none;
+      max-width: 240px;
+      padding: 8px 10px;
+      border-radius: var(--radius);
+      background: #1b1b1b;
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.6);
+      font-family: var(--font);
+      opacity: 0;
+      transform: translate(-50%, 4px);
+      transition: opacity 0.12s ease, transform 0.12s ease;
+    }
+    #npTip.show { opacity: 1; transform: translate(-50%, 0); }
+    #npTip .t-name { font-size: 0.8rem; font-weight: 600; color: #f2f2f2; }
+    #npTip .t-artist { font-size: 0.72rem; color: #b8b8b8; margin-top: 1px; }
+    #npTip .t-time { font-family: var(--mono); font-size: 0.66rem; color: #858585; margin-top: 4px; }
+    body.light-mode #npTip { background: #fff; }
+    body.light-mode #npTip .t-name { color: #1a1a1a; }
+    body.light-mode #npTip .t-artist { color: #444; }
+    body.light-mode .np-recent:hover { background: rgba(0,0,0,0.05); }
+
     body.light-mode {
       --bg0: #e6e6e6;
       --bg-tint: rgba(230, 230, 230, 0.35);
@@ -1719,6 +1807,8 @@
   <img id="overlayImage" src="" alt="Render preview">
   <div class="overlay-info" id="overlayInfo">Click anywhere to close</div>
 </div>
+
+<div id="npTip"></div>
 
 <div class="fake-window">
 
@@ -1997,7 +2087,7 @@
           <li>- Found a Halloween chest bug in kirka.io (still isn't fixed).</li>
           <li>- Deleted all data that came into some scam website.</li>
           <li>- Made my first React Android app.</li>
-          <li>- I got the bug finder role in kirka/li>
+          <li>- I got the bug finder role in kirka</li>
         </ul>
 
         <div class="section-heading">Working towards</div>
@@ -2096,39 +2186,39 @@
       <h2>Links</h2>
       <div class="links-grid">
         <a href="https://daymian.xyz/" target="_blank" class="link-card">
-          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=daymian.xyz&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>D</span>'"></span>
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=daymian.xyz&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\'link-fallback\'>D</span>'"></span>
           <span class="link-name">daymian.xyz</span>
         </a>
         <a href="https://ktiers.com/" target="_blank" class="link-card">
-          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=ktiers.com&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>K</span>'"></span>
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=ktiers.com&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\'link-fallback\'>K</span>'"></span>
           <span class="link-name">ktiers.com</span>
         </a>
         <a href="https://kircraft.io/" target="_blank" class="link-card">
-          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=kircraft.io&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>K</span>'"></span>
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=kircraft.io&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\'link-fallback\'>K</span>'"></span>
           <span class="link-name">kircraft.io</span>
         </a>
         <a href="https://kirka.io/" target="_blank" class="link-card">
-          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=kirka.io&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>K</span>'"></span>
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=kirka.io&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\'link-fallback\'>K</span>'"></span>
           <span class="link-name">kirka.io</span>
         </a>
         <a href="https://kirkacommunityhub.pages.dev/" target="_blank" class="link-card">
-          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=kirkacommunityhub.pages.dev&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>K</span>'"></span>
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=kirkacommunityhub.pages.dev&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\'link-fallback\'>K</span>'"></span>
           <span class="link-name">kirkacommunityhub.pages.dev</span>
         </a>
         <a href="https://amcalledglitchy.dev/" target="_blank" class="link-card">
-          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=amcalledglitchy.dev&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>A</span>'"></span>
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=amcalledglitchy.dev&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\'link-fallback\'>A</span>'"></span>
           <span class="link-name">amcalledglitchy.dev</span>
         </a>
         <a href="https://tricko.pro/" target="_blank" class="link-card">
-          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=tricko.pro&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>T</span>'"></span>
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=tricko.pro&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\'link-fallback\'>T</span>'"></span>
           <span class="link-name">tricko.pro</span>
         </a>
         <a href="https://irrvlo.xyz/" target="_blank" class="link-card">
-          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=irrvlo.xyz&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>I</span>'"></span>
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=irrvlo.xyz&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\'link-fallback\'>I</span>'"></span>
           <span class="link-name">irrvlo.xyz</span>
         </a>
         <a href="https://protox.io/" target="_blank" class="link-card">
-          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=protox.io&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>P</span>'"></span>
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=protox.io&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\'link-fallback\'>P</span>'"></span>
           <span class="link-name">protox.io</span>
         </a>
       </div>
@@ -2497,6 +2587,7 @@
                 </div>
                 <div class="np-artist" id="npArtist"></div>
             </div>
+            <div class="np-recents"><div class="np-recents-inner" id="npRecentsList"></div></div>
         `;
         return widget;
     }
@@ -2509,6 +2600,7 @@
             bioTop.parentNode.insertBefore(widget, bioTop.nextSibling);
         }
         applyNowPlaying();
+        setupRecents(widget);
     }
 
     function renderNowPlaying(track, isPlaying) {
@@ -2575,6 +2667,115 @@
             console.warn('stats.fm recent streams fetch failed', err);
         }
         renderNotPlaying();
+    }
+
+    /* ===== Recents dropdown (hover the now playing card) ===== */
+    const RECENTS_MAX = 8;
+    const RECENTS_REFRESH_MS = 30000;
+    let recentsTimer = null;
+
+    function escHtml(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+            { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+        ));
+    }
+
+    function relTime(iso) {
+        const diff = Math.max(0, Date.now() - new Date(iso).getTime());
+        const m = Math.floor(diff / 60000);
+        if (m < 1) return 'just now';
+        if (m < 60) return m + 'm ago';
+        const h = Math.floor(m / 60);
+        if (h < 24) return h + 'h ago';
+        const d = Math.floor(h / 24);
+        if (d < 7) return d + 'd ago';
+        return new Date(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    }
+
+    function fullTime(iso) {
+        return new Date(iso).toLocaleString(undefined, {
+            month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
+        });
+    }
+
+    function renderRecents(list, items) {
+        list.innerHTML = '';
+        items.slice(0, RECENTS_MAX).forEach(item => {
+            const t = item.track;
+            if (!t) return;
+            const album = Array.isArray(t.albums) ? t.albums[0] : null;
+            const img = album && album.image ? album.image : '';
+            const artists = Array.isArray(t.artists) ? t.artists.map(a => a.name).join(', ') : '';
+
+            const row = document.createElement('div');
+            row.className = 'np-recent';
+            row.dataset.name = t.name || 'Unknown track';
+            row.dataset.artist = artists;
+            row.dataset.rel = relTime(item.endTime);
+            row.dataset.full = fullTime(item.endTime);
+            row.innerHTML =
+                '<img src="' + escHtml(img) + '" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">' +
+                '<div class="np-recent-text">' +
+                    '<div class="np-recent-name">' + escHtml(t.name) + '</div>' +
+                    '<div class="np-recent-artist">' + escHtml(artists) + '</div>' +
+                '</div>' +
+                '<div class="np-recent-time">' + escHtml(relTime(item.endTime)) + '</div>';
+            list.appendChild(row);
+        });
+    }
+
+    function setupRecents(widget) {
+        const list = widget.querySelector('#npRecentsList');
+        const tip = document.getElementById('npTip');
+        if (!list || !tip) return;
+
+        // tap to toggle on touch devices
+        widget.addEventListener('click', () => widget.classList.toggle('open'));
+
+        async function loadRecents() {
+            try {
+                const res = await fetch(STATSFM_RECENT_URL);
+                if (!res.ok) return;
+                const data = await res.json();
+                if (data && Array.isArray(data.items)) renderRecents(list, data.items);
+            } catch (e) {
+                console.warn('recents fetch failed', e);
+            }
+        }
+
+        // tooltip is only used in the sidebar layout (image-only mode)
+        function inSidebar() {
+            return mainContent.classList.contains('layout-sidebar');
+        }
+
+        function placeTip(row) {
+            const r = row.getBoundingClientRect();
+            tip.innerHTML =
+                '<div class="t-name">' + escHtml(row.dataset.name) + '</div>' +
+                (row.dataset.artist ? '<div class="t-artist">' + escHtml(row.dataset.artist) + '</div>' : '') +
+                '<div class="t-time">' + escHtml(row.dataset.full) + ' · ' + escHtml(row.dataset.rel) + '</div>';
+            const w = tip.offsetWidth;
+            const x = Math.min(Math.max(r.left + r.width / 2, w / 2 + 8), window.innerWidth - w / 2 - 8);
+            let y = r.top - tip.offsetHeight - 8;
+            if (y < 8) y = r.bottom + 8;
+            tip.style.left = x + 'px';
+            tip.style.top = y + 'px';
+            tip.classList.add('show');
+        }
+
+        list.addEventListener('mouseover', (e) => {
+            if (!inSidebar()) return;
+            const row = e.target.closest('.np-recent');
+            if (row) placeTip(row);
+        });
+        list.addEventListener('mouseout', (e) => {
+            if (e.target.closest('.np-recent')) tip.classList.remove('show');
+        });
+        widget.addEventListener('mouseleave', () => tip.classList.remove('show'));
+
+        loadRecents();
+        if (recentsTimer) clearInterval(recentsTimer);
+        recentsTimer = setInterval(loadRecents, RECENTS_REFRESH_MS);
     }
 
     function startNowPlayingPolling() {
