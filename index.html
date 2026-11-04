@@ -1560,6 +1560,9 @@
       text-overflow: ellipsis;
       min-width: 0;
     }
+    a.np-track { text-decoration: none; cursor: default; }
+    a.np-track[href] { cursor: pointer; }
+    a.np-track[href]:hover { color: var(--blue); text-decoration: underline; }
     .np-label {
       display: inline-flex;
       align-items: center;
@@ -1607,6 +1610,9 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
       padding: 5px 4px;
       border-radius: var(--radius);
       transition: background 0.15s;
@@ -2582,7 +2588,7 @@
             <div class="np-album-art" id="npAlbumArt"></div>
             <div class="np-body">
                 <div class="np-line">
-                    <span class="np-track" id="npTrack">Loading...</span>
+                    <a class="np-track" id="npTrack" target="_blank" rel="noopener">Loading...</a>
                     <span class="np-label" id="npLabel"><span id="npStatus">Loading</span></span>
                 </div>
                 <div class="np-artist" id="npArtist"></div>
@@ -2603,6 +2609,11 @@
         setupRecents(widget);
     }
 
+    function spotifyUrl(track) {
+        const ids = track && track.externalIds && track.externalIds.spotify;
+        return Array.isArray(ids) && ids.length ? 'https://open.spotify.com/track/' + ids[0] : '';
+    }
+
     function renderNowPlaying(track, isPlaying) {
         const statusEl = document.getElementById('npStatus');
         const trackEl = document.getElementById('npTrack');
@@ -2611,6 +2622,8 @@
         const labelEl = document.getElementById('npLabel');
         if (!statusEl || !track) return;
         trackEl.textContent = track.name || 'Unknown track';
+        const url = spotifyUrl(track);
+        if (url) trackEl.setAttribute('href', url); else trackEl.removeAttribute('href');
         statusEl.textContent = isPlaying ? 'Now playing' : 'Last played';
         labelEl.classList.toggle('playing', isPlaying);
         const artistNames = Array.isArray(track.artists) ? track.artists.map(a => a.name).filter(Boolean).join(', ') : '';
@@ -2699,6 +2712,8 @@
     }
 
     function renderRecents(list, items) {
+        const staleTip = document.getElementById('npTip');
+        if (staleTip) staleTip.classList.remove('show');
         list.innerHTML = '';
         items.slice(0, RECENTS_MAX).forEach(item => {
             const t = item.track;
@@ -2707,8 +2722,10 @@
             const img = album && album.image ? album.image : '';
             const artists = Array.isArray(t.artists) ? t.artists.map(a => a.name).join(', ') : '';
 
-            const row = document.createElement('div');
+            const row = document.createElement('a');
             row.className = 'np-recent';
+            const url = spotifyUrl(t);
+            if (url) { row.href = url; row.target = '_blank'; row.rel = 'noopener'; }
             row.dataset.name = t.name || 'Unknown track';
             row.dataset.artist = artists;
             row.dataset.rel = relTime(item.endTime);
@@ -2729,8 +2746,18 @@
         const tip = document.getElementById('npTip');
         if (!list || !tip) return;
 
-        // tap to toggle on touch devices
-        widget.addEventListener('click', () => widget.classList.toggle('open'));
+        // touch devices have no hover: tap the card to toggle, tap elsewhere to close.
+        // (On desktop, hover alone controls it, so it can never get stuck open.)
+        const touchOnly = window.matchMedia('(hover: none)');
+        widget.addEventListener('click', (e) => {
+            if (!touchOnly.matches) return;
+            if (e.target.closest('a')) return;
+            widget.classList.toggle('open');
+        });
+        document.addEventListener('click', (e) => {
+            if (!widget.contains(e.target)) widget.classList.remove('open');
+        });
+        widget.addEventListener('mouseleave', () => widget.classList.remove('open'));
 
         async function loadRecents() {
             try {
