@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <script src="main.js" defer></script>
   
-  <!-- Primary Meta Tags -->
   <title>Akumaware.one</title>
   <meta name="title" content="Akumaware.one">
   <meta name="description" content="Akuma's personal website - developer, creator, and Kirka enthusiast. Check out my projects, blog">
@@ -13,300 +11,1709 @@
   <meta name="robots" content="index, follow">
   <meta name="language" content="English">
   <meta name="author" content="Akuma (Anthony)">
-  <meta name="theme-color" content="#16213e">
+  <meta name="theme-color" content="#0a0a0a">
   
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://akumaware.one/">
   <meta property="og:title" content="Akumaware.one">
   <meta property="og:description" content="Akuma's personal website - developer, creator, and Kirka enthusiast. Check out my projects, blog">
   <meta property="og:image" content="https://avatars.githubusercontent.com/u/217508931">
   
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://akumaware.one/">
   <meta property="twitter:title" content="Akumaware.one">
   <meta property="twitter:description" content="Akuma's personal website - developer, creator, and Kirka enthusiast. Check out my projects, blog">
   <meta property="twitter:image" content="https://avatars.githubusercontent.com/u/217508931">
   
-  <!-- Additional Meta Tags -->
   <link rel="canonical" href="https://akumaware.one/">
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/OBS-Akuma/Ubuntu-client/refs/heads/main/assets/icon.png">
   <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/OBS-Akuma/Ubuntu-client/refs/heads/main/assets/icon.png">
   
-  <!-- Import CSS -->
-  <link rel="stylesheet" href="assets/css/oneko.css">
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="stylesheet" href="assets/css/kirka-ui.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      --bg0: #0a0a0a;
+      --bg-tint: rgba(10, 10, 10, 0.35);
+      --card: rgba(21, 21, 21, 0.6);
+      --field: #0b0b0b;
+      --line: #1f1f1f;
+      --line-strong: #2c2c2c;
+      --text: #f2f2f2;
+      --text-muted: #858585;
+      --green: #3ddc84;
+      --green-dim: rgba(61, 220, 132, 0.14);
+      --green-border: rgba(61, 220, 132, 0.35);
+      --blue: #2bb0ff;
+      --blue-dim: rgba(43, 176, 255, 0.16);
+      --blue-border: rgba(43, 176, 255, 0.38);
+      --purple: #b388ff;
+      --danger: #ff5b5b;
+      --danger-bg: rgba(255, 82, 82, 0.16);
+      --danger-border: rgba(255, 82, 82, 0.4);
+      --radius: 6px;
+      --radius-lg: 10px;
+      --font: "Rubik", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+      --background-url: url("https://raw.githubusercontent.com/OBS-Akuma/Ubuntu-client/refs/heads/main/assets/Background.gif");
+      --video-blur: 6px;
+      --video-brightness: 0.4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *::before, *::after { box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font);
+      color: var(--text);
+      padding: 2rem;
+      background: var(--bg0);
+      overflow-x: hidden;
+      cursor: url('https://akumaware.one/assets/cur/harrow.cur'), auto;
+      transition: background 0.3s;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: blur(var(--video-blur)) brightness(var(--video-brightness));
+      z-index: -3;
+      transform: scale(1.04);
+      pointer-events: none;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.25);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(var(--bg-tint), var(--bg-tint)),
+        var(--background-url) center / cover no-repeat,
+        var(--bg0);
+      opacity: 0.55;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.08);
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      border-radius: 6px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.2);
+      background-clip: padding-box;
+    }
+    ::-webkit-scrollbar-corner { background: transparent; }
+    * { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+
+    .fake-window {
+      max-width: 1000px;
+      width: 100%;
+      background:
+        linear-gradient(var(--bg-tint), var(--bg-tint)),
+        var(--background-url) center / cover no-repeat,
+        rgba(10, 10, 10, 0.85);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.7);
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      max-height: 94vh;
+      transition: max-width 0.3s ease, width 0.3s ease;
+    }
+
+    body.wide-window .fake-window { max-width: 1200px; }
+
+    .tab-bar {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      padding: 10px 14px 0;
+      border-bottom: 1px solid var(--line);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fake-tab {
+      background: transparent;
+      padding: 8px 0 8px 14px;
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.15s, color 0.15s;
+      font-family: var(--font);
+    }
+    .fake-tab:hover { background: rgba(255,255,255,0.04); color: var(--text); }
+    .fake-tab.active-tab {
+      background: var(--card);
+      border-color: var(--line);
+      color: var(--text);
+      margin-bottom: -1px;
+      border-bottom: 1px solid var(--card);
+    }
+
+    .tab-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    .tab-icon img { width: 100%; height: 100%; display: block; object-fit: contain; }
+
+    .tab-close {
+      color: var(--text-muted);
+      line-height: 1;
+      opacity: 0.5;
+      padding: 0 12px 0 4px;
+      position: relative;
+      z-index: 1;
+      transition: color 0.15s, opacity 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tab-close svg { width: 10px; height: 10px; stroke: currentColor; stroke-width: 2; fill: none; }
+    .fake-tab:hover .tab-close { opacity: 0.9; }
+    .tab-close:hover { color: var(--danger); opacity: 1; }
+
+    .new-tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 8px 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      transition: background 0.15s, color 0.15s;
+      font-family: var(--font);
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+    }
+    .new-tab-btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; fill: none; }
+    .new-tab-btn:hover { background: rgba(255,255,255,0.04); color: var(--text); }
+    .new-tab-btn:disabled { opacity: 0.35; cursor: not-allowed; background: transparent; }
+
+    .address-bar {
+      background: var(--field);
+      padding: 6px 18px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 20;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      flex-shrink: 0;
+    }
+    .nav-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-btn:hover { background: var(--blue-dim); border-color: var(--blue-border); color: var(--blue); }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; background: transparent; border-color: var(--line); color: var(--text-muted); }
+
+    .address-field {
+      flex: 1;
+      background: #070707;
+      padding: 5px 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      letter-spacing: 0.02em;
+    }
+    .address-field span { opacity: 0.7; }
+    .address-field .reload-icon {
+      margin-left: auto;
+      opacity: 0.4;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+    }
+    .address-field .reload-icon svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .settings-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .settings-btn:hover {
+      background: var(--blue-dim);
+      border-color: var(--blue-border);
+      color: var(--blue);
+      transform: rotate(45deg);
+    }
+    .settings-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .settings-panel {
+      position: absolute;
+      top: 100%;
+      right: 14px;
+      margin-top: 8px;
+      width: 340px;
+      max-height: 70vh;
+      overflow-y: auto;
+      background: #161616;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 18px 44px rgba(0,0,0,0.7);
+      z-index: 100;
+      padding: 8px;
+      display: none;
+      transform-origin: top right;
+      animation: pop-in 0.16s ease;
+    }
+    .settings-panel.open { display: block; }
+    @keyframes pop-in {
+      from { opacity: 0; transform: scale(0.96) translateY(-4px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .settings-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px 10px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 8px;
+    }
+    .settings-panel-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .settings-panel-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+      font-family: var(--font);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .settings-panel-close svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2; fill: none; }
+    .settings-panel-close:hover { background: var(--danger-bg); color: var(--danger); }
+
+    .settings-group {
+      padding: 4px 0;
+    }
+    .settings-group + .settings-group {
+      border-top: 1px solid var(--line);
+      margin-top: 6px;
+      padding-top: 10px;
+    }
+    .settings-group-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 8px 8px;
+    }
+
+    .settings-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px;
+      border-radius: var(--radius);
+      transition: background 0.15s;
+    }
+    .settings-row:hover { background: #1c1c1c; }
+    .settings-row.vertical {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+    .settings-row-info { min-width: 0; flex: 1; }
+    .settings-row-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .settings-row-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .toggle {
+      position: relative;
+      display: flex;
+      width: 96px;
+      height: 30px;
+      padding: 2px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #070707;
+      cursor: pointer;
+      flex-shrink: 0;
+      border: none;
+      outline: none;
+      font-family: var(--font);
+    }
+    .toggle-pill {
+      position: absolute;
+      top: 2px;
+      bottom: 2px;
+      left: 2px;
+      width: calc((100% - 4px) / 2);
+      border-radius: 4px;
+      background: rgba(255, 82, 82, 0.2);
+      transition: transform 0.35s cubic-bezier(.34,1.45,.55,1), background-color 0.3s ease;
+      pointer-events: none;
+    }
+    .toggle.on .toggle-pill {
+      transform: translateX(100%);
+      background: var(--blue-dim);
+    }
+    .toggle-label {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      pointer-events: none;
+      transition: color 0.3s;
+    }
+    .toggle:not(.on) .toggle-label:first-of-type { color: var(--danger); }
+    .toggle.on .toggle-label:last-of-type { color: var(--blue); }
+
+    .settings-slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .settings-slider-wrap {
+      position: relative;
+      flex: 1;
+      height: 30px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #070707;
+      cursor: pointer;
+    }
+    .settings-slider-fill {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: calc(100% * var(--pct, 0));
+      background: var(--blue-dim);
+      transition: width 0.15s ease;
+      pointer-events: none;
+    }
+    .settings-slider-thumb {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      left: calc(100% * var(--pct, 0) - 7px);
+      width: 14px;
+      border-radius: 3px;
+      background: #fff;
+      pointer-events: none;
+      transition: left 0.15s ease;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+    .settings-slider-wrap.dragging .settings-slider-fill,
+    .settings-slider-wrap.dragging .settings-slider-thumb {
+      transition: none;
+    }
+    .settings-slider {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      outline: none;
+    }
+    .settings-slider-value {
+      width: 52px;
+      min-width: 52px;
+      padding: 6px 4px;
+      text-align: center;
+      background: #070707;
+      color: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      outline: none;
+    }
+
+    .layout-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      padding: 4px 8px 8px;
+    }
+    .layout-option {
+      position: relative;
+      aspect-ratio: 1;
+      background: #0d0d0d;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 4px;
+      gap: 2px;
+    }
+    .layout-option:hover { border-color: var(--line-strong); background: #121212; }
+    .layout-option.active {
+      border-color: var(--blue-border);
+      background: var(--blue-dim);
+    }
+    .layout-option .layout-bar {
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.12);
+      flex-shrink: 0;
+    }
+    .layout-option .layout-body {
+      flex: 1;
+      display: flex;
+      gap: 2px;
+      min-height: 0;
+    }
+    .layout-option .layout-block {
+      background: rgba(255,255,255,0.08);
+      border-radius: 2px;
+      flex: 1;
+    }
+    .layout-option.active .layout-bar,
+    .layout-option.active .layout-block { background: rgba(43,176,255,0.5); }
+
+    .settings-reset {
+      width: 100%;
+      padding: 8px;
+      background: transparent;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      margin-top: 4px;
+    }
+    .settings-reset:hover {
+      background: var(--danger-bg);
+      color: var(--danger);
+      border-color: var(--danger-border);
+    }
+
+    .tab-content {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 24px 28px 60px;
+      position: relative;
+    }
+
+    .main-content,
+    .new-tab-page,
+    .projects-page,
+    .assets-page,
+    .languages-page,
+    .friends-page,
+    .links-page,
+    .blog-page,
+    .renders-page {
+      display: none !important;
+    }
+
+    .main-content.page-active,
+    .new-tab-page.page-active,
+    .projects-page.page-active,
+    .assets-page.page-active,
+    .languages-page.page-active,
+    .friends-page.page-active,
+    .links-page.page-active,
+    .blog-page.page-active,
+    .renders-page.page-active {
+      display: block !important;
+      animation: fade-in 0.18s ease;
+    }
+
+    .new-tab-page.page-active,
+    .projects-page.page-active,
+    .assets-page.page-active,
+    .languages-page.page-active,
+    .friends-page.page-active,
+    .links-page.page-active,
+    .blog-page.page-active,
+    .renders-page.page-active {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem 0;
+      width: 100%;
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .main-content.layout-sidebar.page-active {
+      display: grid !important;
+      grid-template-columns: 260px 1fr;
+      gap: 1.4rem 1.8rem;
+      align-items: start;
+    }
+
+    .main-content.layout-sidebar .sidebar-sticky {
+      grid-column: 1;
+      grid-row: 1;
+      position: sticky;
+      top: 0;
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .main-content.layout-sidebar .profile-header {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem;
+      margin-bottom: 0;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      flex-shrink: 0;
+    }
+    .main-content.layout-sidebar .profile-image-wrapper {
+      width: 100%;
+      height: 180px;
+    }
+
+    .main-content.layout-sidebar .cool-people-section {
+      margin: 0;
+      padding: 1rem;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      flex-shrink: 0;
+    }
+    .main-content.layout-sidebar .cool-people-section .section-heading {
+      margin-top: 0;
+    }
+
+    .main-content.layout-sidebar .connections-card {
+      margin: 0;
+      padding: 1rem;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      flex-shrink: 0;
+    }
+    .main-content.layout-sidebar .connections-card .section-heading {
+      margin-top: 0;
+    }
+    .main-content.layout-sidebar .connections-card .connections-grid {
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .main-content.layout-sidebar .connections-card .dm-btn {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .main-content.layout-sidebar .right-column {
+      grid-column: 2;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .main-content.layout-sidebar .bio-top {
+      margin-top: 0;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-radius: var(--radius-lg);
+      transition: background 0.15s;
+    }
+    .profile-header:hover { background: rgba(255,255,255,0.02); }
+
+    .profile-image-wrapper {
+      position: relative;
+      width: 92px;
+      height: 92px;
+      flex-shrink: 0;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--field);
+      transition: width 0.3s, height 0.3s;
+    }
+    .profile-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .profile-image-wrapper .overlay-image {
+      position: absolute;
+      top: 2px;
+      left: -6px;
+      width: 112%;
+      height: 104%;
+      opacity: 1;
+    }
+
+    .site-header {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.01em;
+      font-family: var(--font);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .site-header span {
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+    .site-header .gj-image {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+    }
+    .site-header .gj-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .bio-top {
+      margin-top: 0.5rem;
+      margin-bottom: 1.6rem;
+      padding: 16px 18px;
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+    }
+    .bio-text {
+      font-size: 0.92rem;
+      color: #b8b8c0;
+      line-height: 1.6;
+      margin: 0.15rem 0;
+      font-family: var(--font);
+    }
+    .bio-text strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .bio-info {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      margin-left: 6px;
+      vertical-align: middle;
+      color: var(--text-muted);
+      cursor: help;
+      transition: color 0.15s;
+    }
+    .bio-info svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .bio-info:hover { color: var(--blue); }
+    .bio-tip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 230px;
+      padding: 9px 11px;
+      border-radius: var(--radius);
+      background: #1b1b1b;
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.6);
+      text-align: left;
+      font-family: var(--font);
+      font-size: 0.75rem;
+      font-weight: 400;
+      line-height: 1.45;
+      color: #d0d0d0;
+      display: none;
+      pointer-events: none;
+      z-index: 50;
+      white-space: normal;
+    }
+    .bio-info:hover .bio-tip { display: block; animation: tip-in 0.15s ease; }
+    @keyframes tip-in { from { opacity: 0; transform: translate(-50%, 4px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+    .section-heading {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 1.6rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.08em;
+      font-family: var(--font);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+    .section-heading:first-of-type { margin-top: 0; }
+
     .connections-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin: 10px 0 20px 0;
+      gap: 8px;
+      margin: 10px 0 20px;
     }
-    
-    .connections-grid .button {
-      flex: 1 1 auto;
+
+    .dm-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 0.88rem;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, transform 0.1s, border-color 0.15s;
+      outline: none;
+      -webkit-appearance: none;
+      text-decoration: none;
       min-width: 100px;
+      flex: 1 1 auto;
+      color: var(--text);
+      background: #212121;
     }
+    .dm-btn:active { transform: scale(0.98); }
+    .dm-btn:hover { background: #2b2b2b; }
 
-    .about-poem {
-      font-family: 'Courier New', monospace;
-      color: #b0c7e0;
-      line-height: 1.6;
-      margin: 12px 0;
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border-left: 2px solid var(--blue-4);
+    .dm-btn-green {
+      background: var(--green-dim);
+      color: var(--green);
+      border: 1px solid var(--green-border);
     }
+    .dm-btn-green:hover { background: rgba(61, 220, 132, 0.24); }
 
-    .tech-icons-section {
-      margin: 16px 0;
-      text-align: center;
+    .dm-btn-blue {
+      background: var(--blue-dim);
+      color: var(--blue);
+      border: 1px solid var(--blue-border);
     }
+    .dm-btn-blue:hover { background: rgba(43, 176, 255, 0.26); }
 
-    .tech-icons-section img {
-      max-width: 100%;
-      margin: 4px 0;
+    .dm-btn-red {
+      background: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid var(--danger-border);
     }
+    .dm-btn-red:hover { background: rgba(255, 82, 82, 0.26); }
+
+    .dm-btn-purple {
+      background: rgba(179, 136, 255, 0.14);
+      color: var(--purple);
+      border: 1px solid rgba(179, 136, 255, 0.35);
+    }
+    .dm-btn-purple:hover { background: rgba(179, 136, 255, 0.26); }
+
+    .dm-btn-neutral {
+      background: #212121;
+      color: #e6e6e6;
+      border: 1px solid var(--line-strong);
+    }
+    .dm-btn-neutral:hover { background: #2b2b2b; }
 
     .music-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin: 10px 0 20px 0;
+      margin: 10px 0 20px;
     }
-
     .music-chip {
-      background: rgba(255, 255, 255, 0.06);
-      color: #b0c7e0;
-      font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
-      padding: 6px 14px;
-      border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--field);
+      color: #b8b8c0;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      transition: all 0.15s ease;
       cursor: default;
     }
-
     .music-chip:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: var(--blue-4);
-      color: #fff;
+      background: #151515;
+      border-color: var(--line-strong);
+      color: var(--text);
     }
 
-    /* Other Cool People section */
+    .tech-icons-section {
+      margin: 12px 0;
+      padding: 14px 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+    .tech-icons-section img { max-width: 100%; margin: 2px 0; display: inline-block; }
+
+    .item-list {
+      list-style: none;
+      margin: 0 0 0.6rem;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 12px 16px;
+    }
+    .item-list li {
+      font-size: 0.88rem;
+      color: #b8b8c0;
+      padding: 4px 0;
+      font-weight: 400;
+      line-height: 1.55;
+      font-family: var(--font);
+    }
+    .item-list li a {
+      color: var(--blue);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+      cursor: pointer;
+    }
+    .item-list li a:hover { border-bottom-color: var(--blue); }
+    .item-list li .badge-image {
+      display: inline-block;
+      vertical-align: middle;
+      width: 88px;
+      height: 31px;
+      margin: 0 4px;
+    }
+    .item-list li .badge-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
     .cool-people-section {
-      margin: 30px 0 10px 0;
+      margin: 30px 0 10px;
       padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-top: 1px solid var(--line);
     }
-
     .cool-people-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin: 12px 0 0 0;
+      margin: 12px 0 0;
       align-items: center;
     }
-
     .cool-people-grid a {
       display: inline-block;
       line-height: 0;
       transition: transform 0.2s ease, filter 0.2s ease;
+      border-radius: var(--radius);
+      overflow: hidden;
     }
-
     .cool-people-grid a:hover {
       transform: scale(1.05);
       filter: brightness(1.15);
     }
-
     .cool-people-grid img {
-      border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius);
+      border: 1px solid var(--line-strong);
       image-rendering: pixelated;
       width: 88px;
       height: 31px;
       display: block;
     }
 
-    /* osu! button using pink theme */
-    .btn-osu {
-      background-color: var(--pink-1) !important;
-      --hover-color: var(--pink-2) !important;
-      --top: var(--pink-2) !important;
-      --bottom: var(--pink-3) !important;
-    }
-
-    /* NEW: Froke button using green-1 */
-    .btn-froke {
-      background-color: var(--green-1) !important;
-      --hover-color: var(--green-4) !important;
-      --top: var(--green-2) !important;
-      --bottom: var(--green-3) !important;
-    }
-
-    /* RENDERS PAGE STYLES */
-    .renders-page {
-      display: none;
-      padding: 20px;
-      color: #e0e0e0;
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .renders-page.active {
-      display: block;
-    }
-
-    .renders-page h2 {
-      font-family: 'Courier New', monospace;
-      color: #b0c7e0;
-      font-size: 1.4rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      padding-bottom: 12px;
-      margin-bottom: 20px;
+    .meow-logo {
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--text);
       letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+      font-family: var(--font);
     }
+    .meow-logo span { font-weight: 600; color: var(--green); }
 
-    .renders-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 8px;
-    }
-
-    .render-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 6px;
-      overflow: hidden;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-
-    .render-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--blue-4);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .render-thumb {
+    .meow-search-bar {
       width: 100%;
-      aspect-ratio: 16/10;
-      background: #0f1a2e;
+      max-width: 450px;
+      padding: 12px 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--field);
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      font-family: var(--font);
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      outline: none;
+    }
+    .meow-search-bar:hover { border-color: #444; }
+    .meow-search-bar::placeholder { color: #5f5f5f; }
+
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+      width: 100%;
+      max-width: 380px;
+      margin-top: 0.5rem;
+    }
+    .link-grid a {
+      display: block;
+      padding: 0.85rem 0.4rem;
+      background: #151515;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      color: #e6e6e6;
+      text-decoration: none;
+      font-size: 0.86rem;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      text-align: center;
+      cursor: pointer;
+      font-family: var(--font);
+      font-weight: 500;
+    }
+    .link-grid a:hover {
+      background: var(--blue-dim);
+      border-color: var(--blue-border);
+      color: var(--blue);
+    }
+
+    .projects-page h2,
+    .assets-page h2,
+    .languages-page h2,
+    .friends-page h2,
+    .links-page h2,
+    .blog-page h2,
+    .renders-page h2 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      font-family: var(--font);
+      letter-spacing: 0.01em;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+      width: 100%;
+      max-width: 600px;
+      text-align: left;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      width: 100%;
+      max-width: 520px;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.1rem;
+      text-align: left;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+    .project-card:hover {
+      background: #191919;
+      border-color: var(--line-strong);
+      transform: translateY(-1px);
+    }
+    .project-card .project-name {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font);
+    }
+    .project-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--field);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      flex-shrink: 0;
       overflow: hidden;
+    }
+    .project-icon img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .project-card .project-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-left: 2.6rem;
+      font-family: var(--font);
+    }
+
+    .assets-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      width: 100%;
+      max-width: 520px;
+    }
+    .asset-item {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1rem 0.4rem;
+      text-align: center;
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .asset-item:hover { background: #191919; border-color: var(--line-strong); }
+    .asset-item .asset-thumb {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: var(--field);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       display: flex;
       align-items: center;
       justify-content: center;
     }
+    .asset-item .asset-thumb svg {
+      width: 28px;
+      height: 28px;
+      opacity: 0.35;
+      stroke: var(--text-muted);
+      fill: none;
+    }
+    .asset-item .asset-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: var(--font);
+    }
 
-    .render-thumb img {
+    .languages-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 1.2rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .lang-chip {
+      background: var(--field);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      padding: 0.65rem 1.4rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      font-family: var(--mono);
+      letter-spacing: 0.04em;
+      transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+    }
+    .lang-chip:hover {
+      background: var(--blue-dim);
+      border-color: var(--blue-border);
+      color: var(--blue);
+      transform: scale(0.97);
+    }
+
+    .friends-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .friend-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 0.9rem 0.4rem 0.7rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+    .friend-card:hover {
+      background: #191919;
+      border-color: var(--line-strong);
+      transform: scale(0.98);
+    }
+    .friend-avatar {
+      width: 72px;
+      height: 72px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--field);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .friend-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .friend-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+      font-family: var(--font);
+      margin-top: 0.2rem;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.9rem;
+      width: 100%;
+      max-width: 600px;
+    }
+    .link-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 1rem 0.6rem 0.8rem;
+      background: #151515;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      color: #e6e6e6;
+      transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+      font-family: var(--font);
+    }
+    .link-card:hover {
+      background: var(--blue-dim);
+      border-color: var(--blue-border);
+      color: var(--blue);
+      transform: scale(0.98);
+    }
+    .link-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      background: var(--field);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .link-icon img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
+    .link-icon .link-fallback {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .link-card .link-name {
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-align: center;
+      word-break: break-all;
+      line-height: 1.3;
+    }
 
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      width: 100%;
+      max-width: 640px;
+    }
+    .blog-post {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+      text-align: left;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .blog-post:hover { background: #191919; border-color: var(--line-strong); }
+    .blog-post .post-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      font-family: var(--font);
+      margin-bottom: 0.3rem;
+    }
+    .blog-post .post-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+    .blog-post .post-test {
+      font-size: 0.88rem;
+      color: #b8b8c0;
+      margin-top: 0.5rem;
+      line-height: 1.55;
+      font-family: var(--font);
+    }
+    .blog-loading, .blog-error {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-family: var(--font);
+      padding: 2rem 0;
+      text-align: center;
+      width: 100%;
+    }
+    .blog-loading.hidden, .blog-error.hidden { display: none; }
+
+    .renders-page {
+      align-items: stretch;
+      text-align: left;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .renders-page h2 { max-width: none; }
+    .renders-page p {
+      color: var(--text-muted) !important;
+      font-family: var(--font) !important;
+      font-size: 0.85rem !important;
+      margin-bottom: 16px !important;
+    }
+    .renders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+      width: 100%;
+    }
+    .render-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .render-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+    .render-thumb {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: var(--field);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .render-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .render-card:hover .render-thumb img { transform: scale(1.04); }
     .render-thumb .placeholder {
       color: #4a5a6e;
-      font-family: 'Courier New', monospace;
+      font-family: var(--mono);
       font-size: 0.8rem;
       text-align: center;
       padding: 12px;
     }
-
-    .render-info {
-      padding: 10px 14px;
-    }
-
+    .render-info { padding: 10px 14px; }
     .render-title {
-      font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
-      color: #c0d0e0;
+      font-family: var(--font);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
       margin-bottom: 2px;
     }
-
     .render-desc {
-      font-size: 0.75rem;
-      color: #6a7a8e;
-      font-family: 'Courier New', monospace;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-family: var(--font);
     }
 
-    /* Click to enlarge overlay */
     .render-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
       z-index: 9999;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       backdrop-filter: blur(8px);
     }
-
-    .render-overlay.active {
-      display: flex;
-    }
-
+    .render-overlay.active { display: flex; }
     .render-overlay img {
       max-width: 90vw;
       max-height: 85vh;
       object-fit: contain;
-      border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 60px rgba(0, 0, 0, 0.6);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
     }
-
     .render-overlay .close-overlay {
       position: absolute;
       top: 24px;
       right: 32px;
       color: #fff;
-      font-family: 'Courier New', monospace;
-      font-size: 1.8rem;
+      font-family: var(--font);
+      font-size: 1.6rem;
       cursor: pointer;
       opacity: 0.6;
       transition: opacity 0.2s;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
     }
-
-    .render-overlay .close-overlay:hover {
-      opacity: 1;
-    }
-
+    .render-overlay .close-overlay:hover { opacity: 1; background: rgba(255,255,255,0.1); }
     .render-overlay .overlay-info {
       position: absolute;
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
       color: rgba(255, 255, 255, 0.5);
-      font-family: 'Courier New', monospace;
+      font-family: var(--font);
       font-size: 0.8rem;
       text-align: center;
+    }
+
+    .now-playing-widget {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0.6rem 0 1.6rem 0;
+      padding: 12px 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      font-family: var(--font);
+      max-width: 100%;
+    }
+    .np-album-art {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      background: var(--field);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .np-album-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .np-body { min-width: 0; overflow: hidden; flex: 1; }
+    .np-line {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      min-width: 0;
+    }
+    .np-track {
+      font-size: 0.92rem;
+      color: var(--text);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+    .np-label {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--blue-dim);
+      color: var(--blue);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .np-label.playing { background: var(--green-dim); color: var(--green); }
+    .np-artist {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 3px;
+    }
+
+    body.light-mode {
+      --bg0: #e6e6e6;
+      --bg-tint: rgba(230, 230, 230, 0.35);
+      --card: rgba(255, 255, 255, 0.65);
+      --field: #f0f0f0;
+      --line: #d0d0d0;
+      --line-strong: #b8b8b8;
+      --text: #1a1a1a;
+      --text-muted: #6a6a6a;
+      --green: #1a9e58;
+      --green-dim: rgba(26, 158, 88, 0.12);
+      --green-border: rgba(26, 158, 88, 0.3);
+      --blue: #0b7fc4;
+      --blue-dim: rgba(11, 127, 196, 0.12);
+      --blue-border: rgba(11, 127, 196, 0.3);
+      --danger: #cc3333;
+      --danger-bg: rgba(204, 51, 51, 0.1);
+      --danger-border: rgba(204, 51, 51, 0.3);
+    }
+    body.light-mode .fake-window {
+      background:
+        linear-gradient(var(--bg-tint), var(--bg-tint)),
+        var(--background-url) center / cover no-repeat,
+        rgba(230, 230, 230, 0.85);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    body.light-mode::before { background: rgba(230, 230, 230, 0.15); }
+    body.light-mode .address-field { background: #e0e0e0; }
+    body.light-mode .link-grid a,
+    body.light-mode .link-card { background: #ececec; color: #1a1a1a; }
+    body.light-mode .link-grid a:hover,
+    body.light-mode .link-card:hover { background: var(--blue-dim); color: var(--blue); }
+    body.light-mode .dm-btn-neutral { background: #dedede; color: #1a1a1a; }
+    body.light-mode .dm-btn-neutral:hover { background: #d0d0d0; }
+    body.light-mode .item-list li { color: #333; }
+    body.light-mode .bio-text { color: #333; }
+    body.light-mode .music-chip { background: #ececec; color: #333; }
+    body.light-mode .music-chip:hover { background: #e0e0e0; }
+    body.light-mode .settings-panel { background: #f5f5f5; }
+    body.light-mode .settings-panel-title { color: #1a1a1a; }
+    body.light-mode .settings-row:hover { background: #ebebeb; }
+    body.light-mode .settings-row-label { color: #1a1a1a; }
+    body.light-mode .settings-slider-wrap { background: #dfdfdf; }
+    body.light-mode .settings-slider-value { background: #e8e8e8; color: #1a1a1a; }
+    body.light-mode .toggle { background: #dfdfdf; }
+    body.light-mode .toggle-label { color: #6a6a6a; }
+    body.light-mode .layout-option { background: #eaeaea; }
+    body.light-mode .layout-option:hover { background: #e0e0e0; }
+    body.light-mode .layout-option .layout-bar,
+    body.light-mode .layout-option .layout-block { background: rgba(0,0,0,0.12); }
+    body.light-mode .bio-tip { background: #fff; color: #333; }
+    body.light-mode .link-icon { background: #e0e0e0; }
+
+    @media (max-width: 900px) {
+      body { padding: 0; }
+      .fake-window { border-radius: 0; max-height: 100vh; height: 100vh; border: none; max-width: 100% !important; }
+      .tab-content { padding: 18px 16px 70px; }
+      .main-content.layout-sidebar.page-active {
+        display: block !important;
+      }
+      .main-content.layout-sidebar .sidebar-sticky {
+        position: static;
+      }
+      .main-content.layout-sidebar .profile-header {
+        position: static;
+        flex-direction: row;
+        align-items: center;
+      }
+      .main-content.layout-sidebar .profile-image-wrapper {
+        width: 92px;
+        height: 92px;
+      }
+      .main-content.layout-sidebar .connections-card .connections-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .profile-image-wrapper { width: 72px; height: 72px; }
+      .profile-header { gap: 0.75rem; }
+      .site-header { font-size: 1.15rem; }
+      .bio-text { font-size: 0.85rem; }
+      .meow-logo { font-size: 2.4rem; }
+      .link-grid { grid-template-columns: 1fr; max-width: 100%; }
+      .projects-grid { max-width: 100%; }
+      .assets-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+      .projects-page h2,
+      .assets-page h2,
+      .languages-page h2,
+      .friends-page h2,
+      .links-page h2,
+      .blog-page h2,
+      .renders-page h2 { font-size: 1.2rem; }
+      .project-card .project-name { font-size: 0.9rem; }
+      .project-card .project-desc { font-size: 0.78rem; margin-left: 2.2rem; }
+      .project-icon { width: 28px; height: 28px; }
+      .address-field { font-size: 0.65rem; }
+      .languages-grid { gap: 0.7rem 0.9rem; }
+      .lang-chip { font-size: 0.88rem; padding: 0.5rem 1rem; }
+      .friends-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.8rem; }
+      .friend-avatar { width: 60px; height: 60px; }
+      .site-header .gj-image { width: 20px; height: 20px; }
+      .item-list li .badge-image { width: 70px; height: 25px; }
+      .links-grid { grid-template-columns: 1fr; max-width: 100%; }
+      .link-card .link-name { font-size: 0.78rem; }
+      .blog-grid { max-width: 100%; }
+      .blog-post .post-name { font-size: 0.95rem; }
+      .blog-post .post-test { font-size: 0.8rem; }
+      .renders-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+      .fake-tab { font-size: 0.78rem; padding: 7px 0 7px 10px; }
+      .tab-close { padding-right: 8px; }
+      .new-tab-btn { padding: 7px 9px; min-width: 30px; }
+      .settings-panel { width: calc(100vw - 28px); right: 14px; left: 14px; max-height: 75vh; }
+      .layout-options { grid-template-columns: repeat(2, 1fr); }
+      .bio-tip { width: 190px; }
     }
   </style>
 </head>
 <body>
 
-<!-- BACKGROUND AUDIO -->
 <audio id="bg-audio" loop preload="auto">
-  <source src="assets/media/Hatsune%20Miku%20no%20Gekishou.mp3" type="audio/mpeg">
+  <source src="https://akumaware.one/assets/media/Hatsune%20Miku%20no%20Gekishou.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
-<!-- VIDEO BACKGROUND (BLURRED) -->
 <video id="bg-video" autoplay loop muted playsinline>
-  <source src="/assets/AMRbot.mp4" type="video/mp4">
+  <source src="https://akumaware.one/assets/AMRbot.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
-<!-- IMAGE OVERLAY FOR RENDERS -->
 <div class="render-overlay" id="renderOverlay">
   <span class="close-overlay" id="closeOverlay">✕</span>
   <img id="overlayImage" src="" alt="Render preview">
@@ -315,200 +1722,291 @@
 
 <div class="fake-window">
 
-  <!-- TAB BAR -->
   <div class="tab-bar" id="tabBar">
     <div class="fake-tab active-tab" data-tab="main" id="mainTab">
       <span class="tab-icon"><img src="https://raw.githubusercontent.com/OBS-Akuma/Ubuntu-client/refs/heads/main/assets/icon.png" alt="icon" onerror="this.style.display='none'"></span>
       <span>Hiya</span>
-      <span class="tab-close" id="closeMainTab">x</span>
+      <span class="tab-close" id="closeMainTab"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
     </div>
-    <button class="new-tab-btn" id="newTabBtn">+</button>
+    <button class="new-tab-btn" id="newTabBtn" title="New tab">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
   </div>
 
-  <!-- ADDRESS BAR -->
   <div class="address-bar">
-    <div class="address-dot">&lt; &gt;</div>
+    <button class="nav-btn" id="backBtn" title="Back" disabled>
+      <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    </button>
+    <button class="nav-btn" id="fwdBtn" title="Forward" disabled>
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
     <div class="address-field">
       <span id="addressDisplay">Akumaware.one</span>
-      <span class="reload-icon">↻</span>
+      <span class="reload-icon" title="Reload">
+        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      </span>
+    </div>
+    <button class="settings-btn" id="settingsBtn" title="Settings" aria-label="Open settings">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+
+    <div class="settings-panel" id="settingsPanel">
+      <div class="settings-panel-header">
+        <span class="settings-panel-title">Settings</span>
+        <button class="settings-panel-close" id="settingsClose" aria-label="Close settings">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-group-label">Audio</div>
+        <div class="settings-row">
+          <div class="settings-row-info">
+            <div class="settings-row-label">Background Music</div>
+            <div class="settings-row-desc">Mute or unmute the looping song</div>
+          </div>
+          <button class="toggle" id="musicToggle" aria-label="Toggle background music">
+            <span class="toggle-pill"></span>
+            <span class="toggle-label">Off</span>
+            <span class="toggle-label">On</span>
+          </button>
+        </div>
+        <div class="settings-row vertical">
+          <div class="settings-row-info">
+            <div class="settings-row-label">Music Volume</div>
+            <div class="settings-row-desc">How loud the background song is</div>
+          </div>
+          <div class="settings-slider-row">
+            <div class="settings-slider-wrap" id="volumeWrap">
+              <div class="settings-slider-fill"></div>
+              <div class="settings-slider-thumb"></div>
+              <input type="range" class="settings-slider" id="volumeSlider" min="0" max="100" step="1" value="20">
+            </div>
+            <input type="text" class="settings-slider-value" id="volumeValue" value="20%" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-group-label">Appearance</div>
+        <div class="settings-row">
+          <div class="settings-row-info">
+            <div class="settings-row-label">Dark Mode</div>
+            <div class="settings-row-desc">Switch between dark and light theme</div>
+          </div>
+          <button class="toggle on" id="themeToggle" aria-label="Toggle dark mode">
+            <span class="toggle-pill"></span>
+            <span class="toggle-label">Light</span>
+            <span class="toggle-label">Dark</span>
+          </button>
+        </div>
+
+        <div class="settings-row vertical">
+          <div class="settings-row-info">
+            <div class="settings-row-label">Layout</div>
+            <div class="settings-row-desc">Pick how the main page is arranged</div>
+          </div>
+          <div class="layout-options" id="layoutOptions">
+            <div class="layout-option active" data-layout="default" title="Default (stacked)">
+              <div class="layout-bar"></div>
+              <div class="layout-body"><div class="layout-block"></div></div>
+              <div class="layout-bar"></div>
+              <div class="layout-body"><div class="layout-block"></div></div>
+            </div>
+            <div class="layout-option" data-layout="sidebar" title="Sidebar (sticky profile + cool people + connections)">
+              <div class="layout-bar"></div>
+              <div class="layout-body"><div class="layout-block" style="flex:0 0 30%;"></div><div class="layout-block"></div></div>
+              <div class="layout-bar"></div>
+              <div class="layout-body"><div class="layout-block" style="flex:0 0 30%;"></div><div class="layout-block"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-row vertical">
+          <div class="settings-row-info">
+            <div class="settings-row-label">Background Blur</div>
+            <div class="settings-row-desc">How blurred the video background is</div>
+          </div>
+          <div class="settings-slider-row">
+            <div class="settings-slider-wrap" id="blurWrap">
+              <div class="settings-slider-fill"></div>
+              <div class="settings-slider-thumb"></div>
+              <input type="range" class="settings-slider" id="blurSlider" min="0" max="20" step="1" value="6">
+            </div>
+            <input type="text" class="settings-slider-value" id="blurValue" value="6px" readonly>
+          </div>
+        </div>
+        <div class="settings-row vertical">
+          <div class="settings-row-info">
+            <div class="settings-row-label">Background Brightness</div>
+            <div class="settings-row-desc">Dim or brighten the video background</div>
+          </div>
+          <div class="settings-slider-row">
+            <div class="settings-slider-wrap" id="brightnessWrap">
+              <div class="settings-slider-fill"></div>
+              <div class="settings-slider-thumb"></div>
+              <input type="range" class="settings-slider" id="brightnessSlider" min="0" max="100" step="5" value="40">
+            </div>
+            <input type="text" class="settings-slider-value" id="brightnessValue" value="40%" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-group-label">Behavior</div>
+        <div class="settings-row">
+          <div class="settings-row-info">
+            <div class="settings-row-label">Background Video</div>
+            <div class="settings-row-desc">Show or hide the blurred video layer</div>
+          </div>
+          <button class="toggle on" id="videoToggle" aria-label="Toggle background video">
+            <span class="toggle-pill"></span>
+            <span class="toggle-label">Hide</span>
+            <span class="toggle-label">Show</span>
+          </button>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row-info">
+            <div class="settings-row-label">Now Playing Widget</div>
+            <div class="settings-row-desc">Show the stats.fm song card on the main page</div>
+          </div>
+          <button class="toggle on" id="npToggle" aria-label="Toggle now playing widget">
+            <span class="toggle-pill"></span>
+            <span class="toggle-label">Hide</span>
+            <span class="toggle-label">Show</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="settings-reset" id="settingsReset">Reset all settings</button>
     </div>
   </div>
 
-  <!-- PAGE CONTENT -->
   <div class="tab-content" id="tabContent">
 
-    <!-- MAIN CONTENT -->
     <div class="main-content" id="mainContent">
-      <div class="profile-header">
-        <div class="profile-image-wrapper">
-          <img src="assets/217508931.jpeg" alt="avatar" onerror="this.style.display='none'">
-          <img class="overlay-image" src="" alt="overlay" onerror="this.style.display='none'">
+      <div class="sidebar-sticky">
+        <div class="profile-header">
+          <div class="profile-image-wrapper">
+            <img src="https://akumaware.one/assets/217508931.jpeg" alt="avatar" onerror="this.style.display='none'">
+            <img class="overlay-image" src="" alt="overlay" onerror="this.style.display='none'">
+          </div>
+          <div class="site-header">
+            Akuma here
+            <span class="gj-image">
+              <img src="https://akumaware.one/assets/GJ.png" alt="GJ" onerror="this.style.display='none'">
+            </span>
+          </div>
         </div>
-        <div class="site-header">
-          Akuma here<span>^^</span>
-          <span class="gj-image">
-            <img src="assets/GJ.png" alt="GJ" onerror="this.style.display='none'">
-          </span>
+
+        <div class="cool-people-section">
+          <div class="section-heading">Other cool People</div>
+          <div class="cool-people-grid">
+            <a href="https://kirka.lukeskywalk.com/?utm_source=Akumaware.one" target="_blank" title="Sky's Kirka site">
+              <img src="https://akumaware.one/assets/Sky88x31.png" alt="Sky 88x31 button" width="88" height="31">
+            </a>
+            <a href="https://daymian.xyz/?utm_source=Akumaware.one" target="_blank" title="Daymian's site">
+              <img src="https://akumaware.one/assets/Day88x31.png" alt="Daymian 88x31 button" width="88" height="31">
+            </a>
+            <a href="https://vendicated.dev/?utm_source=Akumaware.one" target="_blank" title="V's site">
+              <img src="https://akumaware.one/assets/V88x31.gif" alt="v's 88x31 button" width="88" height="31">
+            </a>
+            <a href="https://iamw.ing/?utm_source=Akumaware.one" target="_blank" title="Wing's site">
+              <img src="https://akumaware.one/assets/Wing88x31.gif" alt="Wing's 88x31 button" width="88" height="31">
+            </a>
+          </div>
+        </div>
+
+        <div class="connections-card">
+          <div class="section-heading">Connections</div>
+          <div class="connections-grid">
+            <a href="https://kirka.io/profile/NUGGET" target="_blank" class="dm-btn dm-btn-blue">Kirka</a>
+            <a href="https://www.youtube.com/@akumakirka" target="_blank" class="dm-btn dm-btn-red">YouTube</a>
+            <a href="https://github.com/OBS-Akuma" target="_blank" class="dm-btn dm-btn-neutral">Github</a>
+            <a href="https://osu.ppy.sh/users/38076900" target="_blank" class="dm-btn dm-btn-purple">osu!</a>
+            <a href="https://smudgy.store" target="_blank" class="dm-btn dm-btn-green">Froke</a>
+          </div>
         </div>
       </div>
-      <div class="bio-top">
-        <p class="bio-text">Hey I'm Anthony! My pronouns are <strong>he/him</strong>.</p>
-        <p class="bio-text">Location: Michigan | Age: 15</p>
-        <p class="bio-text">I go by many names: Anthony, James, Tony. But I think I like Dinny the best.</p>
-        <div class="about-poem">
-          15, working on life.<br>
-          Finding out who I am,<br>
-          Trying to fit in,<br>
-          Unsure how, but one day I'll learn.
+
+      <div class="right-column">
+        <div class="bio-top">
+          <p class="bio-text">Hey I'm Anthony! My pronouns are <strong>he/him</strong>.</p>
+          <p class="bio-text">Location: Michigan | Age: 15</p>
+          <p class="bio-text">
+            I go by many names: Anthony, James, Tony. But I think I like Dinny the best.
+            <span class="bio-info" title="Info">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <span class="bio-tip">My sister called me that before she could say my name.</span>
+            </span>
+          </p>
+          <p class="bio-text">If you see me, don't say hi ;-;</p>
         </div>
-        <p class="bio-text">If you see me, don't say hi ;-;</p>
-      </div>
-      
-      <!-- CONNECTIONS SECTION -->
-      <div class="section-heading">Connections:</div>
-      <div class="connections-grid">
-        <a href="https://kirka.io/profile/NUGGET" target="_blank" style="text-decoration:none;">
-          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle" style="background-color: var(--blue-4); --hover-color: var(--blue-5); --top: var(--blue-5); --bottom: var(--blue-6);">
-            <div data-v-02ffe5dc="" class="triangle"></div>
-            <div data-v-02ffe5dc="" class="text">Kirka</div>
-            <div data-v-02ffe5dc="" class="WmWwnMN">
-              <div data-v-02ffe5dc="" class="border-top border"></div>
-              <div data-v-02ffe5dc="" class="border-bottom border"></div>
-            </div>
-          </button>
-        </a>
-        
-        <a href="https://www.youtube.com/@akumakirka" target="_blank" style="text-decoration:none;">
-          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle" style="background-color: var(--red-4); --hover-color: var(--red-5); --top: var(--red-5); --bottom: var(--red-3);">
-            <div data-v-02ffe5dc="" class="triangle"></div>
-            <div data-v-02ffe5dc="" class="text">YouTube</div>
-            <div data-v-02ffe5dc="" class="WmWwnMN">
-              <div data-v-02ffe5dc="" class="border-top border"></div>
-              <div data-v-02ffe5dc="" class="border-bottom border"></div>
-            </div>
-          </button>
-        </a>
-        
-        <a href="https://github.com/OBS-Akuma" target="_blank" style="text-decoration:none;">
-          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle" style="background-color: var(--black-5); --hover-color: var(--panel-1); --top: var(--panel-1); --bottom: var(--panel-3);">
-            <div data-v-02ffe5dc="" class="triangle"></div>
-            <div data-v-02ffe5dc="" class="text">Github</div>
-            <div data-v-02ffe5dc="" class="WmWwnMN">
-              <div data-v-02ffe5dc="" class="border-top border"></div>
-              <div data-v-02ffe5dc="" class="border-bottom border"></div>
-            </div>
-          </button>
-        </a>
 
-        <!-- osu! button -->
-        <a href="https://osu.ppy.sh/users/38076900" target="_blank" style="text-decoration:none;">
-          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle btn-osu" style="background-color: var(--pink-1); --hover-color: var(--pink-2); --top: var(--pink-2); --bottom: var(--pink-3);">
-            <div data-v-02ffe5dc="" class="triangle"></div>
-            <div data-v-02ffe5dc="" class="text">osu!</div>
-            <div data-v-02ffe5dc="" class="WmWwnMN">
-              <div data-v-02ffe5dc="" class="border-top border"></div>
-              <div data-v-02ffe5dc="" class="border-bottom border"></div>
-            </div>
-          </button>
-        </a>
-
-        <!-- NEW: Froke button using green-1 -->
-        <a href="https://smudgy.store" target="_blank" style="text-decoration:none;">
-          <button data-v-02ffe5dc="" data-v-e5a0c932="" class="button btn-clan rectangle btn-froke" style="background-color: var(--green-1); --hover-color: var(--green-4); --top: var(--green-2); --bottom: var(--green-3);">
-            <div data-v-02ffe5dc="" class="triangle"></div>
-            <div data-v-02ffe5dc="" class="text">Froke</div>
-            <div data-v-02ffe5dc="" class="WmWwnMN">
-              <div data-v-02ffe5dc="" class="border-top border"></div>
-              <div data-v-02ffe5dc="" class="border-bottom border"></div>
-            </div>
-          </button>
-        </a>
-      </div>
-
-      <!-- MUSIC TASTE SECTION -->
-      <div class="section-heading">Music taste:</div>
-      <div class="music-grid">
-        <span class="music-chip">Mac Miller</span>
-        <span class="music-chip">Bunii</span>
-        <span class="music-chip">Glaive</span>
-        <span class="music-chip">BoyWithUke</span>
-        <span class="music-chip">Oliver Tree</span>
-      </div>
-
-      <!-- IDEs SECTION -->
-      <div class="section-heading">IDEs:</div>
-      <div class="tech-icons-section">
-        <img src="https://skillicons.dev/icons?i=vscode&perline=1" alt="VSCode" />
-      </div>
-
-      <!-- FRAMEWORKS SECTION -->
-      <div class="section-heading">Frameworks:</div>
-      <div class="tech-icons-section">
-        <img src="https://skillicons.dev/icons?i=nextjs,electron,discordjs,react,p5js,regex,threejs&perline=7" alt="Frameworks" />
-      </div>
-
-      <!-- LANGUAGES SECTION -->
-      <div class="section-heading">Languages:</div>
-      <div class="tech-icons-section">
-        <img src="https://skillicons.dev/icons?i=js,html,css,py,typescript&perline=5" alt="Languages" />
-      </div>
-
-      <!-- OTHER SECTION -->
-      <div class="section-heading">Other:</div>
-      <div class="tech-icons-section">
-        <img src="https://skillicons.dev/icons?i=nodejs,windows,linux,discord,raspberrypi,vscode,unity,replit&perline=5" alt="Other tools" />
-      </div>
-
-      <div class="section-heading">Likes:</div>
-      <ul class="item-list"><li>- Building stuff no one asked for</li><li>- ehhhhh sleeping (a lot)</li></ul>
-      <div class="section-heading">Accomplishments:</div>
-      <ul class="item-list">
-        <li>- Made a Kirka client (forked from Juice or whatever but still)</li>
-        <li>- Messed with the <a href="https://kircraft.io" target="_blank">Kircraft</a> API and did more than I meant to.</li>
-        <li>- Made a website kinda like guns.lol named <a href="https://freaksforever.xyz" target="_blank">FreaksForEver</a>. You should check it out tbh ;3</li>
-        <li>
-          - Made my own 
-          <span class="badge-image">
-            <img src="https://raw.githubusercontent.com/OBS-Akuma/KirkaBadges/refs/heads/main/Json/img/SmudgyClient-88x31.gif" 
-                 alt="SmudgyClient 88x31 Button"
-                 onerror="this.style.display='none'">
-          </span>
-          88x31 
-          <a href="https://cyber.dabamos.de/88x31/" target="_blank">View all here</a>
-        </li>
-        <li>- Got Fox (scammer and most likely Clove) banned.</li>
-        <li>- Got both the current and previous owners of Kirka added.</li>
-        <li>- Found a Halloween chest bug in kirka.io (still isn't fixed).</li>
-        <li>- Deleted all data that came into some scam website.</li>
-        <li>- Made my first React Android app.</li>
-        <li>- Got my dad sent to jail.</li>
-        <li>- Got out of a bad situation involving my family.</li>
-        <li>- I got the bug finder role in kirkaaaaaaaaaa</li>
-      </ul>
-      <div class="section-heading">Working towards:</div>
-      <ul class="item-list"><li>- <a href="/" target="_blank">Building my own successful game.</a> <span style="font-size:0.7rem;color:#4a5a6e;font-family:'Courier New',monospace;">(click to visit demo)</span></li></ul>
-
-      <!-- OTHER COOL PEOPLE SECTION -->
-      <div class="cool-people-section">
-        <div class="section-heading">Other cool People:</div>
-        <div class="cool-people-grid">
-          <a href="https://kirka.lukeskywalk.com/?utm_source=Akumaware.one" target="_blank" title="Sky's Kirka site">
-            <img src="assets/Sky88x31.png" alt="Sky 88x31 button" width="88" height="31">
-          </a>
-          <a href="https://daymian.xyz/?utm_source=Akumaware.one" target="_blank" title="Daymian's site">
-            <img src="assets/Day88x31.png" alt="Daymian 88x31 button" width="88" height="31">
-          </a>
-          <a href="https://vendicated.dev/?utm_source=Akumaware.one" target="_blank" title="V's site">
-            <img src="assets/V88x31.gif" alt="v's 88x31 button" width="88" height="31">
-          </a>
-          <a href="https://iamw.ing/?utm_source=Akumaware.one" target="_blank" title="Wing's site">
-            <img src="assets/Wing88x31.gif" alt="Wing's 88x31 button" width="88" height="31">
-          </a>
+        <div class="section-heading">Music taste</div>
+        <div class="music-grid">
+          <span class="music-chip">Mac Miller</span>
+          <span class="music-chip">Bunii</span>
+          <span class="music-chip">Glaive</span>
+          <span class="music-chip">Oliver Tree</span>
         </div>
+
+        <div class="section-heading">IDEs</div>
+        <div class="tech-icons-section">
+          <img src="https://skillicons.dev/icons?i=vscode&perline=1" alt="VSCode" />
+        </div>
+
+        <div class="section-heading">Frameworks</div>
+        <div class="tech-icons-section">
+          <img src="https://skillicons.dev/icons?i=nextjs,electron,discordjs,react,p5js,regex,threejs&perline=7" alt="Frameworks" />
+        </div>
+
+        <div class="section-heading">Languages</div>
+        <div class="tech-icons-section">
+          <img src="https://skillicons.dev/icons?i=js,html,css,py,typescript&perline=5" alt="Languages" />
+        </div>
+
+        <div class="section-heading">Other</div>
+        <div class="tech-icons-section">
+          <img src="https://skillicons.dev/icons?i=nodejs,windows,linux,discord,raspberrypi,vscode,unity,replit&perline=5" alt="Other tools" />
+        </div>
+
+        <div class="section-heading">Likes</div>
+        <ul class="item-list">
+          <li>- Building stuff no one asked for</li>
+          <li>- ehhhhh sleeping (a lot)</li>
+        </ul>
+
+        <div class="section-heading">Accomplishments</div>
+        <ul class="item-list">
+          <li>- Made a Kirka client (forked from Juice or whatever but still)</li>
+          <li>- Messed with the <a href="https://kircraft.io" target="_blank">Kircraft</a> API and did more than I meant to.</li>
+          <li>- Made a website kinda like guns.lol named <a href="https://freaksforever.xyz" target="_blank">FreaksForEver</a>. You should check it out tbh ;3</li>
+          <li>
+            - Made my own
+            <span class="badge-image">
+              <img src="https://raw.githubusercontent.com/OBS-Akuma/KirkaBadges/refs/heads/main/Json/img/SmudgyClient-88x31.gif"
+                   alt="SmudgyClient 88x31 Button"
+                   onerror="this.style.display='none'">
+            </span>
+            88x31
+            <a href="https://cyber.dabamos.de/88x31/" target="_blank">View all here</a>
+          </li>
+          <li>- Got Fox (scammer and most likely Clove) banned.</li>
+          <li>- Got both the current and previous owners of Kirka added.</li>
+          <li>- Found a Halloween chest bug in kirka.io (still isn't fixed).</li>
+          <li>- Deleted all data that came into some scam website.</li>
+          <li>- Made my first React Android app.</li>
+          <li>- I got the bug finder role in kirkaaaaaaaaaa</li>
+        </ul>
+
+        <div class="section-heading">Working towards</div>
+        <ul class="item-list">
+          <li>- Building my own successful game. <span style="font-size:0.7rem;color:var(--text-muted);font-family:var(--mono);">(click to visit demo)</span></li>
+        </ul>
       </div>
     </div>
 
-    <!-- NEW TAB PAGE (meow) -->
     <div class="new-tab-page" id="newTabPage">
       <div class="meow-logo"><span>m</span>eow</div>
       <input class="meow-search-bar" type="text" placeholder="Search or type a URL" id="sikeBox">
@@ -523,7 +2021,6 @@
       </div>
     </div>
 
-    <!-- PROJECTS -->
     <div class="projects-page" id="projectsPage">
       <h2>Projects</h2>
       <div class="projects-grid">
@@ -550,7 +2047,7 @@
         </div>
         <div class="project-card">
           <div class="project-name">
-            <span class="project-icon"><img src="https://vercel.com/_next/image?url=https%3A%2F%2Ffvqcrhkhgatlyl2m.public.blob.vercel-storage.com%2F2026-sprites%2Flil-pix_dark-mode_waving.gif&w=256&q=75" alt="Ab4core icon" onerror="this.style.display='none'"></span>
+            <span class="project-icon"><img src="https://www.ab4core.com/icon-1024.png" alt="Ab4core icon" onerror="this.style.display='none'"></span>
             Ab4core
           </div>
           <div class="project-desc">Website I made but never ended up doing anything with.</div>
@@ -565,7 +2062,6 @@
       </div>
     </div>
 
-    <!-- ASSETS -->
     <div class="assets-page" id="catPage">
       <h2>Cats</h2>
       <div class="assets-grid">
@@ -580,7 +2076,6 @@
       </div>
     </div>
 
-    <!-- LANGUAGES -->
     <div class="languages-page" id="languagesPage">
       <h2>Languages</h2>
       <div class="languages-grid">
@@ -592,29 +2087,53 @@
       </div>
     </div>
 
-    <!-- FRIENDS -->
     <div class="friends-page" id="friendsPage">
       <h2>People I can call friends</h2>
       <div class="friends-grid" id="friendsGrid"></div>
     </div>
 
-    <!-- LINKS -->
     <div class="links-page" id="linksPage">
       <h2>Links</h2>
       <div class="links-grid">
-        <a href="https://daymian.xyz/" target="_blank" class="link-button">daymian.xyz</a>
-        <a href="https://ktiers.com/" target="_blank" class="link-button">ktiers.com</a>
-        <a href="https://kircraft.io/" target="_blank" class="link-button">kircraft.io</a>
-        <a href="https://kirka.io/" target="_blank" class="link-button">kirka.io</a>
-        <a href="https://kirkacommunityhub.pages.dev/" target="_blank" class="link-button">kirkacommunityhub.pages.dev</a>
-        <a href="https://amcalledglitchy.dev/" target="_blank" class="link-button">amcalledglitchy.dev</a>
-        <a href="https://tricko.pro/" target="_blank" class="link-button">tricko.pro</a>
-        <a href="https://irrvlo.xyz/" target="_blank" class="link-button">irrvlo.xyz</a>
-        <a href="https://protox.io/" target="_blank" class="link-button">protox.io</a>
+        <a href="https://daymian.xyz/" target="_blank" class="link-card">
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=daymian.xyz&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>D</span>'"></span>
+          <span class="link-name">daymian.xyz</span>
+        </a>
+        <a href="https://ktiers.com/" target="_blank" class="link-card">
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=ktiers.com&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>K</span>'"></span>
+          <span class="link-name">ktiers.com</span>
+        </a>
+        <a href="https://kircraft.io/" target="_blank" class="link-card">
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=kircraft.io&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>K</span>'"></span>
+          <span class="link-name">kircraft.io</span>
+        </a>
+        <a href="https://kirka.io/" target="_blank" class="link-card">
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=kirka.io&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>K</span>'"></span>
+          <span class="link-name">kirka.io</span>
+        </a>
+        <a href="https://kirkacommunityhub.pages.dev/" target="_blank" class="link-card">
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=kirkacommunityhub.pages.dev&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>K</span>'"></span>
+          <span class="link-name">kirkacommunityhub.pages.dev</span>
+        </a>
+        <a href="https://amcalledglitchy.dev/" target="_blank" class="link-card">
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=amcalledglitchy.dev&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>A</span>'"></span>
+          <span class="link-name">amcalledglitchy.dev</span>
+        </a>
+        <a href="https://tricko.pro/" target="_blank" class="link-card">
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=tricko.pro&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>T</span>'"></span>
+          <span class="link-name">tricko.pro</span>
+        </a>
+        <a href="https://irrvlo.xyz/" target="_blank" class="link-card">
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=irrvlo.xyz&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>I</span>'"></span>
+          <span class="link-name">irrvlo.xyz</span>
+        </a>
+        <a href="https://protox.io/" target="_blank" class="link-card">
+          <span class="link-icon"><img src="https://www.google.com/s2/favicons?domain=protox.io&sz=64" alt="" onerror="this.parentElement.innerHTML='<span class=\\'link-fallback\\'>P</span>'"></span>
+          <span class="link-name">protox.io</span>
+        </a>
       </div>
     </div>
 
-    <!-- BLOG -->
     <div class="blog-page" id="blogPage">
       <h2>Blog</h2>
       <div id="blogLoading" class="blog-loading">Loading posts...</div>
@@ -622,18 +2141,726 @@
       <div id="blogGrid" class="blog-grid"></div>
     </div>
 
-    <!-- RENDERS -->
     <div class="renders-page" id="rendersPage">
       <h2>Renders</h2>
-      <p style="color:#6a7a8e;font-family:'Courier New',monospace;font-size:0.85rem;margin-bottom:16px;">Some 3D renders I've made</p>
-      <div class="renders-grid" id="rendersGrid">
-      </div>
+      <p>Some 3D renders I've made</p>
+      <div class="renders-grid" id="rendersGrid"></div>
     </div>
 
   </div>
-
-  <!-- DARK TOGGLE -->
-  <button class="dark-toggle" id="darkToggle">Light</button>
 </div>
+
+<script>
+(function() {
+    const mainContent = document.getElementById('mainContent');
+    const newTabPage = document.getElementById('newTabPage');
+    const projectsPage = document.getElementById('projectsPage');
+    const catPage = document.getElementById('catPage');
+    const languagesPage = document.getElementById('languagesPage');
+    const friendsPage = document.getElementById('friendsPage');
+    const linksPage = document.getElementById('linksPage');
+    const blogPage = document.getElementById('blogPage');
+    const rendersPage = document.getElementById('rendersPage');
+    const blogGrid = document.getElementById('blogGrid');
+    const blogLoading = document.getElementById('blogLoading');
+    const blogError = document.getElementById('blogError');
+    const friendsGrid = document.getElementById('friendsGrid');
+    const mainTab = document.getElementById('mainTab');
+    const newTabBtn = document.getElementById('newTabBtn');
+    const closeMainTab = document.getElementById('closeMainTab');
+    const addressDisplay = document.getElementById('addressDisplay');
+    const tabBar = document.getElementById('tabBar');
+    const projectsLink = document.getElementById('projectsLink');
+    const catLink = document.getElementById('assetsLink');
+    const languagesLink = document.getElementById('languagesLink');
+    const friendsLink = document.getElementById('friendsLink');
+    const linksLink = document.getElementById('linksLink');
+    const blogLink = document.getElementById('blogLink');
+    const rendersLink = document.getElementById('rendersLink');
+    const sikeBox = document.getElementById('sikeBox');
+    const backBtn = document.getElementById('backBtn');
+    const fwdBtn = document.getElementById('fwdBtn');
+
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsPanel = document.getElementById('settingsPanel');
+    const settingsClose = document.getElementById('settingsClose');
+    const settingsReset = document.getElementById('settingsReset');
+    const musicToggle = document.getElementById('musicToggle');
+    const themeToggle = document.getElementById('themeToggle');
+    const videoToggle = document.getElementById('videoToggle');
+    const npToggle = document.getElementById('npToggle');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumeValue = document.getElementById('volumeValue');
+    const volumeWrap = document.getElementById('volumeWrap');
+    const blurSlider = document.getElementById('blurSlider');
+    const blurValue = document.getElementById('blurValue');
+    const blurWrap = document.getElementById('blurWrap');
+    const brightnessSlider = document.getElementById('brightnessSlider');
+    const brightnessValue = document.getElementById('brightnessValue');
+    const brightnessWrap = document.getElementById('brightnessWrap');
+    const layoutOptions = document.getElementById('layoutOptions');
+
+    const PAGES = [
+        { key: 'main', el: mainContent },
+        { key: 'meow', el: newTabPage },
+        { key: 'projects', el: projectsPage },
+        { key: 'cat', el: catPage },
+        { key: 'languages', el: languagesPage },
+        { key: 'friends', el: friendsPage },
+        { key: 'links', el: linksPage },
+        { key: 'blog', el: blogPage },
+        { key: 'renders', el: rendersPage }
+    ];
+
+    const SETTINGS_KEY = 'akumaware_settings';
+    const defaultSettings = {
+        musicMuted: false,
+        musicVolume: 20,
+        darkMode: true,
+        videoBlur: 6,
+        videoBrightness: 40,
+        videoVisible: true,
+        showNowPlaying: true,
+        layout: 'default'
+    };
+    let settings = { ...defaultSettings };
+
+    function loadSettings() {
+        try {
+            const raw = localStorage.getItem(SETTINGS_KEY);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                settings = { ...defaultSettings, ...parsed };
+                if (!['default', 'sidebar'].includes(settings.layout)) settings.layout = 'default';
+                settings.musicVolume = Math.max(0, Math.min(100, Number(settings.musicVolume) || 20));
+                settings.videoBlur = Math.max(0, Math.min(20, Number(settings.videoBlur) || 6));
+                settings.videoBrightness = Math.max(0, Math.min(100, Number(settings.videoBrightness) || 40));
+            }
+        } catch (e) {
+            console.warn('[settings] failed to load', e);
+        }
+    }
+
+    function saveSettings() {
+        try {
+            localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+        } catch (e) {
+            console.warn('[settings] failed to save', e);
+        }
+    }
+
+    const bgAudio = document.getElementById('bg-audio');
+    const bgVideo = document.getElementById('bg-video');
+
+    function applyAudio() {
+        if (!bgAudio) return;
+        bgAudio.volume = settings.musicVolume / 100;
+        if (settings.musicMuted) {
+            bgAudio.pause();
+        } else {
+            bgAudio.play().catch(() => {});
+        }
+        musicToggle.classList.toggle('on', !settings.musicMuted);
+        volumeSlider.value = settings.musicVolume;
+        updateSliderVisual(volumeWrap, settings.musicVolume, 0, 100);
+        volumeValue.value = settings.musicVolume + '%';
+    }
+
+    function applyTheme() {
+        document.body.classList.toggle('light-mode', !settings.darkMode);
+        themeToggle.classList.toggle('on', settings.darkMode);
+    }
+
+    function applyVideo() {
+        if (!bgVideo) return;
+        bgVideo.style.display = settings.videoVisible ? '' : 'none';
+        videoToggle.classList.toggle('on', settings.videoVisible);
+        document.documentElement.style.setProperty('--video-blur', settings.videoBlur + 'px');
+        document.documentElement.style.setProperty('--video-brightness', (settings.videoBrightness / 100).toString());
+        blurSlider.value = settings.videoBlur;
+        updateSliderVisual(blurWrap, settings.videoBlur, 0, 20);
+        blurValue.value = settings.videoBlur + 'px';
+        brightnessSlider.value = settings.videoBrightness;
+        updateSliderVisual(brightnessWrap, settings.videoBrightness, 0, 100);
+        brightnessValue.value = settings.videoBrightness + '%';
+    }
+
+    function applyLayout() {
+        mainContent.classList.remove('layout-default', 'layout-sidebar');
+        mainContent.classList.add('layout-' + settings.layout);
+        document.body.classList.toggle('wide-window', settings.layout !== 'default');
+        layoutOptions.querySelectorAll('.layout-option').forEach(opt => {
+            opt.classList.toggle('active', opt.dataset.layout === settings.layout);
+        });
+    }
+
+    function applyNowPlaying() {
+        const widget = document.getElementById('nowPlayingWidget');
+        if (widget) widget.style.display = settings.showNowPlaying ? '' : 'none';
+        npToggle.classList.toggle('on', settings.showNowPlaying);
+    }
+
+    function applyAllSettings() {
+        applyAudio();
+        applyTheme();
+        applyVideo();
+        applyLayout();
+        applyNowPlaying();
+    }
+
+    function updateSliderVisual(wrap, value, min, max) {
+        if (!wrap) return;
+        const pct = max > min ? (value - min) / (max - min) : 0;
+        wrap.style.setProperty('--pct', pct);
+        const fill = wrap.querySelector('.settings-slider-fill');
+        const thumb = wrap.querySelector('.settings-slider-thumb');
+        if (fill) fill.style.width = (pct * 100) + '%';
+        if (thumb) thumb.style.left = 'calc(' + (pct * 100) + '% - 7px)';
+    }
+
+    function toggleSettings() { settingsPanel.classList.toggle('open'); }
+    function closeSettings() { settingsPanel.classList.remove('open'); }
+
+    settingsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleSettings(); });
+    settingsClose.addEventListener('click', closeSettings);
+
+    document.addEventListener('click', (e) => {
+        if (!settingsPanel.classList.contains('open')) return;
+        if (settingsPanel.contains(e.target)) return;
+        if (settingsBtn.contains(e.target)) return;
+        closeSettings();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && settingsPanel.classList.contains('open')) {
+            closeSettings();
+        }
+    });
+
+    musicToggle.addEventListener('click', () => {
+        settings.musicMuted = !settings.musicMuted;
+        saveSettings();
+        applyAudio();
+    });
+
+    themeToggle.addEventListener('click', () => {
+        settings.darkMode = !settings.darkMode;
+        saveSettings();
+        applyTheme();
+    });
+
+    videoToggle.addEventListener('click', () => {
+        settings.videoVisible = !settings.videoVisible;
+        saveSettings();
+        applyVideo();
+    });
+
+    npToggle.addEventListener('click', () => {
+        settings.showNowPlaying = !settings.showNowPlaying;
+        saveSettings();
+        applyNowPlaying();
+    });
+
+    volumeSlider.addEventListener('input', () => {
+        settings.musicVolume = parseInt(volumeSlider.value, 10);
+        saveSettings();
+        if (bgAudio) bgAudio.volume = settings.musicVolume / 100;
+        updateSliderVisual(volumeWrap, settings.musicVolume, 0, 100);
+        volumeValue.value = settings.musicVolume + '%';
+    });
+
+    blurSlider.addEventListener('input', () => {
+        settings.videoBlur = parseInt(blurSlider.value, 10);
+        saveSettings();
+        document.documentElement.style.setProperty('--video-blur', settings.videoBlur + 'px');
+        updateSliderVisual(blurWrap, settings.videoBlur, 0, 20);
+        blurValue.value = settings.videoBlur + 'px';
+    });
+
+    brightnessSlider.addEventListener('input', () => {
+        settings.videoBrightness = parseInt(brightnessSlider.value, 10);
+        saveSettings();
+        document.documentElement.style.setProperty('--video-brightness', (settings.videoBrightness / 100).toString());
+        updateSliderVisual(brightnessWrap, settings.videoBrightness, 0, 100);
+        brightnessValue.value = settings.videoBrightness + '%';
+    });
+
+    layoutOptions.addEventListener('click', (e) => {
+        const opt = e.target.closest('.layout-option');
+        if (!opt) return;
+        settings.layout = opt.dataset.layout;
+        saveSettings();
+        applyLayout();
+    });
+
+    settingsReset.addEventListener('click', () => {
+        settings = { ...defaultSettings };
+        saveSettings();
+        applyAllSettings();
+    });
+
+    loadSettings();
+    applyAllSettings();
+
+    const rendersData = [
+        { title: 'Smudge vs Smudgy', desc: 'both are the same player just the hue changed', src: 'https://akumaware.one/assets/renders/ane.webp', alt: 'Render 1' },
+        { title: 'we chill', desc: 'My first render me,zg,dev,some other guy', src: 'https://akumaware.one/assets/renders/chill.webp', alt: 'Render 2' },
+        { title: 'CayBlub', desc: 'Caydub loves his uhh redlines ;3', src: 'https://akumaware.one/assets/renders/dubs.webp', alt: 'Render 3' },
+        { title: 'Render 4', desc: 'Character pose', src: 'https://akumaware.one/assets/renders/efk.webp', alt: 'Render 4' },
+        { title: 'efk AURA', desc: '"make me have aura"', src: 'https://akumaware.one/assets/renders/efkaura.webp', alt: 'Render 5' },
+        { title: 'Fystm', desc: 'rip the arms', src: 'https://akumaware.one/assets/renders/fystm.webp', alt: 'Render 6' },
+        { title: 'Request', desc: 'Sleep Over', src: 'https://akumaware.one/assets/renders/ono.webp', alt: 'Render 7' },
+        { title: 'SvS who will win?', desc: 'bleh', src: 'https://akumaware.one/assets/renders/sms.webp', alt: 'Render 8' },
+        { title: 'WhyDoesBroHaveASurfboard?', desc: 'no like why ;-;', src: 'https://akumaware.one/assets/renders/wibs.webp', alt: 'Render 9' }
+    ];
+
+    function renderRenders() {
+        const grid = document.getElementById('rendersGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        rendersData.forEach((render, index) => {
+            const card = document.createElement('div');
+            card.className = 'render-card';
+            card.setAttribute('data-index', index);
+            card.innerHTML = `
+                <div class="render-thumb">
+                    <img src="${render.src}" alt="${render.alt || render.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>${render.title}</div>'">
+                </div>
+                <div class="render-info">
+                    <div class="render-title">${render.title}</div>
+                    <div class="render-desc">${render.desc || ''}</div>
+                </div>
+            `;
+            card.addEventListener('click', function() {
+                const overlay = document.getElementById('renderOverlay');
+                const overlayImg = document.getElementById('overlayImage');
+                const overlayInfo = document.getElementById('overlayInfo');
+                if (overlay && overlayImg) {
+                    overlayImg.src = render.src;
+                    overlayInfo.textContent = `${render.title} — Click anywhere to close`;
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+            grid.appendChild(card);
+        });
+    }
+
+    const overlay = document.getElementById('renderOverlay');
+    const closeOverlay = document.getElementById('closeOverlay');
+    if (overlay) {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay || e.target === closeOverlay) {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    if (bgAudio) {
+        if (!settings.musicMuted) {
+            bgAudio.volume = settings.musicVolume / 100;
+            bgAudio.play().catch(() => {});
+            document.addEventListener('click', function tryPlay() {
+                if (bgAudio.paused && !settings.musicMuted) bgAudio.play().catch(() => {});
+                document.removeEventListener('click', tryPlay);
+            }, { once: true });
+            document.addEventListener('keydown', function tryPlay() {
+                if (bgAudio.paused && !settings.musicMuted) bgAudio.play().catch(() => {});
+                document.removeEventListener('keydown', tryPlay);
+            }, { once: true });
+        }
+    }
+
+    const STATSFM_USER_ID = '314xchviup3f5k4d5wkqesvd3nqe';
+    const STATSFM_CURRENT_URL = `https://api.stats.fm/api/v1/users/${STATSFM_USER_ID}/streams/current`;
+    const STATSFM_RECENT_URL = `https://api.stats.fm/api/v1/users/${STATSFM_USER_ID}/streams/recent`;
+    const STATSFM_POLL_MS = 20000;
+    let statsfmPollTimer = null;
+
+    function createNowPlayingWidget() {
+        const widget = document.createElement('div');
+        widget.id = 'nowPlayingWidget';
+        widget.className = 'now-playing-widget';
+        widget.innerHTML = `
+            <div class="np-album-art" id="npAlbumArt"></div>
+            <div class="np-body">
+                <div class="np-line">
+                    <span class="np-track" id="npTrack">Loading...</span>
+                    <span class="np-label" id="npLabel"><span id="npStatus">Loading</span></span>
+                </div>
+                <div class="np-artist" id="npArtist"></div>
+            </div>
+        `;
+        return widget;
+    }
+
+    function insertNowPlayingWidget() {
+        if (document.getElementById('nowPlayingWidget')) return;
+        const bioTop = document.querySelector('.bio-top');
+        const widget = createNowPlayingWidget();
+        if (bioTop && bioTop.parentNode) {
+            bioTop.parentNode.insertBefore(widget, bioTop.nextSibling);
+        }
+        applyNowPlaying();
+    }
+
+    function renderNowPlaying(track, isPlaying) {
+        const statusEl = document.getElementById('npStatus');
+        const trackEl = document.getElementById('npTrack');
+        const artistEl = document.getElementById('npArtist');
+        const artEl = document.getElementById('npAlbumArt');
+        const labelEl = document.getElementById('npLabel');
+        if (!statusEl || !track) return;
+        trackEl.textContent = track.name || 'Unknown track';
+        statusEl.textContent = isPlaying ? 'Now playing' : 'Last played';
+        labelEl.classList.toggle('playing', isPlaying);
+        const artistNames = Array.isArray(track.artists) ? track.artists.map(a => a.name).filter(Boolean).join(', ') : '';
+        artistEl.textContent = artistNames || 'Unknown artist';
+        const album = Array.isArray(track.albums) ? track.albums[0] : null;
+        const albumImage = album && album.image;
+        if (artEl) {
+            artEl.innerHTML = albumImage
+                ? `<img src="${albumImage}" alt="${(album && album.name) ? album.name : 'album art'}" onerror="this.parentElement.innerHTML='';">`
+                : '';
+        }
+    }
+
+    function renderNotPlaying() {
+        const statusEl = document.getElementById('npStatus');
+        const trackEl = document.getElementById('npTrack');
+        const artistEl = document.getElementById('npArtist');
+        const artEl = document.getElementById('npAlbumArt');
+        const labelEl = document.getElementById('npLabel');
+        if (!statusEl) return;
+        statusEl.textContent = 'Not playing';
+        if (labelEl) labelEl.classList.remove('playing');
+        if (trackEl) trackEl.textContent = 'Nothing playing';
+        if (artistEl) artistEl.textContent = '';
+        if (artEl) artEl.innerHTML = '';
+    }
+
+    async function fetchNowPlaying() {
+        if (!document.getElementById('npStatus')) return;
+        try {
+            const res = await fetch(STATSFM_CURRENT_URL);
+            if (res.ok) {
+                const data = await res.json();
+                const item = data && data.item;
+                if (item && item.isPlaying && item.track) {
+                    renderNowPlaying(item.track, true);
+                    return;
+                }
+            }
+        } catch (err) {
+            console.warn('stats.fm current stream fetch failed', err);
+        }
+        try {
+            const res = await fetch(STATSFM_RECENT_URL);
+            if (res.ok) {
+                const data = await res.json();
+                const items = data && data.items;
+                if (Array.isArray(items) && items.length > 0 && items[0].track) {
+                    renderNowPlaying(items[0].track, false);
+                    return;
+                }
+            }
+        } catch (err) {
+            console.warn('stats.fm recent streams fetch failed', err);
+        }
+        renderNotPlaying();
+    }
+
+    function startNowPlayingPolling() {
+        insertNowPlayingWidget();
+        fetchNowPlaying();
+        if (statsfmPollTimer) clearInterval(statsfmPollTimer);
+        statsfmPollTimer = setInterval(fetchNowPlaying, STATSFM_POLL_MS);
+    }
+
+    const friends = [
+        { name: 'Zenos', avatar: 'https://akumaware.one/assets/979875479425261580.webp' },
+        { name: 'frosty', avatar: 'https://akumaware.one/assets/813255323569356821.webp' },
+        { name: 'sovax', avatar: 'https://akumaware.one/assets/791039005100998677.webp' },
+        { name: 'Daymian', avatar: 'https://akumaware.one/assets/666539355896152074.webp' },
+        { name: 'Glowing_dev', avatar: 'https://akumaware.one/assets/498010915355099146.webp' },
+        { name: 'Skywalk', avatar: 'https://akumaware.one/assets/330501044532674570.webp' },
+        { name: 'Zane', avatar: 'https://akumaware.one/assets/1374941350616760330.webp' },
+        { name: 'Ab4/yt', avatar: 'https://akumaware.one/assets/1039925878043447367.webp' },
+        { name: 'Home (finn)', avatar: 'https://akumaware.one/assets/1324904970696527923.webp' },
+        { name: 'Queen', avatar: 'https://akumaware.one/assets/992401894972596324.webp' },
+        { name: 'Caydub', avatar: 'https://akumaware.one/assets/924303535879888916.webp' },
+        { name: 'Harvy', avatar: 'https://akumaware.one/assets/1353571756157308957.webp' },
+        { name: 'Bibo', avatar: 'https://akumaware.one/assets/1381783113184579707.webp' },
+        { name: 'bunnievomi', avatar: 'https://akumaware.one/assets/824898070789619723.webp' }
+    ];
+
+    function renderFriends() {
+        friendsGrid.innerHTML = '';
+        friends.forEach(f => {
+            const card = document.createElement('div');
+            card.className = 'friend-card';
+            card.innerHTML = `
+                <div class="friend-avatar"><img src="${f.avatar}" alt="${f.name}" loading="lazy" onerror="this.src='https://i.pravatar.cc/150?img=10'"></div>
+                <div class="friend-name">${f.name}</div>
+            `;
+            friendsGrid.appendChild(card);
+        });
+    }
+    renderFriends();
+
+    async function loadBlogPosts() {
+        try {
+            blogLoading.classList.remove('hidden');
+            blogError.classList.add('hidden');
+            blogGrid.innerHTML = '';
+            let posts = [];
+            try {
+                const response = await fetch('blog/rtx3090.json');
+                if (!response.ok) throw new Error('Failed to fetch blog data');
+                posts = await response.json();
+            } catch (fetchError) {
+                console.warn('Blog file not found, using fallback data');
+                posts = [
+                    { Name: 'Welcome to my blog!', date: '2026-07-25', test: 'First post' },
+                    { Name: 'Building my Kirka client', date: '2026-07-20', test: 'Development' },
+                    { Name: 'Future plans', date: '2026-07-15', test: 'Coming soon' }
+                ];
+            }
+            blogLoading.classList.add('hidden');
+            if (!posts || posts.length === 0) {
+                blogGrid.innerHTML = '<div class="blog-post"><div class="post-name">No posts yet</div><div class="post-test">Check back later for updates!</div></div>';
+                return;
+            }
+            posts.forEach(post => {
+                const postDiv = document.createElement('div');
+                postDiv.className = 'blog-post';
+                postDiv.innerHTML = `
+                    <div class="post-name">${post.Name || 'Untitled'}</div>
+                    <div class="post-meta">${post.date || 'No date'} ${post.test ? '• ' + post.test : ''}</div>
+                `;
+                blogGrid.appendChild(postDiv);
+            });
+        } catch (error) {
+            console.error('Error loading blog:', error);
+            blogLoading.classList.add('hidden');
+            blogError.classList.remove('hidden');
+            blogGrid.innerHTML = `
+                <div class="blog-post">
+                    <div class="post-name">Blog coming soon!</div>
+                    <div class="post-test">Check back later for updates</div>
+                </div>
+            `;
+        }
+    }
+
+    sikeBox.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.value = "SIKE i'm not coding ts in sob";
+        this.style.color = '#ff6b6b';
+        this.disabled = true;
+        setTimeout(() => {
+            this.disabled = false;
+            this.style.color = '';
+            this.value = '';
+            this.placeholder = 'Search or type a URL';
+        }, 3000);
+    });
+
+    const MAX_TABS = 5;
+    let tabCount = 1;
+    const tabs = {};
+    let currentTabId = 'main';
+    let currentNewTabPage = 'meow';
+
+    const historyStack = [{ type: 'main' }];
+    let historyIndex = 0;
+
+    function pushHistory(entry) {
+        historyStack.splice(historyIndex + 1);
+        historyStack.push(entry);
+        historyIndex = historyStack.length - 1;
+        updateNavButtons();
+    }
+
+    function updateNavButtons() {
+        backBtn.disabled = historyIndex <= 0;
+        fwdBtn.disabled = historyIndex >= historyStack.length - 1;
+    }
+
+    function goHistory(delta) {
+        const newIndex = historyIndex + delta;
+        if (newIndex < 0 || newIndex >= historyStack.length) return;
+        historyIndex = newIndex;
+        const entry = historyStack[newIndex];
+        if (entry.type === 'main') {
+            switchTab('main', true);
+        } else if (entry.type === 'page') {
+            const targetTabId = entry.tabId && tabs[entry.tabId] ? entry.tabId : null;
+            if (targetTabId) {
+                switchTab(targetTabId, true);
+                showNewTabPage(entry.page, true);
+            } else {
+                showNewTabPage(entry.page, true);
+            }
+        }
+        updateNavButtons();
+    }
+
+    backBtn.addEventListener('click', () => goHistory(-1));
+    fwdBtn.addEventListener('click', () => goHistory(1));
+
+    const reloadIcon = document.querySelector('.reload-icon');
+    if (reloadIcon) reloadIcon.addEventListener('click', (e) => e.preventDefault());
+
+    function updateTabLabel(tabId, label) {
+        const tab = tabs[tabId];
+        if (tab) {
+            const span = tab.element.querySelector('span:nth-child(2)');
+            if (span) span.textContent = label;
+        }
+    }
+
+    function updateActiveTab(tabId) {
+        document.querySelectorAll('.fake-tab').forEach(t => t.classList.remove('active-tab'));
+        if (tabId === 'main') mainTab.classList.add('active-tab');
+        else {
+            const tab = tabs[tabId];
+            if (tab) tab.element.classList.add('active-tab');
+        }
+    }
+
+    function updateNewTabButton() {
+        const totalTabs = Object.keys(tabs).length + 1;
+        newTabBtn.disabled = totalTabs >= MAX_TABS;
+    }
+
+    function showPage(key) {
+        PAGES.forEach(p => {
+            p.el.classList.toggle('page-active', p.key === key);
+        });
+    }
+
+    function applyPageToView(page, tabId) {
+        if (!PAGES.some(p => p.key === page)) page = 'meow';
+        showPage(page);
+
+        const label = page === 'cat' ? 'Cat' :
+                      page === 'projects' ? 'Projects' :
+                      page === 'languages' ? 'Languages' :
+                      page === 'friends' ? 'Friends' :
+                      page === 'links' ? 'Links' :
+                      page === 'blog' ? 'Blog' :
+                      page === 'renders' ? 'Renders' :
+                      page === 'main' ? 'Hiya' : 'meow';
+
+        addressDisplay.textContent = page === 'main' ? 'Akumaware.one' : 'Akumaware.one/' + page;
+        if (tabId) updateTabLabel(tabId, label);
+
+        if (page === 'blog') loadBlogPosts();
+        if (page === 'renders') renderRenders();
+    }
+
+    function switchTab(tabId, fromHistory) {
+        currentTabId = tabId;
+        updateActiveTab(tabId);
+
+        if (tabId === 'main') {
+            applyPageToView('main', 'main');
+            if (!fromHistory) pushHistory({ type: 'main' });
+        } else {
+            const tab = tabs[tabId];
+            if (!tab) return;
+            const page = tab.page || 'meow';
+            applyPageToView(page, tabId);
+            if (!fromHistory) pushHistory({ type: 'page', page, tabId });
+        }
+        updateNewTabButton();
+        updateNavButtons();
+    }
+
+    function showNewTabPage(page, fromHistory) {
+        currentNewTabPage = page;
+        if (tabs[currentTabId]) tabs[currentTabId].page = page;
+        applyPageToView(page, currentTabId);
+        updateActiveTab(currentTabId);
+        if (!fromHistory) pushHistory({ type: 'page', page, tabId: currentTabId });
+    }
+
+    function createNewTab() {
+        const totalTabs = Object.keys(tabs).length + 1;
+        if (totalTabs >= MAX_TABS) return;
+
+        tabCount++;
+        const tabId = 'tab-' + tabCount;
+
+        const tab = document.createElement('div');
+        tab.className = 'fake-tab';
+        tab.dataset.tab = tabId;
+        tab.innerHTML = `
+            <span class="tab-icon"><img src="https://raw.githubusercontent.com/OBS-Akuma/Ubuntu-client/refs/heads/main/assets/icon.png" alt="icon" onerror="this.style.display='none'"></span>
+            <span>meow</span>
+            <span class="tab-close" data-tab-id="${tabId}"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
+        `;
+
+        tabBar.insertBefore(tab, newTabBtn);
+
+        tabs[tabId] = { element: tab, title: 'meow', page: 'meow' };
+
+        tab.addEventListener('click', function(e) {
+            if (e.target.closest('.tab-close')) return;
+            switchTab(tabId);
+        });
+
+        const closeBtn = tab.querySelector('.tab-close');
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const wasActive = (currentTabId === tabId);
+            tab.remove();
+            delete tabs[tabId];
+            if (wasActive) {
+                switchTab('main');
+            }
+            updateNewTabButton();
+        });
+
+        currentNewTabPage = 'meow';
+        switchTab(tabId);
+        updateNewTabButton();
+    }
+
+    newTabBtn.addEventListener('click', createNewTab);
+
+    mainTab.addEventListener('click', function(e) {
+        if (e.target.closest('.tab-close')) return;
+        switchTab('main');
+    });
+
+    closeMainTab.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const tabKeys = Object.keys(tabs);
+        if (tabKeys.length > 0) switchTab(tabKeys[0]);
+        updateNewTabButton();
+    });
+
+    projectsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('projects'); });
+    catLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('cat'); });
+    languagesLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('languages'); });
+    friendsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('friends'); });
+    linksLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('links'); });
+    blogLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('blog'); });
+    rendersLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('renders'); });
+
+    switchTab('main', true);
+    updateNavButtons();
+    startNowPlayingPolling();
+})();
+</script>
 </body>
 </html>
