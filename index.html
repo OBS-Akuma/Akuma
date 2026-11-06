@@ -2217,11 +2217,7 @@
     <div class="languages-page" id="languagesPage">
       <h2>Languages</h2>
       <div class="languages-grid">
-        <span class="lang-chip">JS</span>
-        <span class="lang-chip">TS</span>
-        <span class="lang-chip">py</span>
-        <span class="lang-chip">CSS</span>
-        <span class="lang-chip">HTML</span>
+        <span class="lang-chip">Underdev.</span>
       </div>
     </div>
 
@@ -2342,7 +2338,7 @@
         { key: 'main', el: mainContent },
         { key: 'meow', el: newTabPage },
         { key: 'projects', el: projectsPage },
-        { key: 'cat', el: catPage },
+        { key: 'Weapons', el: catPage },
         { key: 'languages', el: languagesPage },
         { key: 'friends', el: friendsPage },
         { key: 'links', el: linksPage },
@@ -3026,7 +3022,7 @@
         if (!PAGES.some(p => p.key === page)) page = 'meow';
         showPage(page);
 
-        const label = page === 'cat' ? 'Cat' :
+        const label = page === 'Weapons' ? 'Weapons' :
                       page === 'projects' ? 'Projects' :
                       page === 'languages' ? 'Languages' :
                       page === 'friends' ? 'Friends' :
@@ -3125,7 +3121,7 @@
     });
 
     projectsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('projects'); });
-    catLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('cat'); });
+    catLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('Weapons'); });
     languagesLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('languages'); });
     friendsLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('friends'); });
     linksLink.addEventListener('click', function(e) { e.preventDefault(); showNewTabPage('links'); });
